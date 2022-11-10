@@ -3,3 +3,9 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  ul
+    each post in posts_data 
+      li #{post.post_id} - #{post.post_txt}
+  ul
+    each comment in comments_data 
+      li #{comment.comment_id} - #{comment.post_id} - #{comment.comment_txt}
