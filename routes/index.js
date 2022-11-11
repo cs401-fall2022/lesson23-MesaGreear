@@ -4,8 +4,6 @@ const sqlite3 = require('sqlite3').verbose()
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Bug Juice Appreciation Blog' });
-
   //create directory for database if it doesn't exist yet (https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
   var fs = require('fs');
   var dir = './databases';
@@ -22,34 +20,32 @@ router.get('/', function (req, res, next) {
       //Query if the table exists if not lets create it on the fly!
       db.all(`SELECT name FROM sqlite_master WHERE type='table' AND (name='posts' OR name='comments')`,
         (err, rows) => {
-          if (rows.length === 1) {
-            //TODO ========================================================================================
+          //if there are 2 tables, then we're probably all good to go
+          if (rows.length === 2) {
             console.log("Table exists!");
-            db.all(` select blog_id, blog_txt from blog`, (err, rows) => {
-              console.log("returning " + rows.length + " records");
-              res.render('index', { data: rows });
+            //render and log posts & comments tables
+            db.all(` select post_id, post_txt from posts`, (err, posts_rows) => {
+              console.log("returning " + posts_rows.length + " records for posts");
+              db.all(` select comment_id, comment_txt, post_id from comments`, (err, comments_rows) => {
+                console.log("returning " + comments_rows.length + " records for comments");
+                res.render('index', { posts_data: posts_rows, comments_data: comments_rows, title: 'Bug Juice Appreciation Blog' });
+              });
             });
-          } else {
+          }
+          //else create the missing table and insert example data
+          else {
             console.log("Creating tables and inserting some sample data");
 
-            //create table for posts
-            db.exec(`create table posts (
+            //create tables for posts and comments
+            db.exec(`create table IF NOT EXISTS posts (
                      post_id INTEGER PRIMARY KEY AUTOINCREMENT,
                      post_txt text NOT NULL);
 
                       insert into posts (post_txt)
                       values ('This is a great blog #ilovebugjuice'),
-                             ('Oh my goodness blogging is fun #ilovebugjuice');`,
-              () => {
-                db.all(` select post_id, post_txt from posts`, (err, rows) => {
-                  res.render('index', { posts_data: rows });
-                });
-              });
-
-              console.log("BRUHRBRBUURBURBBURUBRUHRUBRU");
-
-              //create table for comments
-              db.exec(`create table comments (
+                             ('Oh my goodness blogging is fun #ilovebugjuice');
+                             
+                      create table IF NOT EXISTS comments (
                        comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
                        comment_txt TEXT NOT NULL,
                        post_id INTEGER NOT NULL,
@@ -60,12 +56,13 @@ router.get('/', function (req, res, next) {
                              ('Goobers and the likes', 1),
                              ('Please be patient, there are things wrong with my brain', 2);`,
               () => {
-                db.all(` select comment_id, comment_txt, post_id from comments`, (err, rows) => {
-                  res.render('index', { comments_data: rows });
+                //render new posts & comments tables
+                db.all(` select post_id, post_txt from posts`, (err, posts_rows) => {
+                  db.all(` select comment_id, comment_txt, post_id from comments`, (err, comments_rows) => {
+                    res.render('index', { posts_data: posts_rows, comments_data: comments_rows, title: 'Bug Juice Appreciation Blog'});
+                  });
                 });
               });
-
-              console.log("IONU FNGSOUDVFNOIUVNHFOSIDUVFHOS");
           }
         });
     });
