@@ -9,6 +9,8 @@ const sqlite3 = require('sqlite3').verbose()
  */
 router.get('/', function (req, res, next) {
   console.log("");
+  var renderables = {title: "Bug Juice Appreciation Blog", posts_data: [], comments: []};
+
   //create directory for database if it doesn't exist yet (https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
   var fs = require('fs');
   var dir = './databases';
@@ -35,7 +37,10 @@ router.get('/', function (req, res, next) {
               console.log("returning " + posts_rows.length + " records for posts");
               db.all(` select comment_id, comment_txt, post_id from comments`, (err, comments_rows) => {
                 console.log("returning " + comments_rows.length + " records for comments");
-                res.render('index', { posts_data: posts_rows, comments_data: comments_rows, title: 'Bug Juice Appreciation Blog' });
+
+                renderables.posts_data = posts_rows;
+                renderables.comments_data = comments_rows;
+                res.render('index', renderables);
               });
             });
           }
@@ -68,7 +73,10 @@ router.get('/', function (req, res, next) {
                 //render new posts & comments tables
                 db.all(` select post_id, post_txt from posts`, (err, posts_rows) => {
                   db.all(` select comment_id, comment_txt, post_id from comments`, (err, comments_rows) => {
-                    res.render('index', { posts_data: posts_rows, comments_data: comments_rows, title: 'Bug Juice Appreciation Blog'});
+
+                    renderables.posts_data = posts_rows;
+                    renderables.comments_data = comments_rows;
+                    res.render('index', renderables);
                   });
                 });
               });
