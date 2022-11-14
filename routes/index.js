@@ -2,7 +2,11 @@ var express = require('express');
 var router = express.Router();
 const sqlite3 = require('sqlite3').verbose()
 
-/* GET home page. */
+/**
+ * Display the homepage of the website. Renders SQL database information so that it can
+ * be displayed in index.pug and creates the SQL database/tables if it does not exist
+ * already.
+ */
 router.get('/', function (req, res, next) {
   //create directory for database if it doesn't exist yet (https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
   var fs = require('fs');
@@ -52,8 +56,8 @@ router.get('/', function (req, res, next) {
                        FOREIGN KEY (post_id) REFERENCES posts (post_id));
 
                       insert into comments (comment_txt, post_id)
-                      values ('This is an intelligent response', 1),
-                             ('Goobers and the likes', 1),
+                      values ('This is an intelligent, well thought out response', 1),
+                             ('I am definitely not too young to be on the internet', 1),
                              ('Please be patient, there are things wrong with my brain', 2);`,
               () => {
                 //render new posts & comments tables
@@ -68,8 +72,10 @@ router.get('/', function (req, res, next) {
     });
 });
 
+/**
+ * TODO
+ */
 router.post('/add', (req, res, next) => {
-  // console.log("Adding blog to table without sanitizing input! YOLO BABY!!");
   var db = new sqlite3.Database('./databases/mydb.sqlite3',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
@@ -78,25 +84,22 @@ router.post('/add', (req, res, next) => {
         exit(1);
       }
 
-      //check that the text includes the #ilovebugjuice hashtag
-      if(!req.body.blog.includes("#ilovebugjuice")){
-        console.log("You done forgot the '#ilovebugjuice'!");
-      }
-      else {
-        console.log("inserting " + req.body.blog);
+      console.log("inserting " + req.body.blog);
 
-        //'sanitization' by removing instances of single quotes
-        var text = req.body.blog.replace(/'/g, "[You were trying to do something naughty werent you?]");
-        db.exec(`insert into blog ( blog_txt)
-                  values ('${text}');`)
-      }
+      //'sanitization' by removing instances of alone single quotes
+      var text = req.body.blog.replace(/'/g, "''");
+      db.exec(`insert into blog ( blog_txt)
+                values ('${text}');`)
+
       res.redirect('/');
     }
   );
 })
 
+/**
+ * TODO
+ */
 router.post('/delete', (req, res, next) => {
-  // console.log("deleting stuff without checking if it is valid! SEND IT!");
   var db = new sqlite3.Database('./databases/mydb.sqlite3',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
@@ -104,12 +107,12 @@ router.post('/delete', (req, res, next) => {
         console.log("Getting error " + err);
         exit(1);
       }
-      console.log("inserting " + req.body.blog);
+      // console.log("inserting " + req.body.blog);
 
       //'sanitization' by not running commands that have single quotes in them
       //check that the text includes the #ilovebugjuice hashtag
       if(req.body.blog.includes("'")){
-        console.log("You were trying to do something naughty werent you?");
+        console.log("You were trying to do something naughty weren't you?");
       }
       else {
         db.exec(`delete from blog where blog_id='${req.body.blog}';`);       
