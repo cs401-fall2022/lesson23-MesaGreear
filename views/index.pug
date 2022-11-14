@@ -9,10 +9,13 @@ block content
     each post in posts_data 
       li #{post.post_id} - #{post.post_txt}
 
-      form(action="/" method="POST")
+      form(action="/addComment" method="POST")
         div
-            label(for="blog")
-            input(name="blog" id="blog" value="")
+            label(for=("comment" + post.post_id + "Text"))
+            input(name="commentText" id=("comment" + post.post_id + "Text") value="")
+            //This solution is like, really bad. I however cannot find any other way to sent the post_id of the
+            //parent post to /addComment except for creating a hidden input with a set value that equals post_id
+            input(name="commentParentPostID" id=("comment" + post.post_id + "ParentPostID") value=post.post_id class="hidden")
             button Send my comment
         div
           p

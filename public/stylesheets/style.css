@@ -21,3 +21,8 @@ body {
   padding: 3px;
   color: violet;
 }
+
+/* For the really bad solution, more info in index.pug */
+.hidden {
+  display: none;
+}
