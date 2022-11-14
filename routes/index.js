@@ -9,7 +9,7 @@ const sqlite3 = require('sqlite3').verbose()
  */
 router.get('/', function (req, res, next) {
   console.log("");
-  var renderables = {title: "Bug Juice Appreciation Blog", posts_data: [], comments: []};
+  var renderables = {title: "Bug Juice Appreciation Blog", posts_data: [], comments_data: []};
 
   //create directory for database if it doesn't exist yet (https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
   var fs = require('fs');
