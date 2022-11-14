@@ -8,6 +8,7 @@ const sqlite3 = require('sqlite3').verbose()
  * already.
  */
 router.get('/', function (req, res, next) {
+  console.log("");
   //create directory for database if it doesn't exist yet (https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
   var fs = require('fs');
   var dir = './databases';
@@ -77,6 +78,7 @@ router.get('/', function (req, res, next) {
  * another single quote so that they escape each other out.
  */
 router.post('/addPost', (req, res, next) => {
+  console.log("");
   var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
@@ -86,7 +88,7 @@ router.post('/addPost', (req, res, next) => {
       }
 
       //'sanitization' by removing instances of alone single quotes
-      var text = req.body.post.replace(/'/g, "''");
+      var text = req.body.postText.replace(/'/g, "''");
       console.log("inserting \"" + text + "\" into posts");
 
       db.exec(`insert into posts ( post_txt )
@@ -102,6 +104,7 @@ router.post('/addPost', (req, res, next) => {
  * by replacing instances of single quotes with another single quote so that they escape each other out.
  */
  router.post('/addComment', (req, res, next) => {
+  console.log("");
   var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
@@ -126,6 +129,7 @@ router.post('/addPost', (req, res, next) => {
  * TODO
  */
 router.post('/delete', (req, res, next) => {
+  console.log("");
   var db = new sqlite3.Database('./databases/mydb.sqlite3',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {

@@ -12,10 +12,11 @@ block content
       form(action="/addComment" method="POST")
         div
             label(for=("comment" + post.post_id + "Text"))
-            input(name="commentText" id=("comment" + post.post_id + "Text") value="")
+            input(name="commentText" id=("comment" + post.post_id + "Text") value="New comment text here!")
+            //TODO: 
             //This solution is like, really bad. I however cannot find any other way to sent the post_id of the
             //parent post to /addComment except for creating a hidden input with a set value that equals post_id
-            input(name="commentParentPostID" id=("comment" + post.post_id + "ParentPostID") value=post.post_id class="hidden")
+            input(name="commentParentPostID" id=("comment" + post.post_id + "ParentPostID") value=post.post_id class="hidden" readonly)
             button Send my comment
         div
           p
@@ -38,6 +39,6 @@ block content
   h2 New Post!
   form(action="/addPost" method="POST")
     div
-        label(for="post")
-        input(name="post" id="post" value="")
+        label(for="postText")
+        input(name="postText" id="postText" value="New post text here!")
         button Send my post
