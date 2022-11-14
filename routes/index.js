@@ -141,7 +141,18 @@ router.post('/deletePost', (req, res, next) => {
         console.log("Getting error " + err);
         exit(1);
       }
-      console.log("Deleting post " + req.body.deletePost);
+      //log what post is being deleted and the comments that are going with it
+      db.all(`SELECT comment_id FROM comments WHERE post_id = ${req.body.deletePost};`, (err, commentIDs) => {
+        var log = "Deleting post " + req.body.deletePost;
+        if (commentIDs.length > 0) {
+          log += " & comment(s) "
+          commentIDs.forEach( (commentID) => { //for forEach https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+            log += commentID.comment_id + ", ";
+          });
+          log = log.slice(0, log.length - 2);
+        }
+        console.log(log);
+      });
 
       db.all(`PRAGMA foreign_keys = ON;`); //use of foreign keys to CASCADE DELETE all comments linked to this post
       db.exec(`delete from posts where post_id='${req.body.deletePost}';`);       
