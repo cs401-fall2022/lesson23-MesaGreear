@@ -73,10 +73,11 @@ router.get('/', function (req, res, next) {
 });
 
 /**
- * TODO
+ * Adds a new post to the posts table. 'Sanitizes' by replacing instances of single quotes with
+ * another single quote so that they escape each other out.
  */
-router.post('/add', (req, res, next) => {
-  var db = new sqlite3.Database('./databases/mydb.sqlite3',
+router.post('/addPost', (req, res, next) => {
+  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
       if (err) {
@@ -84,12 +85,12 @@ router.post('/add', (req, res, next) => {
         exit(1);
       }
 
-      console.log("inserting " + req.body.blog);
-
       //'sanitization' by removing instances of alone single quotes
-      var text = req.body.blog.replace(/'/g, "''");
-      db.exec(`insert into blog ( blog_txt)
-                values ('${text}');`)
+      var text = req.body.post.replace(/'/g, "''");
+      console.log("inserting " + text + " into posts");
+
+      db.exec(`insert into posts ( post_txt )
+                values ('${text}');`);
 
       res.redirect('/');
     }

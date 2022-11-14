@@ -33,8 +33,8 @@ block content
   
   //how to add a new post to posts
   h2 New Post!
-  form(action="/" method="POST")
+  form(action="/addPost" method="POST")
     div
-        label(for="blog")
-        input(name="blog" id="blog" value="")
+        label(for="post")
+        input(name="post" id="post" value="")
         button Send my post
