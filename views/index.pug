@@ -5,44 +5,51 @@ block content
   p Welcome to #{title}
 
   //display an unordered list of every post in posts
-  ul(class='postList')
+  ul(class="postList")
     each post in posts_data 
-      li #{post.post_id} - #{post.post_txt}
+      li 
 
-        form(action="/deletePost" method="POST")
-          div 
-            //TODO:
-            input(name="deletePost" id=("post" + post.post_id + "delete") value=post.post_id class="hidden" readonly)
-            button Delete this post
-        div
-          p
+        div(class="postTop")
+          h2 #{post.post_id} - Temp Title
+
+          div(class="deleteButtonContainer")
+            form(action="/deletePost" method="POST")
+              //TODO:
+              input(name="deletePost" id=("post" + post.post_id + "delete") value=post.post_id class="hidden" readonly)
+              button(title="Delete Post" class="deleteButton")
+
+        p #{post.post_txt}
+
         form(action="/addComment" method="POST")
-          div
-              label(for=("comment" + post.post_id + "Text")) Comment text goes here! =>
-              input(name="commentText" id=("comment" + post.post_id + "Text") value="New comment text here!")
-              //TODO: 
-              //This solution is like, really bad. I however cannot find any other way to sent the post_id of the
-              //parent post to /addComment except for creating a hidden input with a set value that equals post_id
-              input(name="commentParentPostID" id=("comment" + post.post_id + "ParentPostID") value=post.post_id class="hidden" readonly)
-              button Send my comment
+                label(for=("comment" + post.post_id + "Text")) Comment text goes here! =>
+                input(name="commentText" id=("comment" + post.post_id + "Text") value="New comment text here!")
+                //TODO: 
+                //This solution is like, really bad. I however cannot find any other way to sent the post_id of the
+                //parent post to /addComment except for creating a hidden input with a set value that equals post_id
+                input(name="commentParentPostID" id=("comment" + post.post_id + "ParentPostID") value=post.post_id class="hidden" readonly)
+                button Send my comment
 
         //display an unordered list of every comment in comments that has a post_id
         //that matches the post_id of the post it will be rendered underneath
-        ul(class='commentList')
+        ul(class="commentList")
           each comment in comments_data 
             if comment.post_id == post.post_id
-              li #{comment.comment_id} - #{comment.comment_txt}
+              li 
 
-                form(action="/deleteComment" method="POST")
-                  div 
-                    //TODO:
-                    input(name="deleteComment" id=("comment" + comment.comment_id + "delete") value=comment.comment_id class="hidden" readonly)
-                    button Delete this comment
+                div(class="commentTop")
+                  h3 #{comment.comment_id}
+
+                  div(class="deleteButtonContainer")
+                    form(action="/deleteComment" method="POST")
+                      //TODO:
+                      input(name="deleteComment" id=("comment" + comment.comment_id + "delete") value=comment.comment_id class="hidden" readonly)
+                      button(title="Delete Comment" class="deleteButton")
+
+                p #{comment.comment_txt}
   
   //how to add a new post to posts
   h2 New Post!
   form(action="/addPost" method="POST")
-    div
         label(for="postText") Post text goes here! =>
         input(name="postText" id="postText" value="New post text here!")
         button Send my post

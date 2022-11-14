@@ -1,4 +1,6 @@
 :root {
+  --darkGrayPurple: rgb(60, 50, 80);
+  --darkerGray: rgb(140, 140, 140);
   background-color: beige;
 }
 
@@ -20,6 +22,45 @@ body {
   margin: 10px 0px;
   padding: 3px;
   color: purple;
+}
+
+/* Elements at the top of a post and comment are a flexbox
+   TODO: can maybe combine both classes in future*/
+.postTop {
+  display: flex;
+  gap: 30px;
+}
+
+.commentTop {
+  display: flex;
+  gap: 30px;
+}
+
+/* Delete Buttons appearance */
+.deleteButton {
+  background-image: url(../images/deleteIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+  background-repeat: no-repeat;
+  background-color: var(--darkerGray);
+  background-position: center;
+  position: relative;
+  width: 43px;
+  height: 43px;
+  border: darkred solid 3px;
+  border-radius: 7px;
+}
+
+.deleteButton:hover {
+  background-color: var(--darkGrayPurple);
+  cursor: pointer;
+}
+
+.deleteButton:active {
+  background-color: darkslategray;
+  top: 3px;
+}
+
+.deleteButtonContainer {
+  margin: auto 20px auto auto;
 }
 
 /* For the really bad solution, more info in index.pug */
