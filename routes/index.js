@@ -22,6 +22,8 @@ router.get('/', function (req, res, next) {
         console.log("Getting error " + err);
         exit(1);
       }
+      //use of foreign keys to CASCADE DELETE comments linked to a deleted post https://stackoverflow.com/questions/5890250/on-delete-cascade-in-sqlite3
+      db.all(`PRAGMA foreign_keys = ON;`);
       //Query if the table exists if not lets create it on the fly!
       db.all(`SELECT name FROM sqlite_master WHERE type='table' AND (name='posts' OR name='comments')`,
         (err, rows) => {
@@ -54,7 +56,9 @@ router.get('/', function (req, res, next) {
                        comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
                        comment_txt TEXT NOT NULL,
                        post_id INTEGER NOT NULL,
-                       FOREIGN KEY (post_id) REFERENCES posts (post_id));
+                       FOREIGN KEY (post_id)
+                        REFERENCES posts (post_id)
+                        ON DELETE CASCADE);
 
                       insert into comments (comment_txt, post_id)
                       values ('This is an intelligent, well thought out response', 1),
@@ -139,6 +143,7 @@ router.post('/deletePost', (req, res, next) => {
       }
       console.log("Deleting post " + req.body.deletePost);
 
+      db.all(`PRAGMA foreign_keys = ON;`); //use of foreign keys to CASCADE DELETE all comments linked to this post
       db.exec(`delete from posts where post_id='${req.body.deletePost}';`);       
       res.redirect('/');
     }
