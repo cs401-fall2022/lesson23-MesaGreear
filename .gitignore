@@ -3,3 +3,6 @@ node_modules
 
 #databases created
 databases
+
+#workspace specific settings
+.vscode
