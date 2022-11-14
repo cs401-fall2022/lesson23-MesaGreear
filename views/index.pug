@@ -20,8 +20,10 @@ block content
             button Send my comment
         div
           p
-      form(action="/" method="POST")
+      form(action="/deletePost" method="POST")
         div 
+          //TODO:
+          input(name="deletePost" id=("post" + post.post_id + "delete") value=post.post_id class="hidden" readonly)
           button Delete this post
 
       //display an unordered list of every comment in comments that has a post_id

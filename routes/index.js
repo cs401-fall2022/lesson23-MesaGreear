@@ -126,27 +126,20 @@ router.post('/addPost', (req, res, next) => {
 })
 
 /**
- * TODO
+ * Deletes the post that this delete request was associated with.
  */
-router.post('/delete', (req, res, next) => {
+router.post('/deletePost', (req, res, next) => {
   console.log("");
-  var db = new sqlite3.Database('./databases/mydb.sqlite3',
+  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
       if (err) {
         console.log("Getting error " + err);
         exit(1);
       }
-      // console.log("inserting " + req.body.blog);
+      console.log("Deleting post " + req.body.deletePost);
 
-      //'sanitization' by not running commands that have single quotes in them
-      //check that the text includes the #ilovebugjuice hashtag
-      if(req.body.blog.includes("'")){
-        console.log("You were trying to do something naughty weren't you?");
-      }
-      else {
-        db.exec(`delete from blog where blog_id='${req.body.blog}';`);       
-      }
+      db.exec(`delete from posts where post_id='${req.body.deletePost}';`);       
       res.redirect('/');
     }
   );
