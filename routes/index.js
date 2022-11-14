@@ -161,4 +161,24 @@ router.post('/deletePost', (req, res, next) => {
   );
 })
 
+/**
+ * Deletes the comment that this delete request was associated with.
+ */
+ router.post('/deleteComment', (req, res, next) => {
+  console.log("");
+  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
+    sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
+    (err) => {
+      if (err) {
+        console.log("Getting error " + err);
+        exit(1);
+      }
+      console.log("Deleting comment " + req.body.deleteComment);
+
+      db.exec(`delete from comments where comment_id='${req.body.deleteComment}';`);       
+      res.redirect('/');
+    }
+  );
+})
+
 module.exports = router;

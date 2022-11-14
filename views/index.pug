@@ -33,8 +33,10 @@ block content
           if comment.post_id == post.post_id
             li #{comment.comment_id} - #{comment.comment_txt}
 
-            form(action="/" method="POST")
+            form(action="/deleteComment" method="POST")
               div 
+                //TODO:
+                input(name="deleteComment" id=("comment" + comment.comment_id + "delete") value=comment.comment_id class="hidden" readonly)
                 button Delete this comment
   
   //how to add a new post to posts
