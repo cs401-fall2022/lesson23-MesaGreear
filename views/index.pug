@@ -3,10 +3,38 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  ul
+
+  //display an unordered list of every post in posts
+  ul(class='postList')
     each post in posts_data 
       li #{post.post_id} - #{post.post_txt}
-      ul
+
+      form(action="/" method="POST")
+        div
+            label(for="blog")
+            input(name="blog" id="blog" value="")
+            button Send my comment
+        div
+          p
+      form(action="/" method="POST")
+        div 
+          button Delete this post
+
+      //display an unordered list of every comment in comments that has a post_id
+      //that matches the post_id of the post it will be rendered underneath
+      ul(class='commentList')
         each comment in comments_data 
           if comment.post_id == post.post_id
             li #{comment.comment_id} - #{comment.comment_txt}
+
+            form(action="/" method="POST")
+              div 
+                button Delete this comment
+  
+  //how to add a new post to posts
+  h2 New Post!
+  form(action="/" method="POST")
+    div
+        label(for="blog")
+        input(name="blog" id="blog" value="")
+        button Send my post
