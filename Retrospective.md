@@ -29,4 +29,11 @@ TODO
 
 ## Sources used
 
-TODO
+This list hopefully encompasses all the outside sources I used for this project, however it isn't
+impossible that I will have missed a viable source or two that I used as aid.
+
+If you see any suspicious looking code that doesn't look like it could've been by me at my current
+skill level, please let me know and I'll go look at it and cite it if I used a source for it!
+
+- [#](https://www.iconsdb.com/red-icons/delete-icon.html) Site that deleteIcon.png comes from
+- [#](https://example.com) Temp
