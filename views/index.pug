@@ -10,24 +10,32 @@ block content
       li 
 
         div(class="postTop")
-          h2 #{post.post_id} - Temp Title
-
-          div(class="deleteButtonContainer")
+          div
             form(action="/deletePost" method="POST")
               //TODO:
-              input(name="deletePost" id=("post" + post.post_id + "delete") value=post.post_id class="hidden" readonly)
+              input(name="deletePost" id=("post" + post.post_id + "Delete") value=post.post_id class="hidden" readonly)
               button(title="Delete Post" class="deleteButton")
 
-        p #{post.post_txt}
+          div
+            form(action="/" method="POST")
+              //TODO:
+              input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
+              button(title="Edit Post" class="editButton")
 
-        form(action="/addComment" method="POST")
+          div
+            form(action="/addComment" method="POST")
                 label(for=("comment" + post.post_id + "Text")) Comment text goes here! =>
                 input(name="commentText" id=("comment" + post.post_id + "Text") value="New comment text here!")
                 //TODO: 
                 //This solution is like, really bad. I however cannot find any other way to sent the post_id of the
                 //parent post to /addComment except for creating a hidden input with a set value that equals post_id
                 input(name="commentParentPostID" id=("comment" + post.post_id + "ParentPostID") value=post.post_id class="hidden" readonly)
-                button Send my comment
+                button(title="Comment on this Post" class="commentButton")
+
+          h2(class="postTitle") #{post.post_id} - Temp Title
+
+
+        p #{post.post_txt}
 
         //display an unordered list of every comment in comments that has a post_id
         //that matches the post_id of the post it will be rendered underneath
@@ -37,13 +45,20 @@ block content
               li 
 
                 div(class="commentTop")
-                  h3 #{comment.comment_id}
-
-                  div(class="deleteButtonContainer")
+                  div
                     form(action="/deleteComment" method="POST")
                       //TODO:
                       input(name="deleteComment" id=("comment" + comment.comment_id + "delete") value=comment.comment_id class="hidden" readonly)
                       button(title="Delete Comment" class="deleteButton")
+
+                  div
+                    form(action="/" method="POST")
+                      //TODO:
+                      input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
+                      button(title="Edit Comment" class="editButton")
+
+                  //TODO
+                  h3(class="postTitle") #{comment.comment_id}
 
                 p #{comment.comment_txt}
   

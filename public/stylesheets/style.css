@@ -28,19 +28,27 @@ body {
    TODO: can maybe combine both classes in future*/
 .postTop {
   display: flex;
-  gap: 30px;
+  flex-direction: row-reverse;
+  gap: 20px;
+  margin: 5px;
 }
 
 .commentTop {
   display: flex;
-  gap: 30px;
+  flex-direction: row-reverse;
+  gap: 20px;
+  margin: 5px;
+}
+
+.postTitle {
+  margin: auto auto auto 0px;
 }
 
 /* Delete Buttons appearance */
 .deleteButton {
   background-image: url(../images/deleteIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
   background-repeat: no-repeat;
-  background-color: var(--darkerGray);
+  background-color: antiquewhite;
   background-position: center;
   position: relative;
   width: 43px;
@@ -55,12 +63,54 @@ body {
 }
 
 .deleteButton:active {
-  background-color: darkslategray;
+  background-color: var(--darkerGray);
   top: 3px;
 }
 
-.deleteButtonContainer {
-  margin: auto 20px auto auto;
+/* Comment Buttons appearance */
+.commentButton {
+  background-image: url(../images/commentIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+  background-repeat: no-repeat;
+  background-color: antiquewhite;
+  background-position: center;
+  position: relative;
+  width: 43px;
+  height: 43px;
+  border: cornflowerblue solid 3px;
+  border-radius: 7px;
+}
+
+.commentButton:hover {
+  background-color: var(--darkGrayPurple);
+  cursor: pointer;
+}
+
+.commentButton:active {
+  background-color: var(--darkerGray);
+  top: 3px;
+}
+
+/* Edit Buttons appearance */
+.editButton {
+  background-image: url(../images/editIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+  background-repeat: no-repeat;
+  background-color: antiquewhite;
+  background-position: center;
+  position: relative;
+  width: 43px;
+  height: 43px;
+  border: goldenrod solid 3px;
+  border-radius: 7px;
+}
+
+.editButton:hover {
+  background-color: var(--darkGrayPurple);
+  cursor: pointer;
+}
+
+.editButton:active {
+  background-color: var(--darkerGray);
+  top: 3px;
 }
 
 /* For the really bad solution, more info in index.pug */
