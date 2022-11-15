@@ -69,7 +69,7 @@ body {
 
 /* Comment Buttons appearance */
 .commentButton {
-  background-image: url(../images/commentIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+  background-image: url(../images/commentIcon.png);
   background-repeat: no-repeat;
   background-color: antiquewhite;
   background-position: center;
@@ -92,7 +92,7 @@ body {
 
 /* Edit Buttons appearance */
 .editButton {
-  background-image: url(../images/editIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+  background-image: url(../images/editIcon.png);
   background-repeat: no-repeat;
   background-color: antiquewhite;
   background-position: center;

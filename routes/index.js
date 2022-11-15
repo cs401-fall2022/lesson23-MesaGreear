@@ -127,10 +127,10 @@ router.post('/addPost', (req, res, next) => {
 
       // 'sanitization' by removing instances of alone single quotes
       var text = req.body.commentText.replace(/'/g, "''");
-      console.log("inserting \"" + text + "\" under post " + req.body.commentParentPostID + " into comments");
+      console.log("inserting \"" + text + "\" under post " + req.body.commentPost + " into comments");
 
       db.exec(`insert into comments ( comment_txt, post_id )
-                values ('${text}', ${req.body.commentParentPostID});`);
+                values ('${text}', ${req.body.commentPost});`);
 
       res.redirect('/');
     }

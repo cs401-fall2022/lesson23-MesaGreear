@@ -9,31 +9,33 @@ block content
     each post in posts_data 
       li 
 
+        //handles the top of a post, i.e. the title and buttons
         div(class="postTop")
+
+          //delete post button
           div
             form(action="/deletePost" method="POST")
-              //TODO:
+              //TODO: *
               input(name="deletePost" id=("post" + post.post_id + "Delete") value=post.post_id class="hidden" readonly)
               button(title="Delete Post" class="deleteButton")
 
+          //edit post button
           div
             form(action="/" method="POST")
-              //TODO:
+              //TODO: *
               input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
               button(title="Edit Post" class="editButton")
 
+          //comment post button
           div
             form(action="/addComment" method="POST")
-                label(for=("comment" + post.post_id + "Text")) Comment text goes here! =>
-                input(name="commentText" id=("comment" + post.post_id + "Text") value="New comment text here!")
-                //TODO: 
-                //This solution is like, really bad. I however cannot find any other way to sent the post_id of the
-                //parent post to /addComment except for creating a hidden input with a set value that equals post_id
-                input(name="commentParentPostID" id=("comment" + post.post_id + "ParentPostID") value=post.post_id class="hidden" readonly)
+                label(for=("post" + post.post_id + "CommentText")) Comment text goes here! =>
+                input(name="commentText" id=("post" + post.post_id + "CommentText") value="New comment text here!")
+                //TODO: *
+                input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
                 button(title="Comment on this Post" class="commentButton")
 
           h2(class="postTitle") #{post.post_id} - Temp Title
-
 
         p #{post.post_txt}
 
@@ -44,17 +46,21 @@ block content
             if comment.post_id == post.post_id
               li 
 
+                //handles the top of a comment, i.e. the buttons
                 div(class="commentTop")
+
+                  //delete comment button
                   div
                     form(action="/deleteComment" method="POST")
-                      //TODO:
-                      input(name="deleteComment" id=("comment" + comment.comment_id + "delete") value=comment.comment_id class="hidden" readonly)
+                      //TODO: *
+                      input(name="deleteComment" id=("comment" + comment.comment_id + "Delete") value=comment.comment_id class="hidden" readonly)
                       button(title="Delete Comment" class="deleteButton")
 
+                  //edit comment button
                   div
                     form(action="/" method="POST")
-                      //TODO:
-                      input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
+                      //TODO: *
+                      input(name="editPost" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
                       button(title="Edit Comment" class="editButton")
 
                   //TODO
@@ -68,3 +74,6 @@ block content
         label(for="postText") Post text goes here! =>
         input(name="postText" id="postText" value="New post text here!")
         button Send my post
+
+  // * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the
+  //     post/comment to index.js except for creating a hidden input with a set, unchanging value that equals post_id/comment_id
