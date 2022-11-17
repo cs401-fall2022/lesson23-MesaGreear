@@ -28,12 +28,21 @@ block content
 
           //comment post button
           div
-            form(action="/addComment" method="POST")
-                label(for=("post" + post.post_id + "CommentText")) Comment text goes here! =>
-                input(name="commentText" id=("post" + post.post_id + "CommentText") value="New comment text here!")
-                //TODO: *
-                input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
-                button(title="Comment on this Post" class="commentButton")
+            button(title="Comment on this Post" class="commentButton" onclick=("openPopup(" + post.post_id + ")"))
+
+            //TODO: **
+            //popup for commenting
+            div(class="popupContainer")
+              div(class="unfocused" id=("unfocused" + post.post_id) onclick=("closePopup(" + post.post_id + ")"))
+              div(class="popuptext" id=("myPopup" + post.post_id))
+                
+                form(action="/addComment" method="POST")
+                  input(name="commentText" id=("post" + post.post_id + "CommentText") value="New comment text here!")
+                  //TODO: *
+                  input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
+                  button Send Comment
+
+                button(onclick=("closePopup(" + post.post_id + ")")) cancel
 
           h2(class="postTitle") #{post.post_id} - Temp Title
 
@@ -75,5 +84,8 @@ block content
         input(name="postText" id="postText" value="New post text here!")
         button Send my post
 
-  // * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the
-  //     post/comment to index.js except for creating a hidden input with a set, unchanging value that equals post_id/comment_id
+  //- * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the
+  //-     post/comment to index.js except for creating a hidden input with a set, unchanging value that equals post_id/comment_id
+
+  //- * - There's a lot of repeating code for popups and although it works, I would like to see if I could minimize the amount of
+  //-     repetitive code when it comes to popups in the future

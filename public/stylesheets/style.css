@@ -46,11 +46,10 @@ body {
 
 /* Delete Buttons appearance */
 .deleteButton {
-  background-image: url(../images/deleteIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+  background-image: url(/images/deleteIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
   background-repeat: no-repeat;
   background-color: antiquewhite;
   background-position: center;
-  position: relative;
   width: 43px;
   height: 43px;
   border: darkred solid 3px;
@@ -69,11 +68,10 @@ body {
 
 /* Comment Buttons appearance */
 .commentButton {
-  background-image: url(../images/commentIcon.png);
+  background-image: url(/images/commentIcon.png);
   background-repeat: no-repeat;
   background-color: antiquewhite;
   background-position: center;
-  position: relative;
   width: 43px;
   height: 43px;
   border: cornflowerblue solid 3px;
@@ -92,11 +90,10 @@ body {
 
 /* Edit Buttons appearance */
 .editButton {
-  background-image: url(../images/editIcon.png);
+  background-image: url(/images/editIcon.png);
   background-repeat: no-repeat;
   background-color: antiquewhite;
   background-position: center;
-  position: relative;
   width: 43px;
   height: 43px;
   border: goldenrod solid 3px;
@@ -116,4 +113,75 @@ body {
 /* For the really bad solution, more info in index.pug */
 .hidden {
   display: none;
+}
+
+/* Popup appearance - https://www.w3schools.com/howto/howto_js_popup.asp */
+/* Popup container */
+.popupContainer{
+  position: fixed;
+  top: 80%;
+  left: 25%;
+}
+
+/* The actual popup */
+.popuptext {
+  visibility: hidden;
+  height: 500px;
+  width: 800px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 3;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* The layer that applies to the background, 'unfocusing' everything but the popup */
+.unfocused{
+  visibility: hidden;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: darkslateblue;
+  opacity: 0.5;
+}
+
+/* Toggles the popup and unfocused layer */
+.popupShow {
+  visibility: visible;
+  animation: popupFadeIn 0.5s
+}
+.unfocusedShow {
+  visibility: visible;
+  animation: unfocusedFadeIn 0.5s
+}
+
+/* Animates the popup and unfocused layer fading in */
+@keyframes popupFadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes unfocusedFadeIn {
+  from {opacity: 0;}
+  to {opacity: 0.5;}
 }
