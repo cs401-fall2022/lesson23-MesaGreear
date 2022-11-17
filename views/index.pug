@@ -34,7 +34,7 @@ block content
 
               div(class="popuptext" id=("popup" + popupIDs[1] + post.post_id))
                 form(action="/editPost" method="POST")
-                  input(name="editText" id=("post" + post.post_id + "editText") value=post.post_txt)
+                  textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10") #{post.post_txt}
 
                   //- TODO: *
                   input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
@@ -53,7 +53,7 @@ block content
 
               div(class="popuptext" id=("popup" + popupIDs[0] + post.post_id))  
                 form(action="/addComment" method="POST")
-                  input(name="commentText" id=("post" + post.post_id + "CommentText") value="New comment text here!")
+                  textarea(name="commentText" id=("post" + post.post_id + "commentText") cols="50", rows="10") New comment text here!
                   //- TODO: *
                   input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
                   button Send Comment
