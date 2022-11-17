@@ -33,9 +33,9 @@ router.get('/', function (req, res, next) {
           if (rows.length === 2) {
             console.log("Table exists!");
             //render and log posts & comments tables
-            db.all(` select post_id, post_txt from posts`, (err, posts_rows) => {
+            db.all(` SELECT post_id, post_txt FROM posts`, (err, posts_rows) => {
               console.log("returning " + posts_rows.length + " records for posts");
-              db.all(` select comment_id, comment_txt, post_id from comments`, (err, comments_rows) => {
+              db.all(` SELECT comment_id, comment_txt, post_id FROM comments`, (err, comments_rows) => {
                 console.log("returning " + comments_rows.length + " records for comments");
 
                 renderables.posts_data = posts_rows;
@@ -49,15 +49,15 @@ router.get('/', function (req, res, next) {
             console.log("Creating tables and inserting some sample data");
 
             //create tables for posts and comments
-            db.exec(`create table IF NOT EXISTS posts (
+            db.exec(`CREATE TABLE IF NOT EXISTS posts (
                      post_id INTEGER PRIMARY KEY AUTOINCREMENT,
                      post_txt text NOT NULL);
 
-                      insert into posts (post_txt)
-                      values ('This is a great blog #ilovebugjuice'),
+                      INSERT INTO posts (post_txt)
+                      VALUES ('This is a great blog #ilovebugjuice'),
                              ('Oh my goodness blogging is fun #ilovebugjuice');
                              
-                      create table IF NOT EXISTS comments (
+                      CREATE TABLE IF NOT EXISTS comments (
                        comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
                        comment_txt TEXT NOT NULL,
                        post_id INTEGER NOT NULL,
@@ -65,14 +65,14 @@ router.get('/', function (req, res, next) {
                         REFERENCES posts (post_id)
                         ON DELETE CASCADE);
 
-                      insert into comments (comment_txt, post_id)
-                      values ('This is an intelligent, well thought out response', 1),
+                      INSERT INTO comments (comment_txt, post_id)
+                      VALUES ('This is an intelligent, well thought out response', 1),
                              ('I am definitely not too young to be on the internet', 1),
                              ('Please be patient, there are things wrong with my brain', 2);`,
               () => {
                 //render new posts & comments tables
-                db.all(` select post_id, post_txt from posts`, (err, posts_rows) => {
-                  db.all(` select comment_id, comment_txt, post_id from comments`, (err, comments_rows) => {
+                db.all(` SELECT post_id, post_txt FROM posts`, (err, posts_rows) => {
+                  db.all(` SELECT comment_id, comment_txt, post_id FROM comments`, (err, comments_rows) => {
 
                     renderables.posts_data = posts_rows;
                     renderables.comments_data = comments_rows;
@@ -103,8 +103,8 @@ router.post('/addPost', (req, res, next) => {
       var text = req.body.postText.replace(/'/g, "''");
       console.log("inserting \"" + text + "\" into posts");
 
-      db.exec(`insert into posts ( post_txt )
-                values ('${text}');`);
+      db.exec(`INSERT INTO posts ( post_txt )
+                VALUES ('${text}');`);
 
       res.redirect('/');
     }
@@ -129,8 +129,8 @@ router.post('/addPost', (req, res, next) => {
       var text = req.body.commentText.replace(/'/g, "''");
       console.log("inserting \"" + text + "\" under post " + req.body.commentPost + " into comments");
 
-      db.exec(`insert into comments ( comment_txt, post_id )
-                values ('${text}', ${req.body.commentPost});`);
+      db.exec(`INSERT INTO comments ( comment_txt, post_id )
+                VALUES ('${text}', ${req.body.commentPost});`);
 
       res.redirect('/');
     }
@@ -155,9 +155,9 @@ router.post('/addPost', (req, res, next) => {
       var text = req.body.editText.replace(/'/g, "''");
       console.log("editing post " + req.body.editPost + " to new text: \"" + text + "\"");
 
-      db.exec(`update posts
-                set post_txt = '${text}'
-                where post_id = ${req.body.editPost};`);
+      db.exec(`UPDATE posts
+                SET post_txt = '${text}'
+                WHERE post_id = ${req.body.editPost};`);
 
       res.redirect('/');
     }
@@ -190,7 +190,7 @@ router.post('/deletePost', (req, res, next) => {
       });
 
       db.all(`PRAGMA foreign_keys = ON;`); //use of foreign keys to CASCADE DELETE all comments linked to this post
-      db.exec(`delete from posts where post_id='${req.body.deletePost}';`);       
+      db.exec(`DELETE FROM posts WHERE post_id='${req.body.deletePost}';`);       
       res.redirect('/');
     }
   );
@@ -210,7 +210,7 @@ router.post('/deletePost', (req, res, next) => {
       }
       console.log("Deleting comment " + req.body.deleteComment);
 
-      db.exec(`delete from comments where comment_id='${req.body.deleteComment}';`);       
+      db.exec(`DELETE FROM comments WHERE comment_id='${req.body.deleteComment}';`);       
       res.redirect('/');
     }
   );
