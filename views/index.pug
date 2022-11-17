@@ -1,6 +1,10 @@
 extends layout
 
 block content
+  //-                    newPost editPost newCom  editCom
+  - const popupIDs    = ["0_0_", "0_1_", "1_0_", "1_1_"]
+  - const popupParams = ["0,0,", "0,1,", "1,0,", "1,1,"]
+
   h1= title
   p Welcome to #{title}
 
@@ -15,34 +19,46 @@ block content
           //delete post button
           div
             form(action="/deletePost" method="POST")
-              //TODO: *
+              //- TODO: *
               input(name="deletePost" id=("post" + post.post_id + "Delete") value=post.post_id class="hidden" readonly)
               button(title="Delete Post" class="deleteButton")
 
           //edit post button
           div
-            form(action="/" method="POST")
-              //TODO: *
-              input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
-              button(title="Edit Post" class="editButton")
+            button(title="Edit Post" class="editButton" onclick=("openPopup(" + popupParams[1] + post.post_id + ")"))
+
+            //- TODO: **
+            //popup for editing
+            div(class="popupContainer")
+              div(class="unfocused" id=("unfocused" + popupIDs[1] + post.post_id) onclick=("closePopup(" + popupParams[1] + post.post_id + ")"))
+
+              div(class="popuptext" id=("popup" + popupIDs[1] + post.post_id))
+                form(action="/editPost" method="POST")
+                  input(name="editText" id=("post" + post.post_id + "editText") value=post.post_txt)
+
+                  //- TODO: *
+                  input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
+                  button Send Edit
+
+                button(onclick=("closePopup(" + popupParams[1] + post.post_id + ")")) cancel
 
           //comment post button
           div
-            button(title="Comment on this Post" class="commentButton" onclick=("openPopup(" + post.post_id + ")"))
+            button(title="Comment on this Post" class="commentButton" onclick=("openPopup(" + popupParams[0] + post.post_id + ")"))
 
-            //TODO: **
+            //- TODO: **
             //popup for commenting
             div(class="popupContainer")
-              div(class="unfocused" id=("unfocused" + post.post_id) onclick=("closePopup(" + post.post_id + ")"))
-              div(class="popuptext" id=("myPopup" + post.post_id))
-                
+              div(class="unfocused" id=("unfocused" + popupIDs[0] + post.post_id) onclick=("closePopup(" + popupParams[0] + post.post_id + ")"))
+
+              div(class="popuptext" id=("popup" + popupIDs[0] + post.post_id))  
                 form(action="/addComment" method="POST")
                   input(name="commentText" id=("post" + post.post_id + "CommentText") value="New comment text here!")
-                  //TODO: *
+                  //- TODO: *
                   input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
                   button Send Comment
 
-                button(onclick=("closePopup(" + post.post_id + ")")) cancel
+                button(onclick=("closePopup(" + popupParams[0] + post.post_id + ")")) cancel
 
           h2(class="postTitle") #{post.post_id} - Temp Title
 
@@ -68,11 +84,11 @@ block content
                   //edit comment button
                   div
                     form(action="/" method="POST")
-                      //TODO: *
+                      //- TODO: *
                       input(name="editPost" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
                       button(title="Edit Comment" class="editButton")
 
-                  //TODO
+                  //- TODO
                   h3(class="postTitle") #{comment.comment_id}
 
                 p #{comment.comment_txt}
