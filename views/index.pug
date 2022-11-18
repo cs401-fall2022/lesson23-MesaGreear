@@ -34,6 +34,7 @@ block content
 
               div(class="popuptext" id=("popup" + popupIDs[1] + post.post_id))
                 form(action="/editPost" method="POST")
+                  input(name="editTitle" id="editTitle" value=post.post_title)
                   textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10") #{post.post_txt}
 
                   //- TODO: *

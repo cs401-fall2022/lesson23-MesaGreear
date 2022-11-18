@@ -107,6 +107,7 @@ router.post('/addPost', (req, res, next) => {
       var text = req.body.postText.replace(/'/g, "''");
       console.log("inserting new post \"" + title + "\": \"" + text + "\" into posts");
 
+      //For getting date time in sql format - https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
       db.exec(`INSERT INTO posts ( post_title, post_txt, post_datetime )
                 VALUES ( '${title}', '${text}', '${new Date().toISOString().slice(0, 19).replace('T', ' ')}');`);
 
@@ -133,8 +134,7 @@ router.post('/addPost', (req, res, next) => {
       var text = req.body.commentText.replace(/'/g, "''");
       console.log("inserting \"" + text + "\" under post " + req.body.commentPost + " into comments");
 
-      //For getting date time in sql format - https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
-      db.exec(`INSERT INTO comments ( comment_txt, comment_datetime post_id )
+      db.exec(`INSERT INTO comments ( comment_txt, comment_datetime, post_id )
                 VALUES ('${text}', '${new Date().toISOString().slice(0, 19).replace('T', ' ')}', ${req.body.commentPost});`);
 
       res.redirect('/');
@@ -143,8 +143,9 @@ router.post('/addPost', (req, res, next) => {
 })
 
 /**
- * Replaces the post_txt of the post this edit request was associated with. 'Sanitizes' by replacing
- * instances of single quotes with another single quote so that they escape each other out.
+ * Replaces the post_title, post_txt, & post_datetime of the post this edit request was associated with.
+ * 'Sanitizes' by replacing instances of single quotes with another single quote so that they escape
+ * each other out.
  */
  router.post('/editPost', (req, res, next) => {
   console.log("");
@@ -157,11 +158,14 @@ router.post('/addPost', (req, res, next) => {
       }
 
       //'sanitization' by removing instances of alone single quotes
+      var title = req.body.editTitle.replace(/'/g, "''");
       var text = req.body.editText.replace(/'/g, "''");
-      console.log("editing post " + req.body.editPost + " to new text: \"" + text + "\"");
+      console.log("editing post " + req.body.editPost + " to new text \"" + title + "\": \"" + text + "\"");
 
       db.exec(`UPDATE posts
-                SET post_txt = '${text}'
+                SET post_title = '${title}',
+                    post_txt = '${text}',
+                    post_datetime = '${new Date().toISOString().slice(0, 19).replace('T', ' ')}'
                 WHERE post_id = ${req.body.editPost};`);
 
       res.redirect('/');
@@ -170,9 +174,9 @@ router.post('/addPost', (req, res, next) => {
 })
 
 /**
- * Replaces the comment_txt of the comment this edit request was associated with. 'Sanitizes' by
- * replacing instances of single quotes with another single quote so that they escape each other
- * out.
+ * Replaces the comment_txt & comment_datetime of the comment this edit request was associated with.
+ * 'Sanitizes' by replacing instances of single quotes with another single quote so that they escape
+ * each other out.
  */
  router.post('/editComment', (req, res, next) => {
   console.log("");
@@ -189,7 +193,8 @@ router.post('/addPost', (req, res, next) => {
       console.log("editing comment " + req.body.editComment + " to new text: \"" + text + "\"");
 
       db.exec(`UPDATE comments
-                SET comment_txt = '${text}'
+                SET comment_txt = '${text}',
+                    comment_datetime = '${new Date().toISOString().slice(0, 19).replace('T', ' ')}'
                 WHERE comment_id = ${req.body.editComment};`);
 
       res.redirect('/');
