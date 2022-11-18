@@ -4,9 +4,29 @@
   background-color: beige;
 }
 
+/* https://stackoverflow.com/questions/712689/css-div-stretch-100-page-height */
+html{
+  min-height: 100%;
+  position: relative;
+}
+
 body {
-  padding: 50px;
+  height: 100%;
+  padding: 1% 3% 3% 3%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+nav {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 13%;
+  background-color: var(--darkGrayPurple);
+}
+
+#mainContent{
+  margin-left: 12%; /* 'gives' left side of screen to nav bar */
 }
 
 .postList > li {
