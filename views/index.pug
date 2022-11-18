@@ -105,12 +105,22 @@ block content
 
                 p #{comment.comment_txt}
   
-  //how to add a new post to posts
-  h2 New Post!
-  form(action="/addPost" method="POST")
-        label(for="postText") Post text goes here! =>
-        input(name="postText" id="postText" value="New post text here!")
-        button Send my post
+  //add a new post to posts
+  div
+    button(title="New Post" onclick=("openPopup(" + popupParams[0] + "0)")) New Post!
+
+    //- TODO: **
+    //popup for new post
+    div(class="popupContainer")
+      div(class="unfocused" id=("unfocused" + popupIDs[0] + "0") onclick=("closePopup(" + popupParams[0] + "0)"))
+
+      div(class="popuptext" id=("popup" + popupIDs[0] + "0"))  
+        form(action="/addPost" method="POST")
+          textarea(name="postText" id="postText" cols="50", rows="10") New post text here!
+          
+          button Send Post
+
+        button(onclick=("closePopup(" + popupParams[0] + "0)")) cancel
 
   //- * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the
   //-     post/comment to index.js except for creating a hidden input with a set, unchanging value that equals post_id/comment_id

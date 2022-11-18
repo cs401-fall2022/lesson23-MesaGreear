@@ -46,12 +46,13 @@ body {
 
 /* Rules all 'fancy'/'decorated' buttons follow */
 .decoratedButton{
+  background-size: 85%;
   background-repeat: no-repeat;
   background-color: antiquewhite;
   background-position: center;
   position: relative;
-  width: 43px;
-  height: 43px;
+  width: 40px;
+  height: 40px;
   border: black solid 3px;
   border-radius: 7px;
 }
