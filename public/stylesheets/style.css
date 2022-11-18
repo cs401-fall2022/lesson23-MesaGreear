@@ -44,70 +44,44 @@ body {
   margin: auto auto auto 0px;
 }
 
-/* Delete Buttons appearance */
-.deleteButton {
-  background-image: url(/images/deleteIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+/* Rules all 'fancy'/'decorated' buttons follow */
+.decoratedButton{
   background-repeat: no-repeat;
   background-color: antiquewhite;
   background-position: center;
+  position: relative;
   width: 43px;
   height: 43px;
-  border: darkred solid 3px;
+  border: black solid 3px;
   border-radius: 7px;
 }
 
-.deleteButton:hover {
+.decoratedButton:hover {
   background-color: var(--darkGrayPurple);
   cursor: pointer;
 }
 
-.deleteButton:active {
+.decoratedButton:active {
   background-color: var(--darkerGray);
   top: 3px;
+}
+
+/* Delete Buttons appearance */
+.deleteButton {
+  background-image: url(/images/deleteIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+  border-color: darkred;
 }
 
 /* Comment Buttons appearance */
 .commentButton {
   background-image: url(/images/commentIcon.png);
-  background-repeat: no-repeat;
-  background-color: antiquewhite;
-  background-position: center;
-  width: 43px;
-  height: 43px;
-  border: cornflowerblue solid 3px;
-  border-radius: 7px;
-}
-
-.commentButton:hover {
-  background-color: var(--darkGrayPurple);
-  cursor: pointer;
-}
-
-.commentButton:active {
-  background-color: var(--darkerGray);
-  top: 3px;
+  border-color: cornflowerblue;
 }
 
 /* Edit Buttons appearance */
 .editButton {
   background-image: url(/images/editIcon.png);
-  background-repeat: no-repeat;
-  background-color: antiquewhite;
-  background-position: center;
-  width: 43px;
-  height: 43px;
-  border: goldenrod solid 3px;
-  border-radius: 7px;
-}
-
-.editButton:hover {
-  background-color: var(--darkGrayPurple);
-  cursor: pointer;
-}
-
-.editButton:active {
-  background-color: var(--darkerGray);
-  top: 3px;
+  border-color: goldenrod;
 }
 
 /* For the really bad solution, more info in index.pug */
@@ -165,7 +139,7 @@ body {
   opacity: 0.5;
 }
 
-/* Toggles the popup and unfocused layer */
+/* Toggles the popup & unfocused layer and removes decorates buttons position rule */
 .popupShow {
   visibility: visible;
   animation: popupFadeIn 0.5s
@@ -173,6 +147,10 @@ body {
 .unfocusedShow {
   visibility: visible;
   animation: unfocusedFadeIn 0.5s
+}
+
+.decoratedButtonDeactivate{
+  position: static;
 }
 
 /* Animates the popup and unfocused layer fading in */

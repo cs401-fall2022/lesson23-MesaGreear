@@ -21,11 +21,11 @@ block content
             form(action="/deletePost" method="POST")
               //- TODO: *
               input(name="deletePost" id=("post" + post.post_id + "Delete") value=post.post_id class="hidden" readonly)
-              button(title="Delete Post" class="deleteButton")
+              button(title="Delete Post" class="decoratedButton deleteButton")
 
           //edit post button
           div
-            button(title="Edit Post" class="editButton" onclick=("openPopup(" + popupParams[1] + post.post_id + ")"))
+            button(title="Edit Post" class="decoratedButton editButton" onclick=("openPopup(" + popupParams[1] + post.post_id + ")"))
 
             //- TODO: **
             //popup for editing
@@ -44,7 +44,7 @@ block content
 
           //comment post button
           div
-            button(title="Comment on this Post" class="commentButton" onclick=("openPopup(" + popupParams[0] + post.post_id + ")"))
+            button(title="Comment on this Post" class="decoratedButton commentButton" onclick=("openPopup(" + popupParams[0] + post.post_id + ")"))
 
             //- TODO: **
             //popup for commenting
@@ -79,14 +79,14 @@ block content
                     form(action="/deleteComment" method="POST")
                       //TODO: *
                       input(name="deleteComment" id=("comment" + comment.comment_id + "Delete") value=comment.comment_id class="hidden" readonly)
-                      button(title="Delete Comment" class="deleteButton")
+                      button(title="Delete Comment" class="decoratedButton deleteButton")
 
                   //edit comment button
                   div
                     form(action="/" method="POST")
                       //- TODO: *
                       input(name="editPost" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
-                      button(title="Edit Comment" class="editButton")
+                      button(title="Edit Comment" class="decoratedButton editButton")
 
                   //- TODO
                   h3(class="postTitle") #{comment.comment_id}

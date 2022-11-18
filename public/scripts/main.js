@@ -10,6 +10,10 @@
 function openPopup(change, type, id) {
     document.getElementById("popup" + change + "_" + type + "_" + id).classList.add("popupShow");
     document.getElementById("unfocused" + change + "_" + type + "_" + id).classList.add("unfocusedShow");
+    //'deactivate' all decorated buttons by removing their position rule https://stackoverflow.com/questions/3871547/iterating-over-result-of-getelementsbyclassname-using-array-foreach
+    Array.from(document.getElementsByClassName("decoratedButton")).forEach (element => {
+        element.classList.add("decoratedButtonDeactivate");
+    });;
 }
 
 /**
@@ -23,4 +27,8 @@ function openPopup(change, type, id) {
 function closePopup(change, type, id) {
     document.getElementById("popup" + change + "_" + type + "_" + id).classList.remove("popupShow");
     document.getElementById("unfocused" + change + "_" + type + "_" + id).classList.remove("unfocusedShow");
+    //'activate' all decorated buttons by adding their position: relative rule
+    Array.from(document.getElementsByClassName("decoratedButton")).forEach (element => {
+        element.classList.remove("decoratedButtonDeactivate");
+    });;
 }
