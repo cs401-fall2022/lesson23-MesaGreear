@@ -63,7 +63,8 @@ block content
 
           h2(class="postTitle") #{post.post_id} - #{post.post_title}
 
-        p #{post.post_txt} (#{post.post_datetime})
+        p #{post.post_txt}
+        p(class="date") (#{post.post_datetime})
 
         //display an unordered list of every comment in comments that has a post_id
         //that matches the post_id of the post it will be rendered underneath
@@ -104,7 +105,8 @@ block content
                   //- TODO
                   h3(class="postTitle") #{comment.comment_id}
 
-                p #{comment.comment_txt} (#{comment.comment_datetime})
+                p #{comment.comment_txt}
+                p(class="date") (#{comment.comment_datetime})
   
   //add a new post to posts
   div
@@ -129,4 +131,4 @@ block content
 
   //- ** - There's a lot of repeating code for popups and although it works, I would like to see if I could minimize the amount of
   //-      repetitive code when it comes to popups in the future. Also there is 1 + (posts.length*2) + comments.length number of hidden
-  //-      popups in the html at all times and I would like to get that number down to just 1 if possible
+  //-      popups in the html at all times and I would like to get that number down to just 1 if possible (Mixins?)

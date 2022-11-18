@@ -107,7 +107,7 @@ router.post('/addPost', (req, res, next) => {
       var text = req.body.postText.replace(/'/g, "''");
       console.log("inserting new post \"" + title + "\": \"" + text + "\" into posts");
 
-      //For getting date time in sql format - https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
+      //For getting datetime in sql format - https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
       db.exec(`INSERT INTO posts ( post_title, post_txt, post_datetime )
                 VALUES ( '${title}', '${text}', '${new Date().toISOString().slice(0, 19).replace('T', ' ')}');`);
 
