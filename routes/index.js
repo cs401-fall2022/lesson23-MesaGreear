@@ -165,6 +165,34 @@ router.post('/addPost', (req, res, next) => {
 })
 
 /**
+ * Replaces the comment_txt of the comment this edit request was associated with. 'Sanitizes' by
+ * replacing instances of single quotes with another single quote so that they escape each other
+ * out.
+ */
+ router.post('/editComment', (req, res, next) => {
+  console.log("");
+  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
+    sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
+    (err) => {
+      if (err) {
+        console.log("Getting error " + err);
+        exit(1);
+      }
+
+      //'sanitization' by removing instances of alone single quotes
+      var text = req.body.editText.replace(/'/g, "''");
+      console.log("editing comment " + req.body.editComment + " to new text: \"" + text + "\"");
+
+      db.exec(`UPDATE comments
+                SET comment_txt = '${text}'
+                WHERE comment_id = ${req.body.editComment};`);
+
+      res.redirect('/');
+    }
+  );
+})
+
+/**
  * Deletes the post that this delete request was associated with.
  */
 router.post('/deletePost', (req, res, next) => {

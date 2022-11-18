@@ -44,21 +44,21 @@ block content
 
           //comment post button
           div
-            button(title="Comment on this Post" class="decoratedButton commentButton" onclick=("openPopup(" + popupParams[0] + post.post_id + ")"))
+            button(title="Comment on this Post" class="decoratedButton commentButton" onclick=("openPopup(" + popupParams[2] + post.post_id + ")"))
 
             //- TODO: **
             //popup for commenting
             div(class="popupContainer")
-              div(class="unfocused" id=("unfocused" + popupIDs[0] + post.post_id) onclick=("closePopup(" + popupParams[0] + post.post_id + ")"))
+              div(class="unfocused" id=("unfocused" + popupIDs[2] + post.post_id) onclick=("closePopup(" + popupParams[2] + post.post_id + ")"))
 
-              div(class="popuptext" id=("popup" + popupIDs[0] + post.post_id))  
+              div(class="popuptext" id=("popup" + popupIDs[2] + post.post_id))  
                 form(action="/addComment" method="POST")
                   textarea(name="commentText" id=("post" + post.post_id + "commentText") cols="50", rows="10") New comment text here!
                   //- TODO: *
                   input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
                   button Send Comment
 
-                button(onclick=("closePopup(" + popupParams[0] + post.post_id + ")")) cancel
+                button(onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) cancel
 
           h2(class="postTitle") #{post.post_id} - Temp Title
 
@@ -83,10 +83,22 @@ block content
 
                   //edit comment button
                   div
-                    form(action="/" method="POST")
-                      //- TODO: *
-                      input(name="editPost" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
-                      button(title="Edit Comment" class="decoratedButton editButton")
+                    button(title="Edit Comment" class="decoratedButton editButton" onclick=("openPopup(" + popupParams[3] + comment.comment_id + ")"))
+
+                    //- TODO: **
+                    //popup for editing
+                    div(class="popupContainer")
+                      div(class="unfocused" id=("unfocused" + popupIDs[3] + comment.comment_id) onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")"))
+
+                      div(class="popuptext" id=("popup" + popupIDs[3] + comment.comment_id))
+                        form(action="/editComment" method="POST")
+                          textarea(name="editText" id=("comment" + comment.comment_id + "editText") cols="50", rows="5") #{comment.comment_txt}
+
+                          //- TODO: *
+                          input(name="editComment" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
+                          button Send Edit
+
+                        button(onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")")) cancel
 
                   //- TODO
                   h3(class="postTitle") #{comment.comment_id}
@@ -103,5 +115,6 @@ block content
   //- * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the
   //-     post/comment to index.js except for creating a hidden input with a set, unchanging value that equals post_id/comment_id
 
-  //- * - There's a lot of repeating code for popups and although it works, I would like to see if I could minimize the amount of
-  //-     repetitive code when it comes to popups in the future
+  //- ** - There's a lot of repeating code for popups and although it works, I would like to see if I could minimize the amount of
+  //-      repetitive code when it comes to popups in the future. Also there is 1 + (posts.length*2) + comments.length number of hidden
+  //-      popups in the html at all times and I would like to get that number down to just 1 if possible
