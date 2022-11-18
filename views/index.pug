@@ -60,9 +60,9 @@ block content
 
                 button(onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) cancel
 
-          h2(class="postTitle") #{post.post_id} - Temp Title
+          h2(class="postTitle") #{post.post_id} - #{post.post_title}
 
-        p #{post.post_txt}
+        p #{post.post_txt} (#{post.post_datetime})
 
         //display an unordered list of every comment in comments that has a post_id
         //that matches the post_id of the post it will be rendered underneath
@@ -103,7 +103,7 @@ block content
                   //- TODO
                   h3(class="postTitle") #{comment.comment_id}
 
-                p #{comment.comment_txt}
+                p #{comment.comment_txt} (#{comment.comment_datetime})
   
   //add a new post to posts
   div
@@ -116,6 +116,7 @@ block content
 
       div(class="popuptext" id=("popup" + popupIDs[0] + "0"))  
         form(action="/addPost" method="POST")
+          input(name="postTitle" id="postTitle" value="New post title here!")
           textarea(name="postText" id="postText" cols="50", rows="10") New post text here!
           
           button Send Post

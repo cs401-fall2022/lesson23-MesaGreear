@@ -33,9 +33,9 @@ router.get('/', function (req, res, next) {
           if (rows.length === 2) {
             console.log("Table exists!");
             //render and log posts & comments tables
-            db.all(` SELECT post_id, post_txt FROM posts`, (err, posts_rows) => {
+            db.all(` SELECT post_id, post_title, post_txt, post_datetime FROM posts`, (err, posts_rows) => {
               console.log("returning " + posts_rows.length + " records for posts");
-              db.all(` SELECT comment_id, comment_txt, post_id FROM comments`, (err, comments_rows) => {
+              db.all(` SELECT comment_id, comment_txt, comment_datetime, post_id FROM comments`, (err, comments_rows) => {
                 console.log("returning " + comments_rows.length + " records for comments");
 
                 renderables.posts_data = posts_rows;
@@ -51,28 +51,31 @@ router.get('/', function (req, res, next) {
             //create tables for posts and comments
             db.exec(`CREATE TABLE IF NOT EXISTS posts (
                      post_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                     post_txt text NOT NULL);
+                     post_title VARCHAR(100) NOT NULL,
+                     post_txt TEXT NOT NULL,
+                     post_datetime DATETIME NOT NULL);
 
-                      INSERT INTO posts (post_txt)
-                      VALUES ('This is a great blog #ilovebugjuice'),
-                             ('Oh my goodness blogging is fun #ilovebugjuice');
+                     INSERT INTO posts (post_title, post_txt, post_datetime)
+                     VALUES ('I like this blog!', 'This is a great blog #ilovebugjuice', '2022-11-17 18:07:18'),
+                            ('I''m enthusiastic about blogging!', 'Oh my goodness blogging is fun #ilovebugjuice', '2022-11-17 21:45:29');
                              
-                      CREATE TABLE IF NOT EXISTS comments (
+                     CREATE TABLE IF NOT EXISTS comments (
                        comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
                        comment_txt TEXT NOT NULL,
+                       comment_datetime DATETIME NOT NULL,
                        post_id INTEGER NOT NULL,
                        FOREIGN KEY (post_id)
-                        REFERENCES posts (post_id)
-                        ON DELETE CASCADE);
+                       REFERENCES posts (post_id)
+                       ON DELETE CASCADE);  
 
-                      INSERT INTO comments (comment_txt, post_id)
-                      VALUES ('This is an intelligent, well thought out response', 1),
-                             ('I am definitely not too young to be on the internet', 1),
-                             ('Please be patient, there are things wrong with my brain', 2);`,
+                     INSERT INTO comments (comment_txt, comment_datetime, post_id)
+                     VALUES ('This is an intelligent, well thought out response', '2022-11-17 20:04:34', 1),
+                             ('I am definitely not too young to be on the internet', '2022-11-18 03:55:02', 1),
+                             ('Please be patient, there are things wrong with my brain', '2022-11-17 23:21:25', 2);`,
               () => {
                 //render new posts & comments tables
-                db.all(` SELECT post_id, post_txt FROM posts`, (err, posts_rows) => {
-                  db.all(` SELECT comment_id, comment_txt, post_id FROM comments`, (err, comments_rows) => {
+                db.all(` SELECT post_id, post_title, post_txt, post_datetime FROM posts`, (err, posts_rows) => {
+                  db.all(` SELECT comment_id, comment_txt, comment_datetime, post_id FROM comments`, (err, comments_rows) => {
 
                     renderables.posts_data = posts_rows;
                     renderables.comments_data = comments_rows;
@@ -100,11 +103,12 @@ router.post('/addPost', (req, res, next) => {
       }
 
       //'sanitization' by removing instances of alone single quotes
+      var title = req.body.postTitle.replace(/'/g, "''");
       var text = req.body.postText.replace(/'/g, "''");
-      console.log("inserting \"" + text + "\" into posts");
+      console.log("inserting new post \"" + title + "\": \"" + text + "\" into posts");
 
-      db.exec(`INSERT INTO posts ( post_txt )
-                VALUES ('${text}');`);
+      db.exec(`INSERT INTO posts ( post_title, post_txt, post_datetime )
+                VALUES ( '${title}', '${text}', '${new Date().toISOString().slice(0, 19).replace('T', ' ')}');`);
 
       res.redirect('/');
     }
@@ -129,8 +133,9 @@ router.post('/addPost', (req, res, next) => {
       var text = req.body.commentText.replace(/'/g, "''");
       console.log("inserting \"" + text + "\" under post " + req.body.commentPost + " into comments");
 
-      db.exec(`INSERT INTO comments ( comment_txt, post_id )
-                VALUES ('${text}', ${req.body.commentPost});`);
+      //For getting date time in sql format - https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
+      db.exec(`INSERT INTO comments ( comment_txt, comment_datetime post_id )
+                VALUES ('${text}', '${new Date().toISOString().slice(0, 19).replace('T', ' ')}', ${req.body.commentPost});`);
 
       res.redirect('/');
     }
