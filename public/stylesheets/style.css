@@ -1,7 +1,9 @@
 :root {
+  --twilight: rgb(30, 20, 40);
   --darkGrayPurple: rgb(60, 50, 80);
   --darkerGray: rgb(140, 140, 140);
-  background-color: beige;
+  --darkestGray: rgb(70, 70, 70);
+  background-color: var(--twilight);
 }
 
 /* https://stackoverflow.com/questions/712689/css-div-stretch-100-page-height */
@@ -22,7 +24,7 @@ nav {
   left: 0px;
   height: 100%;
   width: 13%;
-  background-color: var(--darkGrayPurple);
+  background-color: var(--darkestGray);
 }
 
 h1{
@@ -51,18 +53,29 @@ h1{
 }
 
 .postList > li {
-  background-color: white;
   list-style: none;
   margin: 20px 0px;
   padding: 5px;
 }
 
+.postContainer {
+  padding: 5px;
+  background-color: darkgray;
+  border: purple solid 3px;
+  border-radius: 15px;
+}
+
 .commentList > li {
-  background-color: lightgray;
   list-style: none;
   margin: 10px 0px;
+
+}
+
+.commentContainer{
   padding: 3px;
-  color: purple;
+  background-color: lightgray;
+  border: mediumslateblue solid 3px;
+  border-radius: 15px;
 }
 
 /* Elements at the top of a post and comment are a flexbox
@@ -70,14 +83,14 @@ h1{
 .postTop {
   display: flex;
   flex-direction: row-reverse;
-  gap: 20px;
+  gap: 0px;
   margin: 5px;
 }
 
 .commentTop {
   display: flex;
   flex-direction: row-reverse;
-  gap: 20px;
+  gap: 0px;
   margin: 5px;
 }
 
@@ -87,7 +100,7 @@ h1{
 
 /* Rules all 'fancy'/'decorated' buttons follow */
 .decoratedButton{
-  background-size: 85%;
+  background-size: 65%;
   background-repeat: no-repeat;
   background-color: inherit;
   background-position: center;
@@ -99,6 +112,7 @@ h1{
 }
 
 .decoratedButton:hover {
+  background-size: 85%;
   background-color: var(--darkGrayPurple);
   cursor: pointer;
 }

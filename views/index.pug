@@ -10,111 +10,7 @@ block content
     h1 #{title}!
     p(style="color: white") Other stuff to be added
 
-  div(id="mainContent")
-
-    //display an unordered list of every post in posts
-    ul(class="postList")
-      each post in posts_data 
-        li 
-
-          //handles the top of a post, i.e. the title and buttons
-          div(class="postTop")
-
-            //delete post button
-            div
-              form(action="/deletePost" method="POST")
-                //- TODO: *
-                input(name="deletePost" id=("post" + post.post_id + "Delete") value=post.post_id class="hidden" readonly)
-                button(title="Delete Post" class="decoratedButton deleteButton")
-
-            //edit post button
-            div
-              button(title="Edit Post" class="decoratedButton editButton" onclick=("openPopup(" + popupParams[1] + post.post_id + ")"))
-
-              //- TODO: **
-              //popup for editing
-              div(class="popupContainer")
-                div(class="unfocused" id=("unfocused" + popupIDs[1] + post.post_id) onclick=("closePopup(" + popupParams[1] + post.post_id + ")"))
-
-                div(class="popuptext" id=("popup" + popupIDs[1] + post.post_id))
-                  form(action="/editPost" method="POST")
-                    input(name="editTitle" id="editTitle" value=post.post_title)
-                    textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10") #{post.post_txt}
-
-                    //- TODO: *
-                    input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
-                    button Send Edit
-
-                  button(onclick=("closePopup(" + popupParams[1] + post.post_id + ")")) cancel
-
-            //comment post button
-            div
-              button(title="Comment on this Post" class="decoratedButton commentButton" onclick=("openPopup(" + popupParams[2] + post.post_id + ")"))
-
-              //- TODO: **
-              //popup for commenting
-              div(class="popupContainer")
-                div(class="unfocused" id=("unfocused" + popupIDs[2] + post.post_id) onclick=("closePopup(" + popupParams[2] + post.post_id + ")"))
-
-                div(class="popuptext" id=("popup" + popupIDs[2] + post.post_id))  
-                  form(action="/addComment" method="POST")
-                    textarea(name="commentText" id=("post" + post.post_id + "commentText") cols="50", rows="10") New comment text here!
-                    //- TODO: *
-                    input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
-                    button Send Comment
-
-                  button(onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) cancel
-
-            h2(class="postTitle") #{post.post_id} - #{post.post_title}
-
-          p #{post.post_txt}
-          p(class="date") (#{post.post_datetime})
-          if post.post_image != NULL 
-            img(src=("uploads/" + post.post_image) alt=post.post_image class="postImage")
-
-          //display an unordered list of every comment in comments that has a post_id
-          //that matches the post_id of the post it will be rendered underneath
-          ul(class="commentList")
-            each comment in comments_data 
-              if comment.post_id == post.post_id
-                li 
-
-                  //handles the top of a comment, i.e. the buttons
-                  div(class="commentTop")
-
-                    //delete comment button
-                    div
-                      form(action="/deleteComment" method="POST")
-                        //TODO: *
-                        input(name="deleteComment" id=("comment" + comment.comment_id + "Delete") value=comment.comment_id class="hidden" readonly)
-                        button(title="Delete Comment" class="decoratedButton deleteButton")
-
-                    //edit comment button
-                    div
-                      button(title="Edit Comment" class="decoratedButton editButton" onclick=("openPopup(" + popupParams[3] + comment.comment_id + ")"))
-
-                      //- TODO: **
-                      //popup for editing
-                      div(class="popupContainer")
-                        div(class="unfocused" id=("unfocused" + popupIDs[3] + comment.comment_id) onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")"))
-
-                        div(class="popuptext" id=("popup" + popupIDs[3] + comment.comment_id))
-                          form(action="/editComment" method="POST")
-                            textarea(name="editText" id=("comment" + comment.comment_id + "editText") cols="50", rows="5") #{comment.comment_txt}
-
-                            //- TODO: *
-                            input(name="editComment" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
-                            button Send Edit
-
-                          button(onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")")) cancel
-
-                    //- TODO
-                    h3(class="postTitle") #{comment.comment_id}
-
-                  p #{comment.comment_txt}
-                  p(class="date") (#{comment.comment_datetime})
-    
-    //add a new post to posts
+        //add a new post to posts
     div
       button(title="New Post" onclick=("openPopup(" + popupParams[0] + "0)")) New Post!
 
@@ -133,6 +29,112 @@ block content
             button Send Post
 
           button(onclick=("closePopup(" + popupParams[0] + "0)")) cancel
+
+  div(id="mainContent")
+
+    //display an unordered list of every post in posts
+    ul(class="postList")
+      each post in posts_data 
+        li 
+
+          div(class="postContainer")
+            //handles the top of a post, i.e. the title and buttons
+            div(class="postTop")
+
+              //delete post button
+              div
+                form(action="/deletePost" method="POST")
+                  //- TODO: *
+                  input(name="deletePost" id=("post" + post.post_id + "Delete") value=post.post_id class="hidden" readonly)
+                  button(title="Delete Post" class="decoratedButton deleteButton")
+
+              //edit post button
+              div
+                button(title="Edit Post" class="decoratedButton editButton" onclick=("openPopup(" + popupParams[1] + post.post_id + ")"))
+
+                //- TODO: **
+                //popup for editing
+                div(class="popupContainer")
+                  div(class="unfocused" id=("unfocused" + popupIDs[1] + post.post_id) onclick=("closePopup(" + popupParams[1] + post.post_id + ")"))
+
+                  div(class="popuptext" id=("popup" + popupIDs[1] + post.post_id))
+                    form(action="/editPost" method="POST")
+                      input(name="editTitle" id="editTitle" value=post.post_title)
+                      textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10") #{post.post_txt}
+
+                      //- TODO: *
+                      input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
+                      button Send Edit
+
+                    button(onclick=("closePopup(" + popupParams[1] + post.post_id + ")")) cancel
+
+              //comment post button
+              div
+                button(title="Comment on this Post" class="decoratedButton commentButton" onclick=("openPopup(" + popupParams[2] + post.post_id + ")"))
+
+                //- TODO: **
+                //popup for commenting
+                div(class="popupContainer")
+                  div(class="unfocused" id=("unfocused" + popupIDs[2] + post.post_id) onclick=("closePopup(" + popupParams[2] + post.post_id + ")"))
+
+                  div(class="popuptext" id=("popup" + popupIDs[2] + post.post_id))  
+                    form(action="/addComment" method="POST")
+                      textarea(name="commentText" id=("post" + post.post_id + "commentText") cols="50", rows="10") New comment text here!
+                      //- TODO: *
+                      input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
+                      button Send Comment
+
+                    button(onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) cancel
+
+              h2(class="postTitle") #{post.post_id} - #{post.post_title}
+
+            p #{post.post_txt}
+            p(class="date") (#{post.post_datetime})
+            if post.post_image != NULL 
+              img(src=("uploads/" + post.post_image) alt=post.post_image class="postImage")
+
+          //display an unordered list of every comment in comments that has a post_id
+          //that matches the post_id of the post it will be rendered underneath
+          ul(class="commentList")
+            each comment in comments_data 
+              if comment.post_id == post.post_id
+                li 
+
+                  div(class="commentContainer")
+                    //handles the top of a comment, i.e. the buttons
+                    div(class="commentTop")
+
+                      //delete comment button
+                      div
+                        form(action="/deleteComment" method="POST")
+                          //TODO: *
+                          input(name="deleteComment" id=("comment" + comment.comment_id + "Delete") value=comment.comment_id class="hidden" readonly)
+                          button(title="Delete Comment" class="decoratedButton deleteButton")
+
+                      //edit comment button
+                      div
+                        button(title="Edit Comment" class="decoratedButton editButton" onclick=("openPopup(" + popupParams[3] + comment.comment_id + ")"))
+
+                        //- TODO: **
+                        //popup for editing
+                        div(class="popupContainer")
+                          div(class="unfocused" id=("unfocused" + popupIDs[3] + comment.comment_id) onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")"))
+
+                          div(class="popuptext" id=("popup" + popupIDs[3] + comment.comment_id))
+                            form(action="/editComment" method="POST")
+                              textarea(name="editText" id=("comment" + comment.comment_id + "editText") cols="50", rows="5") #{comment.comment_txt}
+
+                              //- TODO: *
+                              input(name="editComment" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
+                              button Send Edit
+
+                            button(onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")")) cancel
+
+                      //- TODO
+                      h3(class="postTitle") #{comment.comment_id}
+
+                    p #{comment.comment_txt}
+                    p(class="date") (#{comment.comment_datetime})
 
   //- * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the
   //-     post/comment to index.js except for creating a hidden input with a set, unchanging value that equals post_id/comment_id
