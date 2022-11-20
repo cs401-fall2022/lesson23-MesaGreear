@@ -3,6 +3,7 @@ var router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 
 const DBPath = "./data/databases/mainDB.sqlite3";
+const uploadsPath = "./data/uploads/";
 const getDateTime = () => {return (new Date().toISOString().slice(0, 19).replace('T', ' '))};
 
 /**
@@ -118,19 +119,29 @@ router.post('/addPost', (req, res, next) => {
       }
       else{
         //check if uploaded file is a valid image (.png, .jpg, .gif)
-        var fileType = req.files.postImage.name.slice(req.files.postImage.name.length - 3, req.files.postImage.name.length);
+        var fileName = req.files.postImage.name;
+        var fileType = fileName.slice(fileName.length - 3, fileName.length);
         if(fileType == "png" || fileType == "jpg" || fileType == "gif") {
-          
-          req.files.postImage.mv("./data/uploads/" + req.files.postImage.name, (err) => {
+
+          //account for duplicate names by ending files with '(x)' where x is what number duplicate the file is
+          var fs = require('fs');
+          var dupes = 0;
+
+          fileName = fileName.substring(0, fileName.lastIndexOf(".")) + "(" + dupes + ")." + fileType;
+          while(fs.existsSync(uploadsPath + fileName))
+            fileName = fileName.substring(0, fileName.lastIndexOf(".") - 3) + "(" + ++dupes + ")." + fileType;
+
+          //'move' the file into the uploads folder
+          req.files.postImage.mv(uploadsPath + fileName, (err) => {
             if(err) {
               console.log("Getting error " + err);
               exit(1);
             }
           });
-          console.log("Image '" + req.files.postImage.name + "' uploaded.");
+          console.log("Image '" + fileName + "' uploaded.");
         }
         else{
-          console.log("File '" + req.files.postImage.name + "' is invalid file type '" + fileType + "'");
+          console.log("File '" + fileName + "' is invalid file type '" + fileType + "'");
         }
       }
 
