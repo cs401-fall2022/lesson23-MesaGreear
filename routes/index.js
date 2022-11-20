@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const sqlite3 = require('sqlite3').verbose()
+const sqlite3 = require('sqlite3').verbose();
+
+const DBPath = "./data/databases/mainDB.sqlite3";
+const getDateTime = () => {return (new Date().toISOString().slice(0, 19).replace('T', ' '))};
 
 /**
  * Display the homepage of the website. Renders SQL database information so that it can
@@ -11,13 +14,19 @@ router.get('/', function (req, res, next) {
   console.log("");
   var renderables = {title: "Bug Juice Appreciation Blog", posts_data: [], comments_data: []};
 
-  //create directory for database if it doesn't exist yet (https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
+  //(https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
   var fs = require('fs');
-  var dir = './databases';
+  var dir = './data'; //check that data folder exists
+  if (!fs.existsSync(dir))
+      fs.mkdirSync(dir);
+  var dir = './data/databases'; //check that databases folder exists
+  if (!fs.existsSync(dir))
+      fs.mkdirSync(dir);
+  var dir = './data/uploads'; //check that uploads folder exists
   if (!fs.existsSync(dir))
       fs.mkdirSync(dir);
   
-  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
+  var db = new sqlite3.Database(DBPath,
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
       if (err) {
@@ -94,12 +103,35 @@ router.get('/', function (req, res, next) {
  */
 router.post('/addPost', (req, res, next) => {
   console.log("");
-  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
+  var db = new sqlite3.Database(DBPath,
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
       if (err) {
         console.log("Getting error " + err);
         exit(1);
+      }
+
+      //check if the user uploaded an image
+      //https://stackoverflow.com/questions/23691194/node-express-file-upload
+      if(!req.files){
+        console.log("No image uploaded.");
+      }
+      else{
+        //check if uploaded file is a valid image (.png, .jpg, .gif)
+        var fileType = req.files.postImage.name.slice(req.files.postImage.name.length - 3, req.files.postImage.name.length);
+        if(fileType == "png" || fileType == "jpg" || fileType == "gif") {
+          
+          req.files.postImage.mv("./data/uploads/" + req.files.postImage.name, (err) => {
+            if(err) {
+              console.log("Getting error " + err);
+              exit(1);
+            }
+          });
+          console.log("Image '" + req.files.postImage.name + "' uploaded.");
+        }
+        else{
+          console.log("File '" + req.files.postImage.name + "' is invalid file type '" + fileType + "'");
+        }
       }
 
       //'sanitization' by removing instances of alone single quotes
@@ -109,7 +141,7 @@ router.post('/addPost', (req, res, next) => {
 
       //For getting datetime in sql format - https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
       db.exec(`INSERT INTO posts ( post_title, post_txt, post_datetime )
-                VALUES ( '${title}', '${text}', '${new Date().toISOString().slice(0, 19).replace('T', ' ')}');`);
+                VALUES ( '${title}', '${text}', '${getDateTime()}');`);
 
       res.redirect('/');
     }
@@ -122,7 +154,7 @@ router.post('/addPost', (req, res, next) => {
  */
  router.post('/addComment', (req, res, next) => {
   console.log("");
-  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
+  var db = new sqlite3.Database(DBPath,
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
       if (err) {
@@ -135,7 +167,7 @@ router.post('/addPost', (req, res, next) => {
       console.log("inserting \"" + text + "\" under post " + req.body.commentPost + " into comments");
 
       db.exec(`INSERT INTO comments ( comment_txt, comment_datetime, post_id )
-                VALUES ('${text}', '${new Date().toISOString().slice(0, 19).replace('T', ' ')}', ${req.body.commentPost});`);
+                VALUES ('${text}', '${getDateTime()}', ${req.body.commentPost});`);
 
       res.redirect('/');
     }
@@ -149,7 +181,7 @@ router.post('/addPost', (req, res, next) => {
  */
  router.post('/editPost', (req, res, next) => {
   console.log("");
-  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
+  var db = new sqlite3.Database(DBPath,
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
       if (err) {
@@ -165,7 +197,7 @@ router.post('/addPost', (req, res, next) => {
       db.exec(`UPDATE posts
                 SET post_title = '${title}',
                     post_txt = '${text}',
-                    post_datetime = '${new Date().toISOString().slice(0, 19).replace('T', ' ')}'
+                    post_datetime = '${getDateTime()}'
                 WHERE post_id = ${req.body.editPost};`);
 
       res.redirect('/');
@@ -180,7 +212,7 @@ router.post('/addPost', (req, res, next) => {
  */
  router.post('/editComment', (req, res, next) => {
   console.log("");
-  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
+  var db = new sqlite3.Database(DBPath,
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
       if (err) {
@@ -194,7 +226,7 @@ router.post('/addPost', (req, res, next) => {
 
       db.exec(`UPDATE comments
                 SET comment_txt = '${text}',
-                    comment_datetime = '${new Date().toISOString().slice(0, 19).replace('T', ' ')}'
+                    comment_datetime = '${getDateTime()}'
                 WHERE comment_id = ${req.body.editComment};`);
 
       res.redirect('/');
@@ -207,7 +239,7 @@ router.post('/addPost', (req, res, next) => {
  */
 router.post('/deletePost', (req, res, next) => {
   console.log("");
-  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
+  var db = new sqlite3.Database(DBPath,
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
       if (err) {
@@ -239,7 +271,7 @@ router.post('/deletePost', (req, res, next) => {
  */
  router.post('/deleteComment', (req, res, next) => {
   console.log("");
-  var db = new sqlite3.Database('./databases/db_PostsComments.sqlite3',
+  var db = new sqlite3.Database(DBPath,
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
       if (err) {

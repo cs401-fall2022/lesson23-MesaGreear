@@ -122,9 +122,11 @@ block content
         div(class="unfocused" id=("unfocused" + popupIDs[0] + "0") onclick=("closePopup(" + popupParams[0] + "0)"))
 
         div(class="popuptext" id=("popup" + popupIDs[0] + "0"))  
-          form(action="/addPost" method="POST")
+          form(action="/addPost" method="POST" enctype="multipart/form-data")
             input(name="postTitle" id="postTitle" value="New post title here!")
             textarea(name="postText" id="postText" cols="50", rows="10") New post text here!
+            //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers
+            input(name="postImage" id="postImage" type="file" accept=".png, .jpg, ,.gif")
             
             button Send Post
 

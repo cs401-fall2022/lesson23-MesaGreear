@@ -1,18 +1,31 @@
-
-/**
- * Upon loading the page, all dates will get translated from their stored UTC
- * time in the database to the local time of the machine running the client
- * side.
- * 
- * https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
- */
+//work to perform once page is finished loading
 window.onload = () => {
+    /**
+     * Translate all dates from their stored UTC time in the database to the
+     * local time of the machine running the client side.
+     * 
+     * https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
+     */
     Array.from(document.getElementsByClassName("date")).forEach (element => {
         
         var date = new Date(element.innerHTML.replace(' ', 'T').replace('(', '').replace(')', '')); //translate string to date object
         var localOffset = (new Date()).getTimezoneOffset() * 60000 * 2; //offset in milliseconds, * 2 to 'cancel out' compensation caused by line above's constructor
         element.innerHTML = "(" + (new Date(date.getTime() - localOffset)).toISOString().slice(0, -5).replace('T', ' ') + ")";
     });
+
+    /**
+     * Alerts the user when they attempt to upload a image that exceeds the max
+     * size of 512kB.
+     * 
+     * https://stackoverflow.com/questions/5697605/limit-the-size-of-a-file-upload-html-input-element
+     */
+    var postImage = document.getElementById("postImage");
+    postImage.onchange = () =>{
+        if(postImage.files[0].size > (1024 * 512)){
+            alert("Image '" + postImage.files[0].name + "' exceeds max size of 512kB!");
+            postImage.value = "";
+        };
+    };
 }
 
 /**
