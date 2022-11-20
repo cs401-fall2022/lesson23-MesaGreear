@@ -121,32 +121,26 @@ router.post('/addPost', (req, res, next) => {
         console.log("No image uploaded.");
       }
       else{
-        //check if uploaded file is a valid image (.png, .jpg, .gif)
+
         fileName = req.files.postImage.name;
         var fileType = fileName.slice(fileName.length - 3, fileName.length);
-        if(fileType == "png" || fileType == "jpg" || fileType == "gif") {
 
-          //account for duplicate names by ending files with '(x)' where x is what number duplicate the file is
-          var fs = require('fs');
-          var dupes = 0;
+        //account for duplicate names by ending files with '(x)' where x is what number duplicate the file is
+        var fs = require('fs');
+        var dupes = 0;
 
-          fileName = fileName.substring(0, fileName.lastIndexOf(".")) + "(" + dupes + ")." + fileType;
-          while(fs.existsSync(uploadsPath + fileName))
-            fileName = fileName.substring(0, fileName.lastIndexOf(".") - 3) + "(" + ++dupes + ")." + fileType;
+        fileName = fileName.substring(0, fileName.lastIndexOf(".")) + "(" + dupes + ")." + fileType;
+        while(fs.existsSync(uploadsPath + fileName))
+          fileName = fileName.substring(0, fileName.lastIndexOf(".") - 3) + "(" + ++dupes + ")." + fileType;
 
-          //'move' the file into the uploads folder
-          req.files.postImage.mv(uploadsPath + fileName, (err) => {
-            if(err) {
-              console.log("Getting error " + err);
-              exit(1);
-            }
-          });
-          console.log("Image '" + fileName + "' uploaded.");
-        }
-        else{
-          console.log("File '" + fileName + "' is invalid file type '" + fileType + "'");
-          fileName = null;
-        }
+        //'move' the file into the uploads folder
+        req.files.postImage.mv(uploadsPath + fileName, (err) => {
+          if(err) {
+            console.log("Getting error " + err);
+            exit(1);
+          }
+        });
+        console.log("Image '" + fileName + "' uploaded.");
       }
 
       //'sanitization' by removing instances of alone single quotes
@@ -226,31 +220,26 @@ router.post('/addPost', (req, res, next) => {
 
         //if the file field is not empty, upload the new image
         if(req.files){
-          //check if uploaded file is a valid image (.png, .jpg, .gif)
+
           fileName = req.files.editImage.name;
           var fileType = fileName.slice(fileName.length - 3, fileName.length);
-          if(fileType == "png" || fileType == "jpg" || fileType == "gif") {
   
-            //account for duplicate names by ending files with '(x)' where x is what number duplicate the file is
-            var dupes = 0;
-  
-            fileName = fileName.substring(0, fileName.lastIndexOf(".")) + "(" + dupes + ")." + fileType;
-            while(fs.existsSync(uploadsPath + fileName))
-              fileName = fileName.substring(0, fileName.lastIndexOf(".") - 3) + "(" + ++dupes + ")." + fileType;
-  
-            //'move' the file into the uploads folder
-            req.files.editImage.mv(uploadsPath + fileName, (err) => {
-              if(err) {
-                console.log("Getting error " + err);
-                exit(1);
-              }
-            });
-            console.log("Image '" + fileName + "' uploaded.");
-          }
-          else{
-            console.log("File '" + fileName + "' is invalid file type '" + fileType + "'");
-            fileName = null;
-          }
+          //account for duplicate names by ending files with '(x)' where x is what number duplicate the file is
+          var dupes = 0;
+
+          fileName = fileName.substring(0, fileName.lastIndexOf(".")) + "(" + dupes + ")." + fileType;
+          while(fs.existsSync(uploadsPath + fileName))
+            fileName = fileName.substring(0, fileName.lastIndexOf(".") - 3) + "(" + ++dupes + ")." + fileType;
+
+          //'move' the file into the uploads folder
+          req.files.editImage.mv(uploadsPath + fileName, (err) => {
+            if(err) {
+              console.log("Getting error " + err);
+              exit(1);
+            }
+          });
+          console.log("Image '" + fileName + "' uploaded.");
+          
         }
       }
       else{
