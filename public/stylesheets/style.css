@@ -89,12 +89,12 @@ h1{
 .decoratedButton{
   background-size: 85%;
   background-repeat: no-repeat;
-  background-color: antiquewhite;
+  background-color: inherit;
   background-position: center;
   position: relative;
   width: 40px;
   height: 40px;
-  border: black solid 3px;
+  border: transparent solid 3px;
   border-radius: 7px;
 }
 
@@ -110,18 +110,30 @@ h1{
 
 /* Delete Buttons appearance */
 .deleteButton {
-  background-image: url(/images/deleteIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+  background-image: url(/images/mutedDeleteIcon.png); /* https://www.w3schools.com/cssref/pr_background-image.php */
+}
+
+.deleteButton:hover {
+  background-image: url(/images/deleteIcon.png);
   border-color: darkred;
 }
 
 /* Comment Buttons appearance */
 .commentButton {
+  background-image: url(/images/mutedCommentIcon.png);
+}
+
+.commentButton:hover {
   background-image: url(/images/commentIcon.png);
   border-color: cornflowerblue;
 }
 
 /* Edit Buttons appearance */
 .editButton {
+  background-image: url(/images/mutedEditIcon.png);
+}
+
+.editButton:hover {
   background-image: url(/images/editIcon.png);
   border-color: goldenrod;
 }
