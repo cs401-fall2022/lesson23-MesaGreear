@@ -62,7 +62,7 @@ router.get('/', function (req, res, next) {
             //create tables for posts and comments
             db.exec(`CREATE TABLE IF NOT EXISTS posts (
                      post_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                     post_title VARCHAR(100) NOT NULL,
+                     post_title TEXT NOT NULL,
                      post_txt TEXT NOT NULL,
                      post_image TEXT,
                      post_datetime DATETIME NOT NULL);

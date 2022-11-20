@@ -21,7 +21,7 @@ block content
 
         div(class="popuptext" id=("popup" + popupIDs[0] + "0"))  
           form(action="/addPost" method="POST" enctype="multipart/form-data")
-            input(name="postTitle" id="postTitle" value="New post title here!" required)
+            input(name="postTitle" id="postTitle" value="New post title here!" maxlength="100" required)
             textarea(name="postText" id="postText" cols="50", rows="10" required) New post text here!
             //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers
             input(name="postImage" id="postImage" type="file" accept=".png, .jpg, ,.gif")
@@ -59,7 +59,7 @@ block content
 
                   div(class="popuptext" id=("popup" + popupIDs[1] + post.post_id))
                     form(action="/editPost" method="POST")
-                      input(name="editTitle" id="editTitle" value=post.post_title required)
+                      input(name="editTitle" id="editTitle" value=post.post_title maxlength="100" required)
                       textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10" required) #{post.post_txt}
 
                       //- TODO: *
