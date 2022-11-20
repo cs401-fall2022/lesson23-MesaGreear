@@ -21,8 +21,8 @@ block content
 
         div(class="popuptext" id=("popup" + popupIDs[0] + "0"))  
           form(action="/addPost" method="POST" enctype="multipart/form-data")
-            input(name="postTitle" id="postTitle" value="New post title here!")
-            textarea(name="postText" id="postText" cols="50", rows="10") New post text here!
+            input(name="postTitle" id="postTitle" value="New post title here!" required)
+            textarea(name="postText" id="postText" cols="50", rows="10" required) New post text here!
             //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers
             input(name="postImage" id="postImage" type="file" accept=".png, .jpg, ,.gif")
             
@@ -59,8 +59,8 @@ block content
 
                   div(class="popuptext" id=("popup" + popupIDs[1] + post.post_id))
                     form(action="/editPost" method="POST")
-                      input(name="editTitle" id="editTitle" value=post.post_title)
-                      textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10") #{post.post_txt}
+                      input(name="editTitle" id="editTitle" value=post.post_title required)
+                      textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10" required) #{post.post_txt}
 
                       //- TODO: *
                       input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
@@ -79,7 +79,8 @@ block content
 
                   div(class="popuptext" id=("popup" + popupIDs[2] + post.post_id))  
                     form(action="/addComment" method="POST")
-                      textarea(name="commentText" id=("post" + post.post_id + "commentText") cols="50", rows="10") New comment text here!
+                      textarea(name="commentText" id=("post" + post.post_id + "commentText") cols="50", rows="10" required) New comment text here!
+
                       //- TODO: *
                       input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
                       button Send Comment
@@ -122,7 +123,7 @@ block content
 
                           div(class="popuptext" id=("popup" + popupIDs[3] + comment.comment_id))
                             form(action="/editComment" method="POST")
-                              textarea(name="editText" id=("comment" + comment.comment_id + "editText") cols="50", rows="5") #{comment.comment_txt}
+                              textarea(name="editText" id=("comment" + comment.comment_id + "editText") cols="50", rows="5" required) #{comment.comment_txt}
 
                               //- TODO: *
                               input(name="editComment" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
