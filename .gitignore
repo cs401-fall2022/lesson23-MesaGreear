@@ -3,6 +3,7 @@ node_modules
 
 #data specific to server/doesn't need to be saved via git
 data
+public/uploads
 
 #workspace specific settings
 .vscode

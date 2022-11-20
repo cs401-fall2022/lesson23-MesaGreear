@@ -3,7 +3,8 @@ var router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 
 const DBPath = "./data/databases/mainDB.sqlite3";
-const uploadsPath = "./data/uploads/";
+const uploadsPath = "./public/uploads/";
+//For getting datetime in sql format - https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
 const getDateTime = () => {return (new Date().toISOString().slice(0, 19).replace('T', ' '))};
 
 /**
@@ -23,7 +24,7 @@ router.get('/', function (req, res, next) {
   var dir = './data/databases'; //check that databases folder exists
   if (!fs.existsSync(dir))
       fs.mkdirSync(dir);
-  var dir = './data/uploads'; //check that uploads folder exists
+  var dir = './public/uploads'; //check that uploads folder exists
   if (!fs.existsSync(dir))
       fs.mkdirSync(dir);
   
@@ -43,7 +44,7 @@ router.get('/', function (req, res, next) {
           if (rows.length === 2) {
             console.log("Table exists!");
             //render and log posts & comments tables
-            db.all(` SELECT post_id, post_title, post_txt, post_datetime FROM posts`, (err, posts_rows) => {
+            db.all(` SELECT post_id, post_title, post_txt, post_image, post_datetime FROM posts`, (err, posts_rows) => {
               console.log("returning " + posts_rows.length + " records for posts");
               db.all(` SELECT comment_id, comment_txt, comment_datetime, post_id FROM comments`, (err, comments_rows) => {
                 console.log("returning " + comments_rows.length + " records for comments");
@@ -63,6 +64,7 @@ router.get('/', function (req, res, next) {
                      post_id INTEGER PRIMARY KEY AUTOINCREMENT,
                      post_title VARCHAR(100) NOT NULL,
                      post_txt TEXT NOT NULL,
+                     post_image TEXT,
                      post_datetime DATETIME NOT NULL);
 
                      INSERT INTO posts (post_title, post_txt, post_datetime)
@@ -84,7 +86,7 @@ router.get('/', function (req, res, next) {
                              ('Please be patient, there are things wrong with my brain', '2022-11-17 23:21:25', 2);`,
               () => {
                 //render new posts & comments tables
-                db.all(` SELECT post_id, post_title, post_txt, post_datetime FROM posts`, (err, posts_rows) => {
+                db.all(` SELECT post_id, post_title, post_txt, post_image, post_datetime FROM posts`, (err, posts_rows) => {
                   db.all(` SELECT comment_id, comment_txt, comment_datetime, post_id FROM comments`, (err, comments_rows) => {
 
                     renderables.posts_data = posts_rows;
@@ -114,12 +116,13 @@ router.post('/addPost', (req, res, next) => {
 
       //check if the user uploaded an image
       //https://stackoverflow.com/questions/23691194/node-express-file-upload
+      var fileName = null;
       if(!req.files){
         console.log("No image uploaded.");
       }
       else{
         //check if uploaded file is a valid image (.png, .jpg, .gif)
-        var fileName = req.files.postImage.name;
+        fileName = req.files.postImage.name;
         var fileType = fileName.slice(fileName.length - 3, fileName.length);
         if(fileType == "png" || fileType == "jpg" || fileType == "gif") {
 
@@ -142,6 +145,7 @@ router.post('/addPost', (req, res, next) => {
         }
         else{
           console.log("File '" + fileName + "' is invalid file type '" + fileType + "'");
+          fileName = null;
         }
       }
 
@@ -150,9 +154,13 @@ router.post('/addPost', (req, res, next) => {
       var text = req.body.postText.replace(/'/g, "''");
       console.log("inserting new post \"" + title + "\": \"" + text + "\" into posts");
 
-      //For getting datetime in sql format - https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
-      db.exec(`INSERT INTO posts ( post_title, post_txt, post_datetime )
+      if(fileName)
+        db.exec(`INSERT INTO posts ( post_title, post_txt, post_image, post_datetime )
+                VALUES ( '${title}', '${text}', '${fileName}', '${getDateTime()}');`);
+      else
+        db.exec(`INSERT INTO posts ( post_title, post_txt, post_datetime )
                 VALUES ( '${title}', '${text}', '${getDateTime()}');`);
+      
 
       res.redirect('/');
     }
@@ -246,7 +254,8 @@ router.post('/addPost', (req, res, next) => {
 })
 
 /**
- * Deletes the post that this delete request was associated with.
+ * Deletes the post that this delete request was associated with. Also deletes the image file associated
+ * with this post if it has one.
  */
 router.post('/deletePost', (req, res, next) => {
   console.log("");
@@ -257,6 +266,7 @@ router.post('/deletePost', (req, res, next) => {
         console.log("Getting error " + err);
         exit(1);
       }
+
       //log what post is being deleted and the comments that are going with it
       db.all(`SELECT comment_id FROM comments WHERE post_id = ${req.body.deletePost};`, (err, commentIDs) => {
         var log = "Deleting post " + req.body.deletePost;
@@ -268,6 +278,17 @@ router.post('/deletePost', (req, res, next) => {
           log = log.slice(0, log.length - 2);
         }
         console.log(log);
+      });
+
+      //delete and log the post's image if it has one
+      db.all(`SELECT post_image FROM posts WHERE post_id = ${req.body.deletePost};`, (err, image) => {
+        if(image[0].post_image){
+          var fs = require('fs');
+          fs.unlinkSync(uploadsPath + image[0].post_image);
+          console.log("Image '" + image[0].post_image + "' deleted");
+        }
+        else
+          console.log("No image deleted");
       });
 
       db.all(`PRAGMA foreign_keys = ON;`); //use of foreign keys to CASCADE DELETE all comments linked to this post

@@ -45,6 +45,11 @@ h1{
   border-radius: 100%;
 }
 
+.postImage{
+  max-width: 40%;
+  max-height: 40%;
+}
+
 .postList > li {
   background-color: white;
   list-style: none;

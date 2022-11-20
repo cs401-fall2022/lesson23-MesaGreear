@@ -69,6 +69,8 @@ block content
 
           p #{post.post_txt}
           p(class="date") (#{post.post_datetime})
+          if post.post_image != NULL 
+            img(src=("uploads/" + post.post_image) alt=post.post_image class="postImage")
 
           //display an unordered list of every comment in comments that has a post_id
           //that matches the post_id of the post it will be rendered underneath
