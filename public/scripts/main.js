@@ -19,13 +19,14 @@ window.onload = () => {
      * 
      * https://stackoverflow.com/questions/5697605/limit-the-size-of-a-file-upload-html-input-element
      */
-    var postImage = document.getElementById("postImage");
-    postImage.onchange = () =>{
-        if(postImage.files[0].size > (1024 * 512)){
-            alert("Image '" + postImage.files[0].name + "' exceeds max size of 512kB!");
-            postImage.value = "";
+    Array.from(document.getElementsByClassName("imageUpload")).forEach (element => {
+        element.onchange = () =>{
+            if(element.files[0].size > (1024 * 512)){
+                alert("Image '" + element.files[0].name + "' exceeds max size of 512kB!");
+                element.value = "";
+            };
         };
-    };
+    });
 }
 
 /**
@@ -60,4 +61,14 @@ function closePopup(change, type, id) {
     Array.from(document.getElementsByClassName("decoratedButton")).forEach (element => {
         element.classList.remove("decoratedButtonDeactivate");
     });
+}
+
+/**
+ * Toggles the visibility of the file submission input field on the given post's
+ * edit popup.
+ * 
+ * @param {int} id 
+ */
+function toggleEditImageSubmission(id) {
+    document.getElementById(("post" + id + "editImage")).classList.toggle("hidden");
 }

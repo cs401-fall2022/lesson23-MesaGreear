@@ -24,7 +24,7 @@ block content
             input(name="postTitle" id="postTitle" value="New post title here!" maxlength="100" required)
             textarea(name="postText" id="postText" cols="50", rows="10" required) New post text here!
             //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers
-            input(name="postImage" id="postImage" type="file" accept=".png, .jpg, ,.gif")
+            input(name="postImage" id="postImage" class="imageUpload" type="file" accept=".png, .jpg, ,.gif")
             
             button Send Post
 
@@ -58,9 +58,12 @@ block content
                   div(class="unfocused" id=("unfocused" + popupIDs[1] + post.post_id) onclick=("closePopup(" + popupParams[1] + post.post_id + ")"))
 
                   div(class="popuptext" id=("popup" + popupIDs[1] + post.post_id))
-                    form(action="/editPost" method="POST")
-                      input(name="editTitle" id="editTitle" value=post.post_title maxlength="100" required)
+                    form(action="/editPost" method="POST" enctype="multipart/form-data")
+                      input(name="editTitle" id=("post" + post.post_id + "editTitle") value=post.post_title maxlength="100" required)
                       textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10" required) #{post.post_txt}
+                      label(for="editImageCheck") Change image? If checked and no image is given, then previous image will be deleted
+                      input(name="editImageCheck" id=("post" + post.post_id) + "editImageCheck" class="editImageCheck" type="checkbox" onclick="toggleEditImageSubmission(" + post.post_id + ")")
+                      input(name="editImage" id=("post" + post.post_id + "editImage") class="imageUpload hidden" value=post.post_image type="file" accept=".png, .jpg, ,.gif")
 
                       //- TODO: *
                       input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)

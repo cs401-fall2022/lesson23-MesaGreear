@@ -152,7 +152,7 @@ h1{
   border-color: goldenrod;
 }
 
-/* For the really bad solution, more info in index.pug */
+/* Hides whatever element it's attached to */
 .hidden {
   display: none;
 }

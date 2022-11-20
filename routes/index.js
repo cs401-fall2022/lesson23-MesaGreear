@@ -208,16 +208,74 @@ router.post('/addPost', (req, res, next) => {
         exit(1);
       }
 
+      //check if the user requested a change in image
+      var fileName = null;
+      if(req.body.editImageCheck){
+
+        var fs = require('fs');
+
+        //delete the old image, if it exists, associated with this post
+        db.all(`SELECT post_image FROM posts WHERE post_id = ${req.body.editPost};`, (err, image) => {
+          if(image[0].post_image){
+            fs.unlinkSync(uploadsPath + image[0].post_image);
+            console.log("Image '" + image[0].post_image + "' deleted");
+          }
+          else
+            console.log("There was no previous image to delete");
+        });
+
+        //if the file field is not empty, upload the new image
+        if(req.files){
+          //check if uploaded file is a valid image (.png, .jpg, .gif)
+          fileName = req.files.editImage.name;
+          var fileType = fileName.slice(fileName.length - 3, fileName.length);
+          if(fileType == "png" || fileType == "jpg" || fileType == "gif") {
+  
+            //account for duplicate names by ending files with '(x)' where x is what number duplicate the file is
+            var dupes = 0;
+  
+            fileName = fileName.substring(0, fileName.lastIndexOf(".")) + "(" + dupes + ")." + fileType;
+            while(fs.existsSync(uploadsPath + fileName))
+              fileName = fileName.substring(0, fileName.lastIndexOf(".") - 3) + "(" + ++dupes + ")." + fileType;
+  
+            //'move' the file into the uploads folder
+            req.files.editImage.mv(uploadsPath + fileName, (err) => {
+              if(err) {
+                console.log("Getting error " + err);
+                exit(1);
+              }
+            });
+            console.log("Image '" + fileName + "' uploaded.");
+          }
+          else{
+            console.log("File '" + fileName + "' is invalid file type '" + fileType + "'");
+            fileName = null;
+          }
+        }
+      }
+      else{
+        console.log("No change in Image requested");
+      }
+
       //'sanitization' by removing instances of alone single quotes
       var title = req.body.editTitle.replace(/'/g, "''");
       var text = req.body.editText.replace(/'/g, "''");
       console.log("editing post " + req.body.editPost + " to new text \"" + title + "\": \"" + text + "\"");
 
-      db.exec(`UPDATE posts
-                SET post_title = '${title}',
-                    post_txt = '${text}',
-                    post_datetime = '${getDateTime()}'
-                WHERE post_id = ${req.body.editPost};`);
+      //only update the image field if a change in image was requested
+      if(req.body.editImageCheck)
+        db.exec(`UPDATE posts
+                  SET post_title = '${title}',
+                      post_txt = '${text}',
+                      post_image = ${(fileName != null ? "'" + fileName + "'" : "NULL")},
+                      post_datetime = '${getDateTime()}'
+                  WHERE post_id = ${req.body.editPost};`);
+      else
+        db.exec(`UPDATE posts
+                  SET post_title = '${title}',
+                      post_txt = '${text}',
+                      post_datetime = '${getDateTime()}'
+                  WHERE post_id = ${req.body.editPost};`);
 
       res.redirect('/');
     }
