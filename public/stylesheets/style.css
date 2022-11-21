@@ -18,6 +18,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+/* Left side nav bar appearance */
 nav {
   position: absolute;
   top: 0px;
@@ -27,16 +28,12 @@ nav {
   background-color: var(--darkestGray);
 }
 
-h1{
+h1 {
   margin: 10% 0px;
   color: white;
 }
 
-#mainContent{
-  margin-left: 12%; /* 'gives' left side of screen to nav bar */
-}
-
-#logo{
+#logo {
   position: relative;
   top: 2%;
   left: 1vw;
@@ -47,22 +44,19 @@ h1{
   border-radius: 100%;
 }
 
-.postImage{
-  max-width: 40%;
-  max-height: 40%;
+/* Container for all content except what is inside nav bar */
+#mainContainer {
+  margin-left: 12%; /* 'gives' left side of screen to nav bar */
+}
+
+/* Remove ul styling */
+.postList {
+  padding: 0px;
 }
 
 .postList > li {
   list-style: none;
-  margin: 20px 0px;
-  padding: 5px;
-}
-
-.postContainer {
-  padding: 5px;
-  background-color: darkgray;
-  border: purple solid 3px;
-  border-radius: 15px;
+  padding: 15px 0px;
 }
 
 .commentList > li {
@@ -71,31 +65,62 @@ h1{
 
 }
 
-.commentContainer{
+/* Styling for each individual post and comment block */
+.postContainer {
+  padding: 5px;
+  background-color: darkgray;
+  border: purple solid 3px;
+  border-radius: 15px;
+}
+
+.commentContainer {
   padding: 3px;
   background-color: lightgray;
   border: mediumslateblue solid 3px;
   border-radius: 15px;
 }
 
-/* Elements at the top of a post and comment are a flexbox
-   TODO: can maybe combine both classes in future*/
-.postTop {
+/* Styling for metadata (id and datetime) */
+.metadata {
+  opacity: 0.8;
+  padding: 2px;
+  font: 13px "Courier New";
+  font-style: italic;
+}
+
+.metadata:hover {
+  opacity: 1;
+  background-color:aliceblue;
+  font-weight: bolder;
+  border-radius: 5px;
+}
+
+/* Elements at the top of a post and comment are a flexbox*/
+.contentTop {
   display: flex;
   flex-direction: row-reverse;
   gap: 0px;
-  margin: 5px;
 }
 
-.commentTop {
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 0px;
-  margin: 5px;
+/* Force content in a flexbox to the far left */
+.flexboxForceLeft {
+  margin: 0px auto 0px 0px;
 }
 
+/* The main content of a post or comment block */
+.contentMain {
+  margin: 15px;
+}
+
+/* Makes metadata rest close to the top of the title */
 .postTitle {
-  margin: auto auto auto 0px;
+  margin: 3px 5px;
+}
+
+/* Post image styling */
+.postImage {
+  max-width: 40%;
+  max-height: 40%;
 }
 
 /* Rules all 'fancy'/'decorated' buttons follow */
@@ -159,7 +184,7 @@ h1{
 
 /* Popup appearance - https://www.w3schools.com/howto/howto_js_popup.asp */
 /* Popup container */
-.popupContainer{
+.popupContainer {
   position: fixed;
   top: 80%;
   left: 25%;
@@ -195,7 +220,7 @@ h1{
 }
 
 /* The layer that applies to the background, 'unfocusing' everything but the popup */
-.unfocused{
+.unfocused {
   visibility: hidden;
   position: fixed;
   top: 0px;
@@ -212,6 +237,7 @@ h1{
   visibility: visible;
   animation: popupFadeIn 0.5s
 }
+
 .unfocusedShow {
   visibility: visible;
   animation: unfocusedFadeIn 0.5s

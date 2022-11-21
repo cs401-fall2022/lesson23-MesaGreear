@@ -262,7 +262,7 @@ router.post('/addPost', (req, res, next) => {
         db.exec(`UPDATE posts
                   SET post_title = '${title}',
                       post_txt = '${text}',
-                      post_image = ${(fileName != null ? "'" + fileName + "'" : "NULL")},
+                      post_image = ${(fileName ? "'" + fileName + "'" : "NULL") /*Tern Op because setting field to null in SQLite requires special keyword*/},
                       post_datetime = '${getDateTime()}'
                   WHERE post_id = ${req.body.editPost};`);
       else

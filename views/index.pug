@@ -5,6 +5,7 @@ block content
   - const popupIDs    = ["0_0_", "0_1_", "1_0_", "1_1_"]
   - const popupParams = ["0,0,", "0,1,", "1,0,", "1,1,"]
 
+  //left side navigation bar
   nav
     img(src="/images/buggin.png" alt="buggin.png" id="logo")
     h1 #{title}!
@@ -30,7 +31,8 @@ block content
 
           button(onclick=("closePopup(" + popupParams[0] + "0)")) cancel
 
-  div(id="mainContent")
+  //everything but what's inside the nav bar
+  div(id="mainContainer")
 
     //display an unordered list of every post in posts
     ul(class="postList")
@@ -38,8 +40,8 @@ block content
         li 
 
           div(class="postContainer")
-            //handles the top of a post, i.e. the title and buttons
-            div(class="postTop")
+            //handles the top of a post, i.e. the title, metadata, and buttons
+            div(class="contentTop")
 
               //delete post button
               div
@@ -90,12 +92,17 @@ block content
 
                     button(onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) cancel
 
-              h2(class="postTitle") #{post.post_id} - #{post.post_title}
+              //force the title and meta data to the far left of the flexbox
+              div(class="flexboxForceLeft")
+                span(class="metadata" title="[post_id] - [post_datetime]") ##{post.post_id} - 
+                  span(class="date") #{post.post_datetime}
+                h2(class="postTitle") #{post.post_title}
 
-            p #{post.post_txt}
-            p(class="date") (#{post.post_datetime})
-            if post.post_image != NULL 
-              img(src=("uploads/" + post.post_image) alt=post.post_image class="postImage")
+            //handles the main content of a post, i.e. the image (if it has one) and text
+            div(class="contentMain")
+              p #{post.post_txt}
+              if post.post_image != NULL 
+                img(src=("uploads/" + post.post_image) alt=post.post_image class="postImage")
 
           //display an unordered list of every comment in comments that has a post_id
           //that matches the post_id of the post it will be rendered underneath
@@ -105,8 +112,9 @@ block content
                 li 
 
                   div(class="commentContainer")
-                    //handles the top of a comment, i.e. the buttons
-                    div(class="commentTop")
+
+                    //handles the top of a comment, i.e. the metadata and buttons
+                    div(class="contentTop")
 
                       //delete comment button
                       div
@@ -134,11 +142,14 @@ block content
 
                             button(onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")")) cancel
 
-                      //- TODO
-                      h3(class="postTitle") #{comment.comment_id}
-
-                    p #{comment.comment_txt}
-                    p(class="date") (#{comment.comment_datetime})
+                      //force the meta data to the far left of the flexbox
+                      div(class="flexboxForceLeft")
+                        span(class="metadata" title="[comment_id] - [comment_datetime]") ##{comment.comment_id} - 
+                          span(class="date") #{comment.comment_datetime}
+                    
+                    //handles the main content of a comment, i.e. the text
+                    div(class="contentMain")
+                      p #{comment.comment_txt}
 
   //- * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the
   //-     post/comment to index.js except for creating a hidden input with a set, unchanging value that equals post_id/comment_id
