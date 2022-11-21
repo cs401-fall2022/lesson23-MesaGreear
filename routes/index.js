@@ -210,12 +210,18 @@ router.post('/addPost', (req, res, next) => {
 
         //delete the old image, if it exists, associated with this post
         db.all(`SELECT post_image FROM posts WHERE post_id = ${req.body.editPost};`, (err, image) => {
-          if(image[0].post_image){
-            fs.unlinkSync(uploadsPath + image[0].post_image);
-            console.log("Image '" + image[0].post_image + "' deleted");
+          try {
+            if(image[0].post_image){
+              fs.unlinkSync(uploadsPath + image[0].post_image);
+              console.log("Image '" + image[0].post_image + "' deleted");
+            }
+            else {
+              console.log("There was no previous image to delete");
+            }
           }
-          else
-            console.log("There was no previous image to delete");
+          catch(e) {
+            console.log("Exception thrown: likely cause is the image associated with this post was deleted prematurely or is just missing");
+          }
         });
 
         //if the file field is not empty, upload the new image
@@ -328,15 +334,21 @@ router.post('/deletePost', (req, res, next) => {
       });
 
       //delete and log the post's image if it has one
-      db.all(`SELECT post_image FROM posts WHERE post_id = ${req.body.deletePost};`, (err, image) => {
-        if(image[0].post_image){
-          var fs = require('fs');
-          fs.unlinkSync(uploadsPath + image[0].post_image);
-          console.log("Image '" + image[0].post_image + "' deleted");
-        }
-        else
-          console.log("No image deleted");
-      });
+        db.all(`SELECT post_image FROM posts WHERE post_id = ${req.body.deletePost};`, (err, image) => {
+          try {
+            if(image[0].post_image){
+              var fs = require('fs');
+              fs.unlinkSync(uploadsPath + image[0].post_image);
+              console.log("Image '" + image[0].post_image + "' deleted");
+            }
+            else {
+              console.log("No image deleted");
+            }
+          }
+          catch(e) {
+            console.log("Exception thrown: likely cause is the image associated with this post was deleted prematurely or is just missing");
+          }
+        });
 
       db.all(`PRAGMA foreign_keys = ON;`); //use of foreign keys to CASCADE DELETE all comments linked to this post
       db.exec(`DELETE FROM posts WHERE post_id='${req.body.deletePost}';`);       

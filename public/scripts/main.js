@@ -77,7 +77,7 @@ function closePopup(change, type, id) {
  * Toggles the visibility of the file submission input field on the given post's
  * edit popup.
  * 
- * @param {int} id 
+ * @param {int} id - post_id of the edit request
  */
 function toggleEditImageSubmission(id) {
     document.getElementById(("post" + id + "editImage")).classList.toggle("hidden");
