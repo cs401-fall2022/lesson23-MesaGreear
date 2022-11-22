@@ -20,7 +20,7 @@ block content
       div(class="popupContainer")
         div(class="unfocused" id=("unfocused" + popupIDs[0] + "0") onclick=("closePopup(" + popupParams[0] + "0)"))
 
-        div(class="popuptext" id=("popup" + popupIDs[0] + "0"))  
+        div(class="popup" id=("popup" + popupIDs[0] + "0"))  
           form(action="/addPost" method="POST" enctype="multipart/form-data")
             input(name="postTitle" id="postTitle" value="New post title here!" maxlength="100" required)
             textarea(name="postText" id="postText" cols="50", rows="10" required) New post text here!
@@ -59,7 +59,7 @@ block content
                 div(class="popupContainer")
                   div(class="unfocused" id=("unfocused" + popupIDs[1] + post.post_id) onclick=("closePopup(" + popupParams[1] + post.post_id + ")"))
 
-                  div(class="popuptext" id=("popup" + popupIDs[1] + post.post_id))
+                  div(class="popup" id=("popup" + popupIDs[1] + post.post_id))
                     form(action="/editPost" method="POST" enctype="multipart/form-data")
                       input(name="editTitle" id=("post" + post.post_id + "editTitle") value=post.post_title maxlength="100" required)
                       textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10" required) #{post.post_txt}
@@ -82,7 +82,7 @@ block content
                 div(class="popupContainer")
                   div(class="unfocused" id=("unfocused" + popupIDs[2] + post.post_id) onclick=("closePopup(" + popupParams[2] + post.post_id + ")"))
 
-                  div(class="popuptext" id=("popup" + popupIDs[2] + post.post_id))  
+                  div(class="popup" id=("popup" + popupIDs[2] + post.post_id))  
                     form(action="/addComment" method="POST")
                       textarea(name="commentText" id=("post" + post.post_id + "commentText") cols="50", rows="10" required) New comment text here!
 
@@ -132,7 +132,7 @@ block content
                         div(class="popupContainer")
                           div(class="unfocused" id=("unfocused" + popupIDs[3] + comment.comment_id) onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")"))
 
-                          div(class="popuptext" id=("popup" + popupIDs[3] + comment.comment_id))
+                          div(class="popup" id=("popup" + popupIDs[3] + comment.comment_id))
                             form(action="/editComment" method="POST")
                               textarea(name="editText" id=("comment" + comment.comment_id + "editText") cols="50", rows="5" required) #{comment.comment_txt}
 

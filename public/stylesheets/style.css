@@ -186,37 +186,24 @@ h1 {
 /* Popup container */
 .popupContainer {
   position: fixed;
-  top: 80%;
-  left: 25%;
+  top: 0%;
+  left: 0%;
 }
 
 /* The actual popup */
-.popuptext {
+.popup {
   visibility: hidden;
-  height: 500px;
-  width: 800px;
+  height: 60vh;
+  width: 70vw;
+  top: 20vh;
+  left: 15vw;
+  color: white;
   background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
+  padding: 10px;
+  border: silver solid 5px;
+  border-radius: 25px;
   position: absolute;
   z-index: 3;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
-}
-
-/* Popup arrow */
-.popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
 }
 
 /* The layer that applies to the background, 'unfocusing' everything but the popup */
