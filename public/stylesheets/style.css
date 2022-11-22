@@ -81,17 +81,17 @@ h1 {
 }
 
 /* Styling for metadata (id and datetime) */
-.metadata {
-  opacity: 0.8;
+.metadata { 
+  color:darkslategray;
   padding: 2px;
   font: 13px "Courier New";
   font-style: italic;
 }
 
 .metadata:hover {
-  opacity: 1;
+  color: black;
   background-color:aliceblue;
-  font-weight: bolder;
+  font-weight: bold;
   border-radius: 5px;
 }
 
