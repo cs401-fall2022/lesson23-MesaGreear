@@ -44,6 +44,10 @@ h1 {
   border-radius: 100%;
 }
 
+.navPostListLink {
+  color: antiquewhite;
+}
+
 /* All content except what is inside nav bar */
 main {
   margin-left: 12%; /* 'gives' left side of screen to nav bar */

@@ -11,6 +11,12 @@ block content
     h1 #{title}!
     p(style="color: white") Other stuff to be added
 
+    ul
+      each post in posts_data
+        li
+          div
+            a(href=("#post" + post.post_id) class="navPostListLink") #{post.post_id} - #{post.post_title}
+
     //add a new post to posts
     div
       button(title="New Post" onclick=("openPopup(" + popupParams[0] + "0)")) New Post!
@@ -49,7 +55,7 @@ block content
       each post in posts_data 
         li 
 
-          div(class="postContainer")
+          div(class="postContainer" id=("post" + post.post_id))
             //handles the top of a post, i.e. the title, metadata, and buttons
             div(class="contentTop")
 
