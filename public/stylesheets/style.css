@@ -208,18 +208,18 @@ main {
   border-radius: 25px;
   position: absolute;
   z-index: 3;
-  box-shadow: 5px 10px rgba(0, 0, 0, 0.6);;
+  box-shadow: 10px 15px rgba(130, 0, 130, 0.6), -15px -10px rgba(220, 160, 220, 0.6);
 }
 
 /* The labels/titles of each area requiring user input in a popup */
 .popupAreaLabel {
-  font-size: 15pt;
+  font: 16pt Georgia;
   margin: 15px 0px 5px 0px;
   display: block;
 }
 
 .popupAreaLabelTop { /* Specific to the topmost label/title in a popup */
-  font-size: 15pt;
+  font: 16pt Georgia;
   margin: 0px 0px 5px 0px;
   display: block;
 }
@@ -248,11 +248,33 @@ main {
 .popupTextField:focus, .popupTextarea:focus {border-color: purple;}
 
 /* Send/Cancel buttons on popups */
-.popupButtons {
+.popupButtonsContainer {
   display: flex;
   flex-direction: row-reverse;
   gap: 10px;
 }
+
+.popupButtons {
+  border: silver solid 3px;
+  border-radius: 5px;
+  position: relative;
+  min-height: 5vh;
+  min-width: 5vw;
+  font: 13pt "Lucida Console";
+  font-weight: bold;
+  color: white;
+}
+
+.popupButtons:hover {border-color: plum;}
+.popupButtons:active {border-color: darkorchid; color: black; top: 3px;}
+
+.popupButtonSend {background-color: darkblue;}
+.popupButtonCancel:hover {background-color: darkred;}
+.popupButtonCancel:active {background-color: red;}
+
+.popupButtonCancel {background-color: var(--darkestGray);}
+.popupButtonSend:hover {background-color: green;}
+.popupButtonSend:active {background-color: greenyellow;}
 
 /* The layer that applies to the background, 'unfocusing' everything but the popup */
 .unfocused {

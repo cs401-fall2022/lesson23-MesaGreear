@@ -40,12 +40,12 @@ block content
             //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers
             input(name="postImage" id="postImage" class="imageUpload" type="file" accept=".png, .jpg, ,.gif")
             
-            div(class="popupButtons")
-              button(title="Send Post") Send Post
+            div(class="popupButtonsContainer")
+              button(title="Send Post" class="popupButtons popupButtonSend") Send Post
 
               //https://stackoverflow.com/questions/2825856/html-button-to-not-submit-form
               //'type="button"' prevents this button from 'activating' the form
-              button(title="Cancel" type="button" onclick=("closePopup(" + popupParams[0] + "0)")) Cancel
+              button(title="Cancel" class="popupButtons popupButtonCancel" type="button" onclick=("closePopup(" + popupParams[0] + "0)")) Cancel
 
   //everything but what's inside the nav bar
   main
@@ -93,10 +93,10 @@ block content
                       //- TODO: *
                       input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
 
-                      div(class="popupButtons")
-                        button(title="Send Edit") Send Edit
+                      div(class="popupButtonsContainer")
+                        button(title="Send Edit" class="popupButtons popupButtonSend") Send Edit
 
-                        button(title="Cancel" type="button" onclick=("closePopup(" + popupParams[1] + post.post_id + ")")) Cancel
+                        button(title="Cancel" class="popupButtons popupButtonCancel" type="button" onclick=("closePopup(" + popupParams[1] + post.post_id + ")")) Cancel
 
               //comment post button
               div
@@ -116,10 +116,10 @@ block content
                       //- TODO: *
                       input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
 
-                      div(class="popupButtons")
-                        button(title="Send Comment") Send Comment
+                      div(class="popupButtonsContainer")
+                        button(title="Send Comment" class="popupButtons popupButtonSend") Send Comment
 
-                        button(title="Cancel" type="button" onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) Cancel
+                        button(title="Cancel" class="popupButtons popupButtonCancel" type="button" onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) Cancel
 
               //force the title and meta data to the far left of the flexbox
               div(class="flexboxForceLeft")
@@ -170,10 +170,10 @@ block content
                               //- TODO: *
                               input(name="editComment" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
 
-                              div(class="popupButtons")
-                                button(title="Send Edit") Send Edit
+                              div(class="popupButtonsContainer")
+                                button(title="Send Edit" class="popupButtons popupButtonSend") Send Edit
 
-                                button(title="Cancel" type="button" onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")")) Cancel
+                                button(title="Cancel" class="popupButtons popupButtonCancel" type="button" onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")")) Cancel
 
                       //force the meta data to the far left of the flexbox
                       div(class="flexboxForceLeft")
