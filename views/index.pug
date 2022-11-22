@@ -11,7 +11,7 @@ block content
     h1 #{title}!
     p(style="color: white") Other stuff to be added
 
-        //add a new post to posts
+    //add a new post to posts
     div
       button(title="New Post" onclick=("openPopup(" + popupParams[0] + "0)")) New Post!
 
@@ -22,17 +22,27 @@ block content
 
         div(class="popup" id=("popup" + popupIDs[0] + "0"))  
           form(action="/addPost" method="POST" enctype="multipart/form-data")
-            input(name="postTitle" id="postTitle" value="New post title here!" maxlength="100" required)
-            textarea(name="postText" id="postText" cols="50", rows="10" required) New post text here!
+
+            label(for="postTitle" class="popupAreaLabelTop") Title Text
+            input(name="postTitle" id="postTitle" value="New post title here!" class="popupTextField" maxlength="100" required)
+
+            label(for="postText" class="popupAreaLabel") Post Text
+            textarea(name="postText" id="postText" class="popupTextarea" required) New post text here!
+
+            label(for="postImage" class="popupAreaLabel") Image Upload
+            p(class="popupDetailText") (Leave empty for no image on you post | Only png, jpg, and gif file formats accepted)
             //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers
             input(name="postImage" id="postImage" class="imageUpload" type="file" accept=".png, .jpg, ,.gif")
             
-            button Send Post
+            div(class="popupButtons")
+              button(title="Send Post") Send Post
 
-          button(onclick=("closePopup(" + popupParams[0] + "0)")) cancel
+              //https://stackoverflow.com/questions/2825856/html-button-to-not-submit-form
+              //'type="button"' prevents this button from 'activating' the form
+              button(title="Cancel" type="button" onclick=("closePopup(" + popupParams[0] + "0)")) Cancel
 
   //everything but what's inside the nav bar
-  div(id="mainContainer")
+  main
 
     //display an unordered list of every post in posts
     ul(class="postList")
@@ -61,17 +71,26 @@ block content
 
                   div(class="popup" id=("popup" + popupIDs[1] + post.post_id))
                     form(action="/editPost" method="POST" enctype="multipart/form-data")
-                      input(name="editTitle" id=("post" + post.post_id + "editTitle") value=post.post_title maxlength="100" required)
-                      textarea(name="editText" id=("post" + post.post_id + "editText") cols="50", rows="10" required) #{post.post_txt}
-                      label(for="editImageCheck") Change image? If checked and no image is given, then previous image will be deleted
+
+                      label(for="editTitle" class="popupAreaLabelTop") Title Text
+                      input(name="editTitle" id=("post" + post.post_id + "editTitle") class="popupTextField" value=post.post_title maxlength="100" required)
+                      
+                      label(for="editText" class="popupAreaLabel") Post Text
+                      textarea(name="editText" id=("post" + post.post_id + "editText") class="popupTextarea" required) #{post.post_txt}
+                      
+                      label(for="editImage" class="popupAreaLabel") Image Upload
+                      p(class="popupDetailText") (If checked and no image is given, then previous image will be deleted | Only png, jpg, and gif file formats accepted)
+                      label(for="editImageCheck") Change image?
                       input(name="editImageCheck" id=("post" + post.post_id) + "editImageCheck" class="editImageCheck" type="checkbox" onclick="toggleEditImageSubmission(" + post.post_id + ")")
                       input(name="editImage" id=("post" + post.post_id + "editImage") class="imageUpload hidden" value=post.post_image type="file" accept=".png, .jpg, ,.gif")
 
                       //- TODO: *
                       input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
-                      button Send Edit
 
-                    button(onclick=("closePopup(" + popupParams[1] + post.post_id + ")")) cancel
+                      div(class="popupButtons")
+                        button(title="Send Edit") Send Edit
+
+                        button(title="Cancel" type="button" onclick=("closePopup(" + popupParams[1] + post.post_id + ")")) Cancel
 
               //comment post button
               div
@@ -84,13 +103,17 @@ block content
 
                   div(class="popup" id=("popup" + popupIDs[2] + post.post_id))  
                     form(action="/addComment" method="POST")
-                      textarea(name="commentText" id=("post" + post.post_id + "commentText") cols="50", rows="10" required) New comment text here!
+
+                      label(for="commentText" class="popupAreaLabelTop") Comment Text
+                      textarea(name="commentText" id=("post" + post.post_id + "commentText") class="popupTextarea" required) New comment text here!
 
                       //- TODO: *
                       input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
-                      button Send Comment
 
-                    button(onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) cancel
+                      div(class="popupButtons")
+                        button(title="Send Comment") Send Comment
+
+                        button(title="Cancel" type="button" onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) Cancel
 
               //force the title and meta data to the far left of the flexbox
               div(class="flexboxForceLeft")
@@ -134,13 +157,17 @@ block content
 
                           div(class="popup" id=("popup" + popupIDs[3] + comment.comment_id))
                             form(action="/editComment" method="POST")
-                              textarea(name="editText" id=("comment" + comment.comment_id + "editText") cols="50", rows="5" required) #{comment.comment_txt}
+
+                              label(for="editText" class="popupAreaLabelTop") Comment Text
+                              textarea(name="editText" id=("comment" + comment.comment_id + "editText") class="popupTextarea" required) #{comment.comment_txt}
 
                               //- TODO: *
                               input(name="editComment" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
-                              button Send Edit
 
-                            button(onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")")) cancel
+                              div(class="popupButtons")
+                                button(title="Send Edit") Send Edit
+
+                                button(title="Cancel" type="button" onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")")) Cancel
 
                       //force the meta data to the far left of the flexbox
                       div(class="flexboxForceLeft")

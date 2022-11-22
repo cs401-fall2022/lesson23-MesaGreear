@@ -44,8 +44,8 @@ h1 {
   border-radius: 100%;
 }
 
-/* Container for all content except what is inside nav bar */
-#mainContainer {
+/* All content except what is inside nav bar */
+main {
   margin-left: 12%; /* 'gives' left side of screen to nav bar */
 }
 
@@ -82,7 +82,7 @@ h1 {
 
 /* Styling for metadata (id and datetime) */
 .metadata { 
-  color:darkslategray;
+  color: rgba(0, 0, 0, 0.7);
   padding: 2px;
   font: 13px "Courier New";
   font-style: italic;
@@ -193,8 +193,6 @@ h1 {
 /* The actual popup */
 .popup {
   visibility: hidden;
-  height: 60vh;
-  width: 70vw;
   top: 20vh;
   left: 15vw;
   color: white;
@@ -204,6 +202,48 @@ h1 {
   border-radius: 25px;
   position: absolute;
   z-index: 3;
+  box-shadow: 5px 10px rgba(0, 0, 0, 0.6);;
+}
+
+/* The labels/titles of each area requiring user input in a popup */
+.popupAreaLabel {
+  font-size: 15pt;
+  margin: 15px 0px 5px 0px;
+  display: block;
+}
+
+.popupAreaLabelTop { /* Specific to the topmost label/title in a popup */
+  font-size: 15pt;
+  margin: 0px 0px 5px 0px;
+  display: block;
+}
+
+.popupDetailText {
+  color: lightgray;
+  margin: 0px 0px 10px 0px;
+}
+
+/* User input text fields/areas in popups */
+.popupTextField {
+  width: 50vw;
+  border: transparent solid 5px;
+}
+
+.popupTextarea {
+  resize: vertical;
+  width: 65vw;
+  height: 25vh;
+  border: transparent solid 5px;
+}
+
+.popupTextField:hover, .popupTextarea:hover {border-color: plum;}
+.popupTextField:focus, .popupTextarea:focus {border-color: purple;}
+
+/* Send/Cancel buttons on popups */
+.popupButtons {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
 }
 
 /* The layer that applies to the background, 'unfocusing' everything but the popup */
