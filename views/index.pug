@@ -129,9 +129,9 @@ block content
 
             //handles the main content of a post, i.e. the image (if it has one) and text
             div(class="contentMain")
-              p #{post.post_txt}
               if post.post_image != NULL 
                 img(src=("uploads/" + post.post_image) alt=post.post_image class="postImage")
+              p(class="postText") #{post.post_txt}
 
           //display an unordered list of every comment in comments that has a post_id
           //that matches the post_id of the post it will be rendered underneath

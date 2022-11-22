@@ -114,6 +114,7 @@ main {
 /* The main content of a post or comment block */
 .contentMain {
   margin: 15px;
+  overflow: hidden; /* https://stackoverflow.com/questions/9017120/how-to-keep-floating-div-inside-frame-of-parent-div */
 }
 
 /* Makes metadata rest close to the top of the title */
@@ -125,8 +126,19 @@ main {
 
 /* Post image styling */
 .postImage {
-  max-width: 40%;
-  max-height: 40%;
+  float: left;
+  min-width: 10%;
+  min-height: 10vh;
+  max-width: 50%;
+  max-height: 50vh;
+  margin: 0px 15px 5px 0px;
+  border: var(--darkGrayPurple) solid 5px;
+  border-radius: 15px;
+}
+
+/* Remove unnecessary margins on postText p */
+.postText {
+  margin: 0px;
 }
 
 /* Rules all 'fancy'/'decorated' buttons follow */
