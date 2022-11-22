@@ -15,7 +15,7 @@ html{
 body {
   height: 100%;
   padding: 1% 3% 3% 3%;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 17px Verdana;
 }
 
 /* Left side nav bar appearance */
@@ -73,7 +73,7 @@ main {
 .postContainer {
   padding: 5px;
   background-color: darkgray;
-  border: purple solid 3px;
+  border: purple solid 5px;
   border-radius: 15px;
 }
 
@@ -119,6 +119,8 @@ main {
 /* Makes metadata rest close to the top of the title */
 .postTitle {
   margin: 3px 5px;
+  font: 22px "Georgia";
+  font-weight: bold;
 }
 
 /* Post image styling */
@@ -230,6 +232,7 @@ main {
 /* User input text fields/areas in popups */
 .popupTextField {
   width: 50vw;
+  font: 13pt Helvetica;
   border: transparent solid 5px;
 }
 
@@ -237,6 +240,7 @@ main {
   resize: vertical;
   width: 65vw;
   height: 25vh;
+  font: 13pt Arial;
   border: transparent solid 5px;
 }
 
