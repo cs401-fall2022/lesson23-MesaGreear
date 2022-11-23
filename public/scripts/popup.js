@@ -141,6 +141,35 @@ function createEditCommentPopup(id, text) {
 }
 
 /**
+ * Create a popup used to confirm if the user actually wants to delete a
+ * post or comment.
+ * 
+ * @param {boolean} post - true if this confirmation is for deleting a
+ *                         post, false for deleting a comment
+ * @param {int} id       - Post_id or Comment_id of what is being deleted
+ */
+function deleteConfirmationPopup(post, id) {
+    popupContainer.innerHTML = 
+    `<div id="unfocused" onclick="deletePopup()"></div>
+    
+    <!-- Custom styling that stretches the popup and places it in the lower middle of the screen -->
+    <section id="popup" style="left: 35vw; top: 40vh; width: 25vw">
+        <h3 id="popupHeading">Delete ${post ? "Post" : "Comment"} #${id}?</h3>
+        
+        <form action="${post ? "/deletePost" : "/deleteComment"}" method="POST">
+            <input name="${post ? "deletePost" : "deleteComment"}" id=("${post ? "post" : "comment"}${id}Delete") value=${id} class="hidden" readonly>
+            
+            <div id="popupButtonsContainer">
+                <button class="popupButtons" id="popupButtonSend" title="Delete ${post ? "Post" : "Comment"}">Delete ${post ? "Post" : "Comment"}</button>
+                
+                <!--'type="button"' prevents this button from 'activating' the form-->
+                <button class="popupButtons" id="popupButtonCancel" title="Cancel" type="button" onclick="deletePopup()">Cancel</button>
+            </div>
+        </form>
+    </section>`;
+}
+
+/**
  * Delete the currently active popup.
  */
 function deletePopup() {

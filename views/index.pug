@@ -46,10 +46,7 @@ block content
 
               //delete post button
               div
-                form(action="/deletePost" method="POST")
-                  //- TODO: *
-                  input(name="deletePost" id=("post" + post.post_id + "Delete") value=post.post_id class="hidden" readonly)
-                  button(title="Delete Post" class="decoratedButton deleteButton")
+                button(title="Delete Post" class="decoratedButton deleteButton" onclick=("deleteConfirmationPopup(true, " + post.post_id + ")"))
 
               //edit post button (Creates a popup where user can edit this post)
               div
@@ -85,10 +82,7 @@ block content
 
                       //delete comment button
                       div
-                        form(action="/deleteComment" method="POST")
-                          //TODO: *
-                          input(name="deleteComment" id=("comment" + comment.comment_id + "Delete") value=comment.comment_id class="hidden" readonly)
-                          button(title="Delete Comment" class="decoratedButton deleteButton")
+                        button(title="Delete Comment" class="decoratedButton deleteButton" onclick=("deleteConfirmationPopup(false, " + comment.comment_id + ")"))
 
                       //edit comment button (Creates a popup where user can edit this comment)
                       div
@@ -110,6 +104,3 @@ block content
 
   //created popups will be put in this container and the container will be 'emptied' when popup is closed
   div(id="popupContainer")
-
-  //- * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the
-  //-     post/comment to index.js except for creating a hidden input with a set, unchanging value that equals post_id/comment_id
