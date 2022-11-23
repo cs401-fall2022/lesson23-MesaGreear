@@ -19,7 +19,7 @@ block content
         each post in posts_data
           li
             div
-              a(href=("#post" + post.post_id) class="navPostListLink") ##{post.post_id}: #{post.post_title}
+              a(href=("#post" + post.post_id) class="navPostListLink" title=("Go to post #" + post.post_id)) ##{post.post_id}: #{post.post_title}
 
     //add a new post to posts (Creates a popup where user can create a new post)
     div
@@ -96,6 +96,7 @@ block content
                     div(class="contentMain")
                       p #{comment.comment_txt}
 
+  //created popups will be put in this container and the container will be 'emptied' when popup is closed
   div(id="popupContainer")
 
   //- * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the

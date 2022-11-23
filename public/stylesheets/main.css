@@ -37,7 +37,7 @@ nav {
   width: 80%;
   border: 3px solid mediumslateblue;
   border-radius: 100%;
-  box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet;
+  box-shadow: 0.6vw 0.9vh purple, -0.6vw -0.9vh violet;
   animation: logoAnimation 5s infinite;
   animation-play-state: paused;
 }
@@ -49,18 +49,18 @@ nav {
 }
 
 @keyframes logoAnimation {
-  0% { box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet; }
-  5% { box-shadow: -0.9vh 0.6vw plum, 0.9vh -0.6vw violet; }
-  10% { box-shadow: -0.9vh 0.6vw plum, 0.9vh -0.6vw violet; }
-  15% { box-shadow: -0.9vh -0.6vw plum, 0.9vh 0.6vw violet; }
-  25% { box-shadow: -0.9vh -0.6vw plum, 0.9vh 0.6vw violet; }
-  30% { box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet; }
-  50% { box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet; }
-  55% { box-shadow: 0.9vh -0.6vw plum, -0.9vh 0.6vw violet; }
-  60% { box-shadow: 0.9vh -0.6vw plum, -0.9vh 0.6vw violet; }
-  65% { box-shadow: -0.9vh -0.6vw plum, 0.9vh 0.6vw violet; }
-  75% { box-shadow: -0.9vh -0.6vw plum, 0.9vh 0.6vw violet; }
-  80% { box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet; }
+  0% { box-shadow: 0.6vw 0.9vh 0px 0px purple, -0.6vw -0.9vh 0px 0px violet; }
+  5% { box-shadow: -0.6vw 0.9vh 0px 0.2vw purple, 0.6vw -0.9vh 0px 0.2vw violet; }
+  10% { box-shadow: -0.6vw 0.9vh 0px 0.2vw purple, 0.6vw -0.9vh 0px 0.2vw violet; }
+  15% { box-shadow: -0.6vw -0.9vh 0px 0px purple, 0.6vw 0.9vh 0px 0px violet; }
+  25% { box-shadow: -0.6vw -0.9vh 0px 0px purple, 0.6vw 0.9vh 0px 0px violet; }
+  30% { box-shadow: 0.6vw 0.9vh 0px 0px purple, -0.6vw -0.9vh 0px 0px violet; }
+  50% { box-shadow: 0.6vw 0.9vh 0px 0px purple, -0.6vw -0.9vh 0px 0px violet; }
+  55% { box-shadow: 0.6vw -0.9vh 0px 0.2vw purple, -0.6vw 0.9vh 0px 0.2vw violet; }
+  60% { box-shadow: 0.6vw -0.9vh 0px 0.2vw purple, -0.6vw 0.9vh 0px 0.2vw violet; }
+  65% { box-shadow: -0.6vw -0.9vh 0px 0px purple, 0.6vw 0.9vh 0px 0px violet; }
+  75% { box-shadow: -0.6vw -0.9vh 0px 0px purple, 0.6vw 0.9vh 0px 0px violet; }
+  80% { box-shadow: 0.6vw 0.9vh 0px 0px purple, -0.6vw -0.9vh 0px 0px violet; }
 }
 
 /* The site's 'title', below logo */

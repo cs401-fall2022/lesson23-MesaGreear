@@ -8,7 +8,7 @@
 
 #popup {
   top: 10vh;
-  left: 15vw;
+  left: 16vw;
   color: white;
   background-color: #555;
   padding: 10px;
@@ -16,7 +16,7 @@
   border-radius: 25px;
   position: absolute;
   z-index: 3;
-  box-shadow: 1.7vh 1.4vw rgba(130, 0, 130, 0.6), -1.7vh -1.4vw rgba(220, 160, 220, 0.6);
+  box-shadow: -1.3vw -1.6vh 0px 0.2vw rgba(220, 160, 220, 0.6), 1.3vw 1.6vh 0px 0.2vw rgba(130, 0, 130, 0.6);
   animation: popupFadeIn 1s
 }
 
@@ -24,14 +24,17 @@
 @keyframes popupFadeIn {
   0% {
     opacity: 0;
-    box-shadow: 3.5vh 3vw rgba(220, 160, 220, 0.6), -3.5vh -3vw rgba(130, 0, 130, 0.6);
+    box-shadow: 3.5vw 3vh 0px 1.5vw rgba(220, 160, 220, 0.2), -3.5vw -3vh 0px 1.5vw rgba(130, 0, 130, 0.2);
   }
   50% {
     opacity: 1;
-    box-shadow: 2vh -1.7vw rgba(220, 160, 220, 0.6), -2vh 1.7vw rgba(130, 0, 130, 0.6); 
+    box-shadow: 1.9vw -1.9vh 0px 0.6vw rgba(220, 160, 220, 0.4), -1.9vw 1.9vh 0px 0.6vw rgba(130, 0, 130, 0.4); 
+  }
+  75% {
+    box-shadow: rgba(220, 160, 220, 0.5), rgba(130, 0, 130, 0.5);
   }
   100% {
-    box-shadow: -1.7vh -1.4vw rgba(220, 160, 220, 0.6), 1.7vh 1.4vw rgba(130, 0, 130, 0.6);
+    box-shadow: -1.3vw -1.6vh 0px 0.2vw rgba(220, 160, 220, 0.6), 1.3vw 1.6vh 0px 0.2vw rgba(130, 0, 130, 0.6);
   }
 }
 
