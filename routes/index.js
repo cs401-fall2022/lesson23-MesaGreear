@@ -67,23 +67,18 @@ router.get('/', function (req, res, next) {
                      post_image TEXT,
                      post_datetime DATETIME NOT NULL);
 
-                     INSERT INTO posts (post_title, post_txt, post_datetime)
-                     VALUES ('I like this blog!', 'This is a great blog #ilovebugjuice', '2022-11-17 18:07:18'),
-                            ('I''m enthusiastic about blogging!', 'Oh my goodness blogging is fun #ilovebugjuice', '2022-11-17 21:45:29');
-                             
+                     ${postsTableExampleData}
+                     
                      CREATE TABLE IF NOT EXISTS comments (
-                       comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                       comment_txt TEXT NOT NULL,
-                       comment_datetime DATETIME NOT NULL,
-                       post_id INTEGER NOT NULL,
-                       FOREIGN KEY (post_id)
-                       REFERENCES posts (post_id)
-                       ON DELETE CASCADE);  
+                      comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                      comment_txt TEXT NOT NULL,
+                      comment_datetime DATETIME NOT NULL,
+                      post_id INTEGER NOT NULL,
+                      FOREIGN KEY (post_id)
+                      REFERENCES posts (post_id)
+                      ON DELETE CASCADE);  
 
-                     INSERT INTO comments (comment_txt, comment_datetime, post_id)
-                     VALUES ('This is an intelligent, well thought out response', '2022-11-17 20:04:34', 1),
-                             ('I am definitely not too young to be on the internet', '2022-11-18 03:55:02', 1),
-                             ('Please be patient, there are things wrong with my brain', '2022-11-17 23:21:25', 2);`,
+                     ${commentsTableExampleData}`,
               () => {
                 //render new posts & comments tables
                 db.all(` SELECT post_id, post_title, post_txt, post_image, post_datetime FROM posts`, (err, posts_rows) => {
@@ -211,7 +206,7 @@ router.post('/addPost', (req, res, next) => {
         //delete the old image, if it exists, associated with this post
         db.all(`SELECT post_image FROM posts WHERE post_id = ${req.body.editPost};`, (err, image) => {
           try {
-            if(image[0].post_image){
+            if(image[0].post_image && !image[0].post_image.includes("..")){ //don't delete images that 'go back' outside the uploads folder
               fs.unlinkSync(uploadsPath + image[0].post_image);
               console.log("Image '" + image[0].post_image + "' deleted");
             }
@@ -336,7 +331,7 @@ router.post('/deletePost', (req, res, next) => {
       //delete and log the post's image if it has one
         db.all(`SELECT post_image FROM posts WHERE post_id = ${req.body.deletePost};`, (err, image) => {
           try {
-            if(image[0].post_image){
+            if(image[0].post_image && !image[0].post_image.includes("..")){ //don't delete images that 'go back' outside the uploads folder
               var fs = require('fs');
               fs.unlinkSync(uploadsPath + image[0].post_image);
               console.log("Image '" + image[0].post_image + "' deleted");
@@ -378,3 +373,20 @@ router.post('/deletePost', (req, res, next) => {
 })
 
 module.exports = router;
+
+//Example data to enter into the SQL database if it's empty. Lotsa text so I put it here at the bottom of the file.
+const postsTableExampleData = `
+INSERT INTO posts (post_title, post_txt, post_image, post_datetime)
+  VALUES
+  ('Look at this plump lil goober!', 'Last night I was catching moths inside my house and letting them back outside as per usual. Most of the moths I catch are usually fairly small, no bigger than my pinky fingernail. However this dubious little creature was by far one of the largest moths I''ve ever caught. He was at least 5x as large as most other moths and thus was much fuzzier and cuter! Here''s a pic I took of him before I let him back outside where he more than likely instantly flew into one of the many spider webs on my patio.', '../images/example(0).jpg', '2022-11-17 18:07:18'),
+  ('How many sweaters should I feed my poodle moth a day?', 'Now I understand that poodle moths require lots of love, attention, and food, but I''m having a hard time keeping up with the food part. My poodle moth is going through 2 - 3, 95% wool sweaters a day and I just can''t keep up financially for much longer. At this rate I''ll have to take out a third mortgage by the end of the year. Am I doing something wrong, is it too much? Should I put her on a diet?', NULL, '2022-11-19 20:45:29'),
+  ('Look at this really pretty moth I found!', 'This is such a strange moth, I''ve never seen one so colorful before! Even stranger was that it was out and about during the daytime and seemed to be eating flowers and not articles of clothing. Truly a fascinating specimen.', '../images/example(1).jpg', '2022-11-20 14:19:54');`;
+
+const commentsTableExampleData = `
+INSERT INTO comments (comment_txt, comment_datetime, post_id)
+  VALUES
+  ('That''s nothing, I once found a moth back that was the size of my fist. It was a little scary keeping around such a large insect, but it helped me with my mouse infestation so I kept him around.', '2022-11-18 9:14:02', 1),
+  ('Can you post a pic of your moth next time? If I''m able to take a look I might be able to make an accurate diagnosis since I''m a Lepidopterologist. It sounds like your poodle moth is showing signs of depression, so I don''t think you''re fit to care for her.', '2022-11-19 23:38:21', 2),
+  ('I am definetly not too young to be on the internet and thus will reply to your post with a well though out and intuitive response that took longer than 15 seconds to think and type out.', '2022-11-20 08:32:53', 1),
+  ('I don''t mean to detract from your post, but did you know that moths are fuzzy because it provides as protection from echolocation, making it harder for bats to find and eat them. Also the fuzz on moths is not actually hair, it is instead very fine scales!', '2022-11-20 11:03:47', 1),
+  ('You do realize that this is a blog for moths right? And that the picture you have posted is a picture of a butterfly, not a moth? You stupidity baffles me. It is nearly impossible for someone of my intellectual caliber to even comprehend how completely and utterly brain dead someone must be to mix up too vastly different and easily identifiable species of insects. I''m afraid you missed the Ice Age by about 10,000 years you troglodyte!', '2022-11-21 02:29:23', 3);`;

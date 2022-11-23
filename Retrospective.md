@@ -40,6 +40,7 @@ skill level, please let me know and I'll go look at it and cite it if I used a s
 - [#](https://www.iconsdb.com/red-icons/delete-icon.html) Source of commentIcon.png, deleteIcon.png,
 editIcon.png, and their muted counterparts
 - [#](https://www.flickr.com/photos/34312269@N04/14817205051/) Source of mothLogo.png
+- [#](https://plantura.garden/uk/insects/butterflies/what-do-butterflies-eat) Source of example(1).jpg
 
 ### Coding Sources
 
