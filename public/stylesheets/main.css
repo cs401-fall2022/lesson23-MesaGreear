@@ -38,6 +38,29 @@ nav {
   border: 3px solid mediumslateblue;
   border-radius: 100%;
   box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet;
+  animation: logoAnimation 5s infinite;
+  animation-play-state: paused;
+}
+
+/* Play animation of shadows rotating around image when hovered over */
+#logo:hover {
+  animation-play-state: running;
+  
+}
+
+@keyframes logoAnimation {
+  0% { box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet; }
+  5% { box-shadow: -0.9vh 0.6vw plum, 0.9vh -0.6vw violet; }
+  10% { box-shadow: -0.9vh 0.6vw plum, 0.9vh -0.6vw violet; }
+  15% { box-shadow: -0.9vh -0.6vw plum, 0.9vh 0.6vw violet; }
+  25% { box-shadow: -0.9vh -0.6vw plum, 0.9vh 0.6vw violet; }
+  30% { box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet; }
+  50% { box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet; }
+  55% { box-shadow: 0.9vh -0.6vw plum, -0.9vh 0.6vw violet; }
+  60% { box-shadow: 0.9vh -0.6vw plum, -0.9vh 0.6vw violet; }
+  65% { box-shadow: -0.9vh -0.6vw plum, 0.9vh 0.6vw violet; }
+  75% { box-shadow: -0.9vh -0.6vw plum, 0.9vh 0.6vw violet; }
+  80% { box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet; }
 }
 
 /* The site's 'title', below logo */

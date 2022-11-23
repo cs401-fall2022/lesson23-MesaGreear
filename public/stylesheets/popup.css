@@ -102,7 +102,7 @@
   /* Toggles the popup & unfocused layer and removes decorates buttons position rule */
   .popupShow {
     visibility: visible;
-    animation: popupFadeIn 0.5s
+    animation: popupFadeIn 1s
   }
   
   .unfocusedShow {
@@ -114,10 +114,19 @@
     position: static;
   }
   
-  /* Animates the popup and unfocused layer fading in */
+  /* Animates the popup and unfocused layer fading in while the shadows 'slide into place' */
   @keyframes popupFadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    0% {
+      opacity: 0;
+      box-shadow: 3.5vh 3vw rgba(220, 160, 220, 0.6), -3.5vh -3vw rgba(130, 0, 130, 0.6);
+    }
+    50% {
+      opacity: 1;
+      box-shadow: 2vh -1.7vw rgba(220, 160, 220, 0.6), -2vh 1.7vw rgba(130, 0, 130, 0.6); 
+    }
+    100% {
+      box-shadow: -1.7vh -1.4vw rgba(220, 160, 220, 0.6), 1.7vh 1.4vw rgba(130, 0, 130, 0.6);
+    }
   }
   
   @keyframes unfocusedFadeIn {
