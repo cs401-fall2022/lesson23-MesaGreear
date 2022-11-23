@@ -385,7 +385,7 @@ INSERT INTO posts (post_title, post_txt, post_image, post_datetime)
 const commentsTableExampleData = `
 INSERT INTO comments (comment_txt, comment_datetime, post_id)
   VALUES
-  ('That''s nothing, I once found a moth back that was the size of my fist. It was a little scary keeping around such a large insect, but it helped me with my mouse infestation so I kept him around.', '2022-11-18 9:14:02', 1),
+  ('That''s nothing, I once found a moth back that was the size of my fist. It was a little scary keeping around such a large insect, but it helped me with my mouse infestation so I kept him around.', '2022-11-18 09:14:02', 1),
   ('Can you post a pic of your moth next time? If I''m able to take a look I might be able to make an accurate diagnosis since I''m a Lepidopterologist. It sounds like your poodle moth is showing signs of depression, so I don''t think you''re fit to care for her.', '2022-11-19 23:38:21', 2),
   ('I am definetly not too young to be on the internet and thus will reply to your post with a well though out and intuitive response that took longer than 15 seconds to think and type out.', '2022-11-20 08:32:53', 1),
   ('I don''t mean to detract from your post, but did you know that moths are fuzzy because it provides as protection from echolocation, making it harder for bats to find and eat them. Also the fuzz on moths is not actually hair, it is instead very fine scales!', '2022-11-20 11:03:47', 1),

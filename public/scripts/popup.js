@@ -1,8 +1,8 @@
 //Store the popupContainer element once the page is done loading
 var popupContainer;
-window.onload = () => {
+window.addEventListener("DOMContentLoaded", () => {
     popupContainer = document.getElementById("popupContainer");
-}
+});
 
 /**
  * Toggles the visibility of the file submission input field on the a post's

@@ -1,5 +1,5 @@
 //work to perform once page is finished loading
-window.onload = () => {
+window.addEventListener("DOMContentLoaded", () => {
     /**
      * Translate all dates from their stored UTC time in the database to the
      * local time of the machine running the client side.
@@ -7,7 +7,6 @@ window.onload = () => {
      * https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
      */
     Array.from(document.getElementsByClassName("date")).forEach (element => {
-        
         var date = new Date(element.innerHTML.replace(' ', 'T').replace('(', '').replace(')', '')); //translate string to date object
         var localOffset = (new Date()).getTimezoneOffset() * 60000 * 2; //offset in milliseconds, * 2 to 'cancel out' compensation caused by line above's constructor
         element.innerHTML = "(" + (new Date(date.getTime() - localOffset)).toISOString().slice(0, -5).replace('T', ' ') + ")";
@@ -37,4 +36,4 @@ window.onload = () => {
             };
         };
     });
-}
+});
