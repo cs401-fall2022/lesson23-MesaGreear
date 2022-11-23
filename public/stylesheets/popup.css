@@ -1,14 +1,12 @@
 /* Popup appearance - https://www.w3schools.com/howto/howto_js_popup.asp */
 /* Popup container */
-.popupContainer {
+#popupContainer {
   position: fixed;
-  top: 0%;
-  left: 0%;
+  top: 0vh;
+  left: 0vw;
 }
 
-/* The actual popup */
-.popup {
-  visibility: hidden;
+#popup {
   top: 10vh;
   left: 15vw;
   color: white;
@@ -19,10 +17,26 @@
   position: absolute;
   z-index: 3;
   box-shadow: 1.7vh 1.4vw rgba(130, 0, 130, 0.6), -1.7vh -1.4vw rgba(220, 160, 220, 0.6);
+  animation: popupFadeIn 1s
+}
+
+/* Animates the popup fading in while the shadows 'slide into place' */
+@keyframes popupFadeIn {
+  0% {
+    opacity: 0;
+    box-shadow: 3.5vh 3vw rgba(220, 160, 220, 0.6), -3.5vh -3vw rgba(130, 0, 130, 0.6);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 2vh -1.7vw rgba(220, 160, 220, 0.6), -2vh 1.7vw rgba(130, 0, 130, 0.6); 
+  }
+  100% {
+    box-shadow: -1.7vh -1.4vw rgba(220, 160, 220, 0.6), 1.7vh 1.4vw rgba(130, 0, 130, 0.6);
+  }
 }
 
 /* Heading describing what the popup is for */
-.popupHeading {
+#popupHeading {
   margin: 0.2vh 0vw 2vh 0vw;
   font: 20pt Garamond;
   font-weight: bold;
@@ -66,9 +80,13 @@
   scale: 1.5;
 }
 
-/* Animating the file submission box fading in */
+/* Animating the file submission box fading in when toggled to show */
 .imageUpload {
   position: relative;
+}
+
+.editImageShow {
+  display: inline;
   animation: imageUploadFadeIn 0.5s ease;
 }
 
@@ -78,7 +96,7 @@
 }
 
 /* Send/Cancel buttons on popups */
-.popupButtonsContainer {
+#popupButtonsContainer {
   display: flex;
   flex-direction: row-reverse;
   gap: 10px;
@@ -94,21 +112,19 @@
   font-weight: bold;
   color: white;
 }
-
 .popupButtons:hover {border-color: plum;}
 .popupButtons:active {border-color: darkorchid; color: black; top: 3px;}
 
-.popupButtonSend {background-color: darkblue;}
-.popupButtonCancel:hover {background-color: darkred;}
-.popupButtonCancel:active {background-color: red;}
+#popupButtonCancel {background-color: var(--darkestGray);}
+#popupButtonCancel:hover {background-color: darkred;}
+#popupButtonCancel:active {background-color: red;}
 
-.popupButtonCancel {background-color: var(--darkestGray);}
-.popupButtonSend:hover {background-color: green;}
-.popupButtonSend:active {background-color: greenyellow;}
+#popupButtonSend {background-color: darkblue;}
+#popupButtonSend:hover {background-color: green;}
+#popupButtonSend:active {background-color: greenyellow;}
 
 /* The layer that applies to the background, 'unfocusing' everything but the popup */
-.unfocused {
-  visibility: hidden;
+#unfocused {
   position: fixed;
   top: 0px;
   left: 0px;
@@ -117,38 +133,10 @@
   z-index: 1;
   background-color: darkslateblue;
   opacity: 0.5;
-}
-
-/* Toggles the popup & unfocused layer and removes decorates buttons position rule */
-.popupShow {
-  visibility: visible;
-  animation: popupFadeIn 1s
-}
-
-.unfocusedShow {
-  visibility: visible;
   animation: unfocusedFadeIn 0.5s
 }
 
-.decoratedButtonDeactivate{
-  position: static;
-}
-
-/* Animates the popup and unfocused layer fading in while the shadows 'slide into place' */
-@keyframes popupFadeIn {
-  0% {
-    opacity: 0;
-    box-shadow: 3.5vh 3vw rgba(220, 160, 220, 0.6), -3.5vh -3vw rgba(130, 0, 130, 0.6);
-  }
-  50% {
-    opacity: 1;
-    box-shadow: 2vh -1.7vw rgba(220, 160, 220, 0.6), -2vh 1.7vw rgba(130, 0, 130, 0.6); 
-  }
-  100% {
-    box-shadow: -1.7vh -1.4vw rgba(220, 160, 220, 0.6), 1.7vh 1.4vw rgba(130, 0, 130, 0.6);
-  }
-}
-
+/* Animate the unfocused layer fading in */
 @keyframes unfocusedFadeIn {
   from {opacity: 0;}
   to {opacity: 0.5;}

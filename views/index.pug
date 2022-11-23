@@ -1,10 +1,6 @@
 extends layout
 
 block content
-  //-                    newPost editPost newCom  editCom
-  - const popupIDs    = ["0_0_", "0_1_", "1_0_", "1_1_"]
-  - const popupParams = ["0,0,", "0,1,", "1,0,", "1,1,"]
-
   //left side navigation bar
   nav
     img(src="/images/mothLogo.png" alt="buggin.png" id="logo")
@@ -25,37 +21,9 @@ block content
             div
               a(href=("#post" + post.post_id) class="navPostListLink") ##{post.post_id}: #{post.post_title}
 
-    //add a new post to posts
+    //add a new post to posts (Creates a popup where user can create a new post)
     div
-      button(title="New Post" onclick=("openPopup(" + popupParams[0] + "0)")) New Post!
-
-      //- TODO: **
-      //popup for new post
-      div(class="popupContainer")
-        div(class="unfocused" id=("unfocused" + popupIDs[0] + "0") onclick=("closePopup(" + popupParams[0] + "0)"))
-
-        section(class="popup" id=("popup" + popupIDs[0] + "0"))  
-          h3(class="popupHeading") Create a New Post
-
-          form(action="/addPost" method="POST" enctype="multipart/form-data")
-
-            label(for="postTitle" class="popupAreaLabel") Title Text
-            input(name="postTitle" id="postTitle" value="New post title here!" class="popupTextField" maxlength="100" required)
-
-            label(for="postText" class="popupAreaLabel") Post Text
-            textarea(name="postText" id="postText" class="popupTextarea" required) New post text here!
-
-            label(for="postImage" class="popupAreaLabel") Image Upload
-            p(class="popupDetailText") (Leave empty for no image on you post | Only png, jpg, and gif file formats accepted)
-            //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers
-            input(name="postImage" id="postImage" class="imageUpload" type="file" accept=".png, .jpg, ,.gif")
-            
-            div(class="popupButtonsContainer")
-              button(title="Send Post" class="popupButtons popupButtonSend") Send Post
-
-              //https://stackoverflow.com/questions/2825856/html-button-to-not-submit-form
-              //'type="button"' prevents this button from 'activating' the form
-              button(title="Cancel" class="popupButtons popupButtonCancel" type="button" onclick=("closePopup(" + popupParams[0] + "0)")) Cancel
+      button(title="New Post" onclick=("createNewPostPopup()")) New Post!
 
   //everything but what's inside the nav bar
   main
@@ -76,64 +44,13 @@ block content
                   input(name="deletePost" id=("post" + post.post_id + "Delete") value=post.post_id class="hidden" readonly)
                   button(title="Delete Post" class="decoratedButton deleteButton")
 
-              //edit post button
+              //edit post button (Creates a popup where user can edit this post)
               div
-                button(title="Edit Post" class="decoratedButton editButton" onclick=("openPopup(" + popupParams[1] + post.post_id + ")"))
+                button(title="Edit Post" class="decoratedButton editButton" onclick=("createEditPostPopup(" + post.post_id + ", \"" + post.post_title + "\", \"" + post.post_txt + "\")"))
 
-                //- TODO: **
-                //popup for editing
-                div(class="popupContainer")
-                  div(class="unfocused" id=("unfocused" + popupIDs[1] + post.post_id) onclick=("closePopup(" + popupParams[1] + post.post_id + ")"))
-
-                  section(class="popup" id=("popup" + popupIDs[1] + post.post_id))
-                    h3(class="popupHeading") Edit Post ##{post.post_id}
-
-                    form(action="/editPost" method="POST" enctype="multipart/form-data")
-
-                      label(for="editTitle" class="popupAreaLabel") Title Text
-                      input(name="editTitle" id=("post" + post.post_id + "editTitle") class="popupTextField" value=post.post_title maxlength="100" required)
-                      
-                      label(for="editText" class="popupAreaLabel") Post Text
-                      textarea(name="editText" id=("post" + post.post_id + "editText") class="popupTextarea" required) #{post.post_txt}
-                      
-                      label(for="editImage" class="popupAreaLabel") Image Upload
-                      p(class="popupDetailText") (If checked and no image is given, then previous image will be deleted | Only png, jpg, and gif file formats accepted)
-                      label(for="editImageCheck") Change image?
-                      input(name="editImageCheck" id=("post" + post.post_id) + "editImageCheck" class="editImageCheck" type="checkbox" onclick="toggleEditImageSubmission(" + post.post_id + ")")
-                      input(name="editImage" id=("post" + post.post_id + "editImage") class="imageUpload hidden" value=post.post_image type="file" accept=".png, .jpg, ,.gif")
-
-                      //- TODO: *
-                      input(name="editPost" id=("post" + post.post_id + "Edit") value=post.post_id class="hidden" readonly)
-
-                      div(class="popupButtonsContainer")
-                        button(title="Send Edit" class="popupButtons popupButtonSend") Send Edit
-
-                        button(title="Cancel" class="popupButtons popupButtonCancel" type="button" onclick=("closePopup(" + popupParams[1] + post.post_id + ")")) Cancel
-
-              //comment post button
+              //comment post button (Creates a popup where user can create a new comment for this post)
               div
-                button(title="Comment on this Post" class="decoratedButton commentButton" onclick=("openPopup(" + popupParams[2] + post.post_id + ")"))
-
-                //- TODO: **
-                //popup for commenting
-                div(class="popupContainer")
-                  div(class="unfocused" id=("unfocused" + popupIDs[2] + post.post_id) onclick=("closePopup(" + popupParams[2] + post.post_id + ")"))
-
-                  section(class="popup" id=("popup" + popupIDs[2] + post.post_id))  
-                    h3(class="popupHeading") Comment on Post ##{post.post_id}
-
-                    form(action="/addComment" method="POST")
-
-                      label(for="commentText" class="popupAreaLabel") Comment Text
-                      textarea(name="commentText" id=("post" + post.post_id + "commentText") class="popupTextarea" required) New comment text here!
-
-                      //- TODO: *
-                      input(name="commentPost" id=("post" + post.post_id + "Comment") value=post.post_id class="hidden" readonly)
-
-                      div(class="popupButtonsContainer")
-                        button(title="Send Comment" class="popupButtons popupButtonSend") Send Comment
-
-                        button(title="Cancel" class="popupButtons popupButtonCancel" type="button" onclick=("closePopup(" + popupParams[2] + post.post_id + ")")) Cancel
+                button(title="Comment on this Post" class="decoratedButton commentButton" onclick=("createNewCommentPopup(" + post.post_id + ")"))
 
               //force the title and meta data to the far left of the flexbox
               div(class="flexboxForceLeft")
@@ -166,30 +83,9 @@ block content
                           input(name="deleteComment" id=("comment" + comment.comment_id + "Delete") value=comment.comment_id class="hidden" readonly)
                           button(title="Delete Comment" class="decoratedButton deleteButton")
 
-                      //edit comment button
+                      //edit comment button (Creates a popup where user can edit this comment)
                       div
-                        button(title="Edit Comment" class="decoratedButton editButton" onclick=("openPopup(" + popupParams[3] + comment.comment_id + ")"))
-
-                        //- TODO: **
-                        //popup for editing
-                        div(class="popupContainer")
-                          div(class="unfocused" id=("unfocused" + popupIDs[3] + comment.comment_id) onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")"))
-
-                          section(class="popup" id=("popup" + popupIDs[3] + comment.comment_id))
-                            h3(class="popupHeading") Edit Comment ##{comment.comment_id}
-
-                            form(action="/editComment" method="POST")
-
-                              label(for="editText" class="popupAreaLabel") Comment Text
-                              textarea(name="editText" id=("comment" + comment.comment_id + "editText") class="popupTextarea" required) #{comment.comment_txt}
-
-                              //- TODO: *
-                              input(name="editComment" id=("comment" + comment.comment_id + "Edit") value=comment.comment_id class="hidden" readonly)
-
-                              div(class="popupButtonsContainer")
-                                button(title="Send Edit" class="popupButtons popupButtonSend") Send Edit
-
-                                button(title="Cancel" class="popupButtons popupButtonCancel" type="button" onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")")) Cancel
+                        button(title="Edit Comment" class="decoratedButton editButton" onclick=("createEditCommentPopup(" + comment.comment_id + ", \"" + comment.comment_txt + "\")"))
 
                       //force the meta data to the far left of the flexbox
                       div(class="flexboxForceLeft")
@@ -200,9 +96,7 @@ block content
                     div(class="contentMain")
                       p #{comment.comment_txt}
 
+  div(id="popupContainer")
+
   //- * - This solution is like, really bad. I however cannot find any other way at the moment to send the post_id/comment_id of the
   //-     post/comment to index.js except for creating a hidden input with a set, unchanging value that equals post_id/comment_id
-
-  //- ** - There's a lot of repeating code for popups and although it works, I would like to see if I could minimize the amount of
-  //-      repetitive code when it comes to popups in the future. Also there is 1 + (posts.length*2) + comments.length number of hidden
-  //-      popups in the html at all times and I would like to get that number down to just 1 if possible (Mixins?)
