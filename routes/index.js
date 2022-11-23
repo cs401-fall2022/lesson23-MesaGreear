@@ -14,7 +14,7 @@ const getDateTime = () => {return (new Date().toISOString().slice(0, 19).replace
  */
 router.get('/', function (req, res, next) {
   console.log("");
-  var renderables = {title: "Bug Juice Appreciation Blog", posts_data: [], comments_data: []};
+  var renderables = {title: "Moth Appreciator's Anonymous Blog", posts_data: [], comments_data: []};
 
   //(https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
   var fs = require('fs');

@@ -24,33 +24,77 @@ nav {
   top: 0px;
   left: 0px;
   height: 100%;
-  width: 13%;
+  width: 15%;
   background-color: var(--darkestGray);
+  border-right: silver solid 5px;
 }
 
-h1 {
-  margin: 10% 0px;
-  color: white;
-}
-
+/* Site logo, at top of nav bar */
 #logo {
   position: relative;
-  top: 2%;
-  left: 1vw;
-  width: 10vw;
-  max-height: 30vh;
-  background-color: white;
-  border: 3px solid black;
+  top: 3vh;
+  left: 10%;
+  width: 80%;
+  border: 3px solid mediumslateblue;
   border-radius: 100%;
+  box-shadow: 0.9vh 0.6vw plum, -0.9vh -0.6vw violet;
+}
+
+/* The site's 'title', below logo */
+h1 {
+  text-align: center;
+  margin: 5vh 0vw 2vh 0.5vw;
+  font: 1.8vw Garamond;
+  font-weight: bold;
+  color: antiquewhite;
+  text-shadow: 1px 1px purple, 1px -1px mediumslateblue, -1px 1px mediumslateblue, -1px -1px purple;
+}
+
+/* Description of the site, below h1 */
+#siteDescription {
+  text-align: center;
+  margin: 0px 1vw;
+  font: 1vw Arial;
+  color: silver;
+}
+
+/* List of links to posts, below siteDescription */
+.navListLabel {
+  margin: 3vh 0.5vw 0.5vh 0.5vw;
+}
+
+.navListLabel > figcaption {
+  text-align: center;
+  color: antiquewhite;
+  font: 1.5vw "Lucida Console";
+  text-shadow: 1px 1px purple, 1px -1px mediumslateblue, -1px 1px mediumslateblue, -1px -1px purple;
+}
+
+.navList {
+  padding: 0px 0.5vw 0px 1.5vw;
+}
+
+.navList > li {
+  list-style: square;
+  padding: 0px 0px 1vh 0px;
+  color: violet;
 }
 
 .navPostListLink {
-  color: antiquewhite;
+  display: block;
+  padding: 2px;
+  font: 1.2vw "Courier New";
+  font-weight: bold;
+  color: lightsteelblue;
+  text-decoration: none;
+  border-radius: 5px;
 }
+
+.navPostListLink:hover {background-color: silver; color: purple;}
 
 /* All content except what is inside nav bar */
 main {
-  margin-left: 12%; /* 'gives' left side of screen to nav bar */
+  margin-left: 15%; /* 'gives' left side of screen to nav bar */
 }
 
 /* Remove ul styling */

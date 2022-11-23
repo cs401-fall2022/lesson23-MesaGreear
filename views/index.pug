@@ -7,15 +7,23 @@ block content
 
   //left side navigation bar
   nav
-    img(src="/images/buggin.png" alt="buggin.png" id="logo")
-    h1 #{title}!
-    p(style="color: white") Other stuff to be added
+    img(src="/images/mothLogo.png" alt="buggin.png" id="logo")
+    h1 #{title}
 
-    ul
-      each post in posts_data
-        li
-          div
-            a(href=("#post" + post.post_id) class="navPostListLink") #{post.post_id} - #{post.post_title}
+    p(id="siteDescription") This blog serves as a safe space to discuss and share photos of the Butterfly's muted 
+      | and underappreciated cousin, the Moth. Whether you find their fat fuzzy bodies adorable, their tendency 
+      | to slam themselves into bright objects and your face repeatedly enduring, or their never-ending appetite 
+      | for random articles of clothing relatable, this blog is the best place to express your thoughts on these 
+      | strange little creatures.
+
+    //https://stackoverflow.com/questions/1141639/how-to-semantically-provide-a-caption-title-or-label-for-a-list-in-html
+    figure(class="navListLabel")
+      figcaption Posts
+      ul(class="navList")
+        each post in posts_data
+          li
+            div
+              a(href=("#post" + post.post_id) class="navPostListLink") ##{post.post_id}: #{post.post_title}
 
     //add a new post to posts
     div

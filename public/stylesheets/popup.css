@@ -18,7 +18,7 @@
     border-radius: 25px;
     position: absolute;
     z-index: 3;
-    box-shadow: 10px 15px rgba(130, 0, 130, 0.6), -15px -10px rgba(220, 160, 220, 0.6);
+    box-shadow: 1.7vh 1.4vw rgba(130, 0, 130, 0.6), -1.7vh -1.4vw rgba(220, 160, 220, 0.6);
   }
   
   /* The labels/titles of each area requiring user input in a popup */
