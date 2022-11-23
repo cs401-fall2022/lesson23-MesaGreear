@@ -1,5 +1,6 @@
 :root {
   --twilight: rgb(30, 20, 40);
+  --lightTwilight: rgb(60, 40, 80);
   --darkGrayPurple: rgb(60, 50, 80);
   --darkerGray: rgb(140, 140, 140);
   --darkestGray: rgb(70, 70, 70);
@@ -23,7 +24,7 @@ nav {
   position: absolute;
   top: 0px;
   left: 0px;
-  height: 100%;
+  min-height: 100%;
   width: 15%;
   background-color: var(--darkestGray);
   border-right: silver solid 5px;
@@ -73,6 +74,16 @@ h1 {
   text-shadow: 1px 1px purple, 1px -1px mediumslateblue, -1px 1px mediumslateblue, -1px -1px purple;
 }
 
+/* Provides a way to seperate elements in the nav bar */
+.navBarrier {
+  position: relative;
+  height: 0.5vh;
+  width: 90%;
+  left: 5%;
+  background-color: silver;
+  margin: 2vh 0vw;
+}
+
 /* Description of the site, below h1 */
 #siteDescription {
   text-align: center;
@@ -82,22 +93,22 @@ h1 {
 }
 
 /* List of links to posts, below siteDescription */
-.navListLabel {
-  margin: 3vh 0.5vw 0.5vh 0.5vw;
+#navListLabel {
+  margin: 0.5vh 0.5vw;
 }
 
-.navListLabel > figcaption {
+#navListLabel > figcaption {
   text-align: center;
   color: antiquewhite;
   font: 1.5vw "Lucida Console";
   text-shadow: 1px 1px purple, 1px -1px mediumslateblue, -1px 1px mediumslateblue, -1px -1px purple;
 }
 
-.navList {
+#navList {
   padding: 0px 0.5vw 0px 1.5vw;
 }
 
-.navList > li {
+#navList > li {
   list-style: square;
   padding: 0px 0px 1vh 0px;
   color: violet;
@@ -115,6 +126,29 @@ h1 {
 
 .navPostListLink:hover {background-color: silver; color: purple;}
 
+/* Button for adding a new post to posts */
+#newPostButtonContainer {
+  text-align: center;
+  margin: 0px 0px 5vh 0px;
+}
+
+#newPostButton {
+  position: relative;
+  padding: 0.3vw;
+  align-content: center;
+  height: 6vh;
+  width: 10vw;
+  font: 1.5vw "Lucida Console";
+  font-weight: bold;
+  border: violet solid 0.3vw;
+  color: white;
+  border-radius: 5px;
+  background-color: var(--lightTwilight);
+}
+
+#newPostButton:hover { border-color: darkorchid; background-color: var(--twilight); }
+#newPostButton:active { background-color: purple; top: 1vh; }
+
 /* All content except what is inside nav bar */
 main {
   margin-left: 15%; /* 'gives' left side of screen to nav bar */
@@ -127,13 +161,23 @@ main {
 
 .postList > li {
   list-style: none;
-  padding: 15px 0px;
+  padding: 0px;
 }
 
 .commentList > li {
   list-style: none;
   margin: 10px 0px;
 
+}
+
+/* Provides a way to seperate posts in the posts list */
+.postBarrier {
+  position: relative;
+  height: 0.75vh;
+  width: 97%;
+  left: 1.5%;
+  background-color: silver;
+  margin: 5vh 0vw;
 }
 
 /* Styling for each individual post and comment block */

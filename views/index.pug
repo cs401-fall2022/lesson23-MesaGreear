@@ -6,31 +6,38 @@ block content
     img(src="/images/mothLogo.png" alt="buggin.png" id="logo")
     h1 #{title}
 
+    div(class="navBarrier")
+
     p(id="siteDescription") This blog serves as a safe space to discuss and share photos of the Butterfly's muted 
       | and underappreciated cousin, the Moth. Whether you find their fat fuzzy bodies adorable, their tendency 
       | to slam themselves into bright objects and your face repeatedly enduring, or their never-ending appetite 
       | for random articles of clothing relatable, this blog is the best place to express your thoughts on these 
       | strange little creatures.
 
+    div(class="navBarrier")
+
     //https://stackoverflow.com/questions/1141639/how-to-semantically-provide-a-caption-title-or-label-for-a-list-in-html
-    figure(class="navListLabel")
+    figure(id="navListLabel")
       figcaption Posts
-      ul(class="navList")
+      ul(id="navList")
         each post in posts_data
           li
             div
               a(href=("#post" + post.post_id) class="navPostListLink" title=("Go to post #" + post.post_id)) ##{post.post_id}: #{post.post_title}
 
+    div(class="navBarrier")
+
     //add a new post to posts (Creates a popup where user can create a new post)
-    div
-      button(title="New Post" onclick=("createNewPostPopup()")) New Post!
+    div(id="newPostButtonContainer")
+      button(id="newPostButton" title="New Post" onclick=("createNewPostPopup()")) New Post!
 
   //everything but what's inside the nav bar
   main
 
     //display an unordered list of every post in posts
+    -var i = 0;
     ul(class="postList")
-      each post in posts_data 
+      each post in posts_data
         li 
 
           div(class="postContainer" id=("post" + post.post_id))
@@ -95,6 +102,11 @@ block content
                     //handles the main content of a comment, i.e. the text
                     div(class="contentMain")
                       p #{comment.comment_txt}
+
+          //- Don't create a post barrier at the bottom of the last post
+          if i != posts_data.length - 1
+            div(class="postBarrier")
+          -i++;
 
   //created popups will be put in this container and the container will be 'emptied' when popup is closed
   div(id="popupContainer")
