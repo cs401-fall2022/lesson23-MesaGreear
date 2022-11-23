@@ -1,135 +1,152 @@
 /* Popup appearance - https://www.w3schools.com/howto/howto_js_popup.asp */
 /* Popup container */
 .popupContainer {
-    position: fixed;
-    top: 0%;
-    left: 0%;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+}
+
+/* The actual popup */
+.popup {
+  visibility: hidden;
+  top: 10vh;
+  left: 15vw;
+  color: white;
+  background-color: #555;
+  padding: 10px;
+  border: silver solid 5px;
+  border-radius: 25px;
+  position: absolute;
+  z-index: 3;
+  box-shadow: 1.7vh 1.4vw rgba(130, 0, 130, 0.6), -1.7vh -1.4vw rgba(220, 160, 220, 0.6);
+}
+
+/* The labels/titles of each area requiring user input in a popup */
+.popupAreaLabel {
+  font: 16pt Georgia;
+  margin: 15px 0px 5px 0px;
+  display: block;
+}
+
+.popupAreaLabelTop { /* Specific to the topmost label/title in a popup */
+  font: 16pt Georgia;
+  margin: 0px 0px 5px 0px;
+  display: block;
+}
+
+.popupDetailText {
+  color: lightgray;
+  margin: 0px 0px 10px 0px;
+}
+
+/* User input text fields/areas in popups */
+.popupTextField {
+  width: 50vw;
+  font: 13pt Helvetica;
+  border: transparent solid 5px;
+}
+
+.popupTextarea {
+  resize: vertical;
+  width: 65vw;
+  height: 25vh;
+  font: 13pt Arial;
+  border: transparent solid 5px;
+}
+
+.popupTextField:hover, .popupTextarea:hover {border-color: plum;}
+.popupTextField:focus, .popupTextarea:focus {border-color: purple;}
+
+/* Gives the checkbox some room to breath cause it needs it */
+.editImageCheck {
+  margin: 0vh 1vw 1vh 0.5vw;
+  scale: 1.5;
+}
+
+/* Animating the file submission box fading in */
+.imageUpload {
+  position: relative;
+  animation: imageUploadFadeIn 0.5s ease;
+}
+
+@keyframes imageUploadFadeIn {
+  from {opacity: 0; left: 10vw}
+  to {opacity: 1; left: 0vw}
+}
+
+/* Send/Cancel buttons on popups */
+.popupButtonsContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+
+.popupButtons {
+  border: silver solid 3px;
+  border-radius: 5px;
+  position: relative;
+  min-height: 5vh;
+  min-width: 5vw;
+  font: 13pt "Lucida Console";
+  font-weight: bold;
+  color: white;
+}
+
+.popupButtons:hover {border-color: plum;}
+.popupButtons:active {border-color: darkorchid; color: black; top: 3px;}
+
+.popupButtonSend {background-color: darkblue;}
+.popupButtonCancel:hover {background-color: darkred;}
+.popupButtonCancel:active {background-color: red;}
+
+.popupButtonCancel {background-color: var(--darkestGray);}
+.popupButtonSend:hover {background-color: green;}
+.popupButtonSend:active {background-color: greenyellow;}
+
+/* The layer that applies to the background, 'unfocusing' everything but the popup */
+.unfocused {
+  visibility: hidden;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: darkslateblue;
+  opacity: 0.5;
+}
+
+/* Toggles the popup & unfocused layer and removes decorates buttons position rule */
+.popupShow {
+  visibility: visible;
+  animation: popupFadeIn 1s
+}
+
+.unfocusedShow {
+  visibility: visible;
+  animation: unfocusedFadeIn 0.5s
+}
+
+.decoratedButtonDeactivate{
+  position: static;
+}
+
+/* Animates the popup and unfocused layer fading in while the shadows 'slide into place' */
+@keyframes popupFadeIn {
+  0% {
+    opacity: 0;
+    box-shadow: 3.5vh 3vw rgba(220, 160, 220, 0.6), -3.5vh -3vw rgba(130, 0, 130, 0.6);
   }
-  
-  /* The actual popup */
-  .popup {
-    visibility: hidden;
-    top: 20vh;
-    left: 15vw;
-    color: white;
-    background-color: #555;
-    padding: 10px;
-    border: silver solid 5px;
-    border-radius: 25px;
-    position: absolute;
-    z-index: 3;
-    box-shadow: 1.7vh 1.4vw rgba(130, 0, 130, 0.6), -1.7vh -1.4vw rgba(220, 160, 220, 0.6);
+  50% {
+    opacity: 1;
+    box-shadow: 2vh -1.7vw rgba(220, 160, 220, 0.6), -2vh 1.7vw rgba(130, 0, 130, 0.6); 
   }
-  
-  /* The labels/titles of each area requiring user input in a popup */
-  .popupAreaLabel {
-    font: 16pt Georgia;
-    margin: 15px 0px 5px 0px;
-    display: block;
+  100% {
+    box-shadow: -1.7vh -1.4vw rgba(220, 160, 220, 0.6), 1.7vh 1.4vw rgba(130, 0, 130, 0.6);
   }
-  
-  .popupAreaLabelTop { /* Specific to the topmost label/title in a popup */
-    font: 16pt Georgia;
-    margin: 0px 0px 5px 0px;
-    display: block;
-  }
-  
-  .popupDetailText {
-    color: lightgray;
-    margin: 0px 0px 10px 0px;
-  }
-  
-  /* User input text fields/areas in popups */
-  .popupTextField {
-    width: 50vw;
-    font: 13pt Helvetica;
-    border: transparent solid 5px;
-  }
-  
-  .popupTextarea {
-    resize: vertical;
-    width: 65vw;
-    height: 25vh;
-    font: 13pt Arial;
-    border: transparent solid 5px;
-  }
-  
-  .popupTextField:hover, .popupTextarea:hover {border-color: plum;}
-  .popupTextField:focus, .popupTextarea:focus {border-color: purple;}
-  
-  /* Send/Cancel buttons on popups */
-  .popupButtonsContainer {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 10px;
-  }
-  
-  .popupButtons {
-    border: silver solid 3px;
-    border-radius: 5px;
-    position: relative;
-    min-height: 5vh;
-    min-width: 5vw;
-    font: 13pt "Lucida Console";
-    font-weight: bold;
-    color: white;
-  }
-  
-  .popupButtons:hover {border-color: plum;}
-  .popupButtons:active {border-color: darkorchid; color: black; top: 3px;}
-  
-  .popupButtonSend {background-color: darkblue;}
-  .popupButtonCancel:hover {background-color: darkred;}
-  .popupButtonCancel:active {background-color: red;}
-  
-  .popupButtonCancel {background-color: var(--darkestGray);}
-  .popupButtonSend:hover {background-color: green;}
-  .popupButtonSend:active {background-color: greenyellow;}
-  
-  /* The layer that applies to the background, 'unfocusing' everything but the popup */
-  .unfocused {
-    visibility: hidden;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-    background-color: darkslateblue;
-    opacity: 0.5;
-  }
-  
-  /* Toggles the popup & unfocused layer and removes decorates buttons position rule */
-  .popupShow {
-    visibility: visible;
-    animation: popupFadeIn 1s
-  }
-  
-  .unfocusedShow {
-    visibility: visible;
-    animation: unfocusedFadeIn 0.5s
-  }
-  
-  .decoratedButtonDeactivate{
-    position: static;
-  }
-  
-  /* Animates the popup and unfocused layer fading in while the shadows 'slide into place' */
-  @keyframes popupFadeIn {
-    0% {
-      opacity: 0;
-      box-shadow: 3.5vh 3vw rgba(220, 160, 220, 0.6), -3.5vh -3vw rgba(130, 0, 130, 0.6);
-    }
-    50% {
-      opacity: 1;
-      box-shadow: 2vh -1.7vw rgba(220, 160, 220, 0.6), -2vh 1.7vw rgba(130, 0, 130, 0.6); 
-    }
-    100% {
-      box-shadow: -1.7vh -1.4vw rgba(220, 160, 220, 0.6), 1.7vh 1.4vw rgba(130, 0, 130, 0.6);
-    }
-  }
-  
-  @keyframes unfocusedFadeIn {
-    from {opacity: 0;}
-    to {opacity: 0.5;}
-  }
+}
+
+@keyframes unfocusedFadeIn {
+  from {opacity: 0;}
+  to {opacity: 0.5;}
+}
