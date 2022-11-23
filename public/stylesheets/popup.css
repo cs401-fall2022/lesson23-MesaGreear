@@ -21,19 +21,22 @@
   box-shadow: 1.7vh 1.4vw rgba(130, 0, 130, 0.6), -1.7vh -1.4vw rgba(220, 160, 220, 0.6);
 }
 
+/* Heading describing what the popup is for */
+.popupHeading {
+  margin: 0.2vh 0vw 2vh 0vw;
+  font: 20pt Garamond;
+  font-weight: bold;
+}
+
 /* The labels/titles of each area requiring user input in a popup */
 .popupAreaLabel {
+  color: antiquewhite;
   font: 16pt Georgia;
   margin: 15px 0px 5px 0px;
   display: block;
 }
 
-.popupAreaLabelTop { /* Specific to the topmost label/title in a popup */
-  font: 16pt Georgia;
-  margin: 0px 0px 5px 0px;
-  display: block;
-}
-
+/* Text in a popup providing extra detail */
 .popupDetailText {
   color: lightgray;
   margin: 0px 0px 10px 0px;

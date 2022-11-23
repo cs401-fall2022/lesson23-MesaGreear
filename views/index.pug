@@ -34,10 +34,12 @@ block content
       div(class="popupContainer")
         div(class="unfocused" id=("unfocused" + popupIDs[0] + "0") onclick=("closePopup(" + popupParams[0] + "0)"))
 
-        div(class="popup" id=("popup" + popupIDs[0] + "0"))  
+        section(class="popup" id=("popup" + popupIDs[0] + "0"))  
+          h3(class="popupHeading") Create a New Post
+
           form(action="/addPost" method="POST" enctype="multipart/form-data")
 
-            label(for="postTitle" class="popupAreaLabelTop") Title Text
+            label(for="postTitle" class="popupAreaLabel") Title Text
             input(name="postTitle" id="postTitle" value="New post title here!" class="popupTextField" maxlength="100" required)
 
             label(for="postText" class="popupAreaLabel") Post Text
@@ -83,10 +85,12 @@ block content
                 div(class="popupContainer")
                   div(class="unfocused" id=("unfocused" + popupIDs[1] + post.post_id) onclick=("closePopup(" + popupParams[1] + post.post_id + ")"))
 
-                  div(class="popup" id=("popup" + popupIDs[1] + post.post_id))
+                  section(class="popup" id=("popup" + popupIDs[1] + post.post_id))
+                    h3(class="popupHeading") Edit Post ##{post.post_id}
+
                     form(action="/editPost" method="POST" enctype="multipart/form-data")
 
-                      label(for="editTitle" class="popupAreaLabelTop") Title Text
+                      label(for="editTitle" class="popupAreaLabel") Title Text
                       input(name="editTitle" id=("post" + post.post_id + "editTitle") class="popupTextField" value=post.post_title maxlength="100" required)
                       
                       label(for="editText" class="popupAreaLabel") Post Text
@@ -115,10 +119,12 @@ block content
                 div(class="popupContainer")
                   div(class="unfocused" id=("unfocused" + popupIDs[2] + post.post_id) onclick=("closePopup(" + popupParams[2] + post.post_id + ")"))
 
-                  div(class="popup" id=("popup" + popupIDs[2] + post.post_id))  
+                  section(class="popup" id=("popup" + popupIDs[2] + post.post_id))  
+                    h3(class="popupHeading") Comment on Post ##{post.post_id}
+
                     form(action="/addComment" method="POST")
 
-                      label(for="commentText" class="popupAreaLabelTop") Comment Text
+                      label(for="commentText" class="popupAreaLabel") Comment Text
                       textarea(name="commentText" id=("post" + post.post_id + "commentText") class="popupTextarea" required) New comment text here!
 
                       //- TODO: *
@@ -169,10 +175,12 @@ block content
                         div(class="popupContainer")
                           div(class="unfocused" id=("unfocused" + popupIDs[3] + comment.comment_id) onclick=("closePopup(" + popupParams[3] + comment.comment_id + ")"))
 
-                          div(class="popup" id=("popup" + popupIDs[3] + comment.comment_id))
+                          section(class="popup" id=("popup" + popupIDs[3] + comment.comment_id))
+                            h3(class="popupHeading") Edit Comment ##{comment.comment_id}
+
                             form(action="/editComment" method="POST")
 
-                              label(for="editText" class="popupAreaLabelTop") Comment Text
+                              label(for="editText" class="popupAreaLabel") Comment Text
                               textarea(name="editText" id=("comment" + comment.comment_id + "editText") class="popupTextarea" required) #{comment.comment_txt}
 
                               //- TODO: *
