@@ -164,10 +164,19 @@ main {
   padding: 0px;
 }
 
+.commentList {
+  cursor: pointer;
+  transform-origin: top;
+}
+
+.commentList:hover {
+  background-color: rgba(200, 200, 200, 0.3);
+  border-radius: 15px;
+}
+
 .commentList > li {
   list-style: none;
   margin: 10px 0px;
-
 }
 
 /* Provides a way to seperate posts in the posts list */

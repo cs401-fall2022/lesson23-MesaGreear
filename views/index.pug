@@ -82,11 +82,11 @@ block content
 
                       //delete comment button
                       div
-                        button(title="Delete Comment" class="decoratedButton deleteButton" onclick=("deleteConfirmationPopup(false, " + comment.comment_id + ")"))
+                        button(title="Delete Comment" class="decoratedButton deleteButton" onclick=("event.stopPropagation(); deleteConfirmationPopup(false, " + comment.comment_id + ")"))
 
                       //edit comment button (Creates a popup where user can edit this comment)
                       div
-                        button(title="Edit Comment" class="decoratedButton editButton" onclick=("createEditCommentPopup(" + comment.comment_id + ", \"" + comment.comment_txt + "\")"))
+                        button(title="Edit Comment" class="decoratedButton editButton" onclick=("event.stopPropagation(); createEditCommentPopup(" + comment.comment_id + ", \"" + comment.comment_txt + "\")"))
 
                       //force the meta data to the far left of the flexbox
                       div(class="flexboxForceLeft")

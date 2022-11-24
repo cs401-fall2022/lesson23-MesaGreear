@@ -48,4 +48,7 @@ editIcon.png, and their muted counterparts
 Set default accepted file types for file input
 - [#](https://stackoverflow.com/questions/2825856/html-button-to-not-submit-form) Have a button inside a
 form not 'activate' the form
+- [#](https://stackoverflow.com/questions/387736/how-to-stop-event-propagation-with-inline-onclick-attribute)
+How to stop propogation with the onclick attribute
+- [#](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate) Animating with JS
 - [#](https://example.com) Temp

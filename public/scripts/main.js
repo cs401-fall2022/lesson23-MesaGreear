@@ -36,4 +36,115 @@ window.addEventListener("DOMContentLoaded", () => {
             };
         };
     });
+
+    /**
+     * Collapses all comment lists and attatches an expand and collapse
+     * function to comment lists when clicked. A bit messy, but this late
+     * into the project my brain's a lil fried.
+     */
+    Array.from(document.getElementsByClassName("commentList")).forEach (element => {
+
+        //function since the exact same code is run when loading the window and when collapsing a list
+        /**
+         * @param {int} dur how long the animations will take in ms
+         */
+        var collapseCommentList = (dur) => {
+            element.classList.add("collapsed");
+            element.setAttribute("title", "Expand Comments");
+
+            //for each list element, set a tiny margin and height
+            Array.from(element.children).forEach (li => {
+                li.style.setProperty("margin", "3px 0px");
+                li.children[0].style.setProperty("height", "8px");
+
+                //for each child in the li div, set display to none
+                Array.from(li.children[0].children).forEach (child => {
+                    child.style.setProperty("display", "none");
+                });
+
+                //animate the margins decreasing on li
+                li.animate([{
+                    margin: '10px 0px'
+                },{
+                    margin: '3px 0px'
+                }], {
+                    duration: dur
+                });
+            });
+
+            //animate the comment containers shrinking, a bit weirdly done
+            element.animate([{
+                scale: '1 2'
+            },{
+                scale: '1 1'
+            }], {
+                duration: dur
+            });
+        };
+
+        //on window load, start with all lists collapsed
+        collapseCommentList(0);
+
+        //on click, collapse or expand comment list
+        element.addEventListener("click", () =>{
+            
+            //if collapsed, expand comment list
+            if(element.classList.contains("collapsed")) {
+                element.classList.remove("collapsed");
+                element.setAttribute("title", "Collapse Comments");
+
+                //for each list element, set the margin to reasonably big and allow height to auto determine itself
+                Array.from(element.children).forEach (li => {
+                    li.style.setProperty("margin", "10px 0px");
+                    li.children[0].style.setProperty("height", "auto");
+    
+                    //for each child in the li div, remove the 'display: none'
+                    Array.from(li.children[0].children).forEach (child => {
+                        child.style.removeProperty("display");
+
+                        //animate the children fading in
+                        child.animate([{
+                            opacity: 0
+                        },{
+                            opacity: 1
+                        }], {
+                            duration: 500
+                        });
+                    });
+
+                    //animate the comment containers expanding
+                    li.children[0].animate([{
+                        transition: 'scale(1 0.2)'
+                    },{
+                        transition: 'scale(1 1)'
+                    }], {
+                        duration: 500
+                    });
+
+                    //animate the margins increasing
+                    li.animate([{
+                        margin: '3px 0px'
+                    },{
+                        margin: '10px 0px'
+                    }], {
+                        duration: 500
+                    });
+                });
+
+                //animate the comment list increasing in size
+                element.animate([{
+                    scale: '1 0.2'
+                },
+                {
+                    scale: '1 1'
+                }], {
+                    duration: 500
+                });
+            }
+            //else collapse the comment list
+            else {
+                collapseCommentList(200);
+            }
+        });
+    });
 });
