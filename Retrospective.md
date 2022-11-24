@@ -80,3 +80,5 @@ Help with creating popups
 Converting datetime from stored UTC time to local time
 - [#](https://stackoverflow.com/questions/5697605/limit-the-size-of-a-file-upload-html-input-element)
 Limiting the size of a file upload
+- [#](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie)
+How to use cookies

@@ -69,7 +69,7 @@ block content
 
           //display an unordered list of every comment in comments that has a post_id
           //that matches the post_id of the post it will be rendered underneath
-          ul(class="commentList")
+          ul(class="commentList" id=("commentListForPost" + post.post_id))
             each comment in comments_data 
               if comment.post_id == post.post_id
                 li
