@@ -82,3 +82,5 @@ Converting datetime from stored UTC time to local time
 Limiting the size of a file upload
 - [#](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie)
 How to use cookies
+- [#](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTo)
+Scrolling to a specific position in the page

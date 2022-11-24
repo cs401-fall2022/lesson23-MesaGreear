@@ -1,6 +1,23 @@
 //work to perform once page is finished loading
 window.addEventListener("DOMContentLoaded", () => {
-    console.log("COOKIES: " + document.cookie);
+    console.log("COOKIES: \n" + document.cookie);
+
+    /*
+     * Scroll to the recorded user position in the page in cookies, if
+     * it has been recorded.
+     */
+    var cookie = document.cookie.split("; ").find((cookieInfo) => {
+        return cookieInfo.includes("scrollPos=");
+    });
+
+    //if cookie exists, read the value from it and scroll to that position
+    if(cookie) {
+        window.scrollTo({
+            top: parseInt(cookie.slice(cookie.indexOf("=") + 1)),
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
 
     /**
      * Translate all dates from their stored UTC time in the database to the
@@ -149,7 +166,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         //get the cookie for this element
         var cookie = document.cookie.split("; ").find((cookieInfo) => {
-            return cookieInfo.includes(element.id);
+            return cookieInfo.includes(element.id + "=");
         });
 
         //if the cookie does not exist, create a new one that is automatically collapsed
@@ -181,4 +198,15 @@ window.addEventListener("DOMContentLoaded", () => {
             };
         });
     });
+
+    
+});
+
+/**
+ * Before unloading the page, record the user's position in the
+ * page into cookies so that we can scroll back to that position
+ * on reload.
+ */
+window.addEventListener("beforeunload", () => {
+    document.cookie = "scrollPos=" + window.scrollY;
 });
