@@ -4,7 +4,6 @@ const sqlite3 = require('sqlite3').verbose();
 
 const DBPath = "./data/databases/mainDB.sqlite3";
 const uploadsPath = "./public/uploads/";
-//For getting datetime in sql format - https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
 const getDateTime = () => {return (new Date().toISOString().slice(0, 19).replace('T', ' '))};
 
 /**
@@ -16,7 +15,6 @@ router.get('/', function (req, res, next) {
   console.log("");
   var renderables = {title: "Moth Appreciator's Anonymous Blog", posts_data: [], comments_data: []};
 
-  //(https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
   var fs = require('fs');
   var dir = './data'; //check that data folder exists
   if (!fs.existsSync(dir))
@@ -35,7 +33,7 @@ router.get('/', function (req, res, next) {
         console.log("Getting error " + err);
         exit(1);
       }
-      //use of foreign keys to CASCADE DELETE comments linked to a deleted post https://stackoverflow.com/questions/5890250/on-delete-cascade-in-sqlite3
+      //use of foreign keys to CASCADE DELETE comments linked to a deleted post
       db.all(`PRAGMA foreign_keys = ON;`);
       //Query if the table exists if not lets create it on the fly!
       db.all(`SELECT name FROM sqlite_master WHERE type='table' AND (name='posts' OR name='comments')`,
@@ -110,7 +108,6 @@ router.post('/addPost', (req, res, next) => {
       }
 
       //check if the user uploaded an image
-      //https://stackoverflow.com/questions/23691194/node-express-file-upload
       var fileName = null;
       if(!req.files){
         console.log("No image uploaded.");
@@ -320,7 +317,7 @@ router.post('/deletePost', (req, res, next) => {
         var log = "Deleting post " + req.body.deletePost;
         if (commentIDs.length > 0) {
           log += " & comment(s) "
-          commentIDs.forEach( (commentID) => { //for forEach https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+          commentIDs.forEach( (commentID) => {
             log += commentID.comment_id + ", ";
           });
           log = log.slice(0, log.length - 2);

@@ -37,20 +37,46 @@ skill level, please let me know and I'll go look at it and cite it if I used a s
 
 ### Image Sources
 
-- [#](https://www.iconsdb.com/red-icons/delete-icon.html) Source of commentIcon.png, deleteIcon.png,
-editIcon.png, and their muted counterparts
-- [#](https://www.flickr.com/photos/34312269@N04/14817205051/) Source of mothLogo.png
-- [#](https://plantura.garden/uk/insects/butterflies/what-do-butterflies-eat) Source of example(1).jpg
+- [#](https://www.iconsdb.com/red-icons/delete-icon.html)
+Source of commentIcon.png, deleteIcon.png, editIcon.png, and their muted counterparts
+- [#](https://www.flickr.com/photos/34312269@N04/14817205051/)
+Source of mothLogo.png
+- [#](https://plantura.garden/uk/insects/butterflies/what-do-butterflies-eat)
+Source of example(1).jpg
 
 ### Coding Sources
 
 - [#](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers)
 Set default accepted file types for file input
-- [#](https://stackoverflow.com/questions/2825856/html-button-to-not-submit-form) Have a button inside a
-form not 'activate' the form
+- [#](https://stackoverflow.com/questions/2825856/html-button-to-not-submit-form)
+Have a button inside a form not 'activate' the form
 - [#](https://stackoverflow.com/questions/387736/how-to-stop-event-propagation-with-inline-onclick-attribute)
 How to stop propogation with the onclick attribute
-- [#](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate) Animating with JS
+- [#](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate)
+Animating with JS
 - [#](https://stackoverflow.com/questions/9183381/how-to-have-click-event-only-fire-on-parent-div-not-children)
 Only having a click event trigger on parent container, not on the children
-- [#](https://example.com) Temp
+- [#](https://stackoverflow.com/questions/1141639/how-to-semantically-provide-a-caption-title-or-label-for-a-list-in-html)
+Providing a 'label' for an unordered list 
+- [#](https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime)
+Getting current datetime in SQL format
+- [#](https://stackoverflow.com/questions/21194934/how-to-create-a-directory-if-it-doesnt-exist-using-node-js)
+Creating directories if they do not exist yet
+- [#](https://stackoverflow.com/questions/5890250/on-delete-cascade-in-sqlite3)
+Using PRAGMA to enable foreign keys
+- [#](https://stackoverflow.com/questions/23691194/node-express-file-upload)
+Checking for and storing user uploaded files
+- [#](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+How to write for each loops in JS
+- [#](https://stackoverflow.com/questions/712689/css-div-stretch-100-page-height)
+Stretching a div to 100% of the page, not just 100% of the visible window
+- [#](https://stackoverflow.com/questions/9017120/how-to-keep-floating-div-inside-frame-of-parent-div)
+Expanding a parent container to ensure it envelops all it's children/content using overflow
+- [#](https://www.w3schools.com/cssref/pr_background-image.php)
+Setting background to an image
+- [#](https://www.w3schools.com/howto/howto_js_popup.asp)
+Help with creating popups
+- [#](https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset)
+Converting datetime from stored UTC time to local time
+- [#](https://stackoverflow.com/questions/5697605/limit-the-size-of-a-file-upload-html-input-element)
+Limiting the size of a file upload

@@ -3,8 +3,6 @@ window.addEventListener("DOMContentLoaded", () => {
     /**
      * Translate all dates from their stored UTC time in the database to the
      * local time of the machine running the client side.
-     * 
-     * https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
      */
     Array.from(document.getElementsByClassName("date")).forEach (element => {
         var date = new Date(element.innerHTML.replace(' ', 'T').replace('(', '').replace(')', '')); //translate string to date object
@@ -15,8 +13,6 @@ window.addEventListener("DOMContentLoaded", () => {
     /**
      * Alerts the user when they attempt to upload a image that exceeds the max
      * size of 512kB or when they upload a file that is not an accepted file type.
-     * 
-     * https://stackoverflow.com/questions/5697605/limit-the-size-of-a-file-upload-html-input-element
      */
     Array.from(document.getElementsByClassName("imageUpload")).forEach (element => {
         element.onchange = () =>{
