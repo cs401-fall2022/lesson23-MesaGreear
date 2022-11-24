@@ -86,65 +86,69 @@ window.addEventListener("DOMContentLoaded", () => {
         collapseCommentList(0);
 
         //on click, collapse or expand comment list
-        element.addEventListener("click", () =>{
-            
-            //if collapsed, expand comment list
-            if(element.classList.contains("collapsed")) {
-                element.classList.remove("collapsed");
-                element.setAttribute("title", "Collapse Comments");
+        element.addEventListener("click", (event) =>{
 
-                //for each list element, set the margin to reasonably big and allow height to auto determine itself
-                Array.from(element.children).forEach (li => {
-                    li.style.setProperty("margin", "10px 0px");
-                    li.children[0].style.setProperty("height", "auto");
-    
-                    //for each child in the li div, remove the 'display: none'
-                    Array.from(li.children[0].children).forEach (child => {
-                        child.style.removeProperty("display");
+            //only execute code if the comment list itself was clicked, not any of it's children
+            if(event.target === element) {
 
-                        //animate the children fading in
-                        child.animate([{
-                            opacity: 0
+                //if collapsed, expand comment list
+                if(element.classList.contains("collapsed")) {
+                    element.classList.remove("collapsed");
+                    element.setAttribute("title", "Collapse Comments");
+
+                    //for each list element, set the margin to reasonably big and allow height to auto determine itself
+                    Array.from(element.children).forEach (li => {
+                        li.style.setProperty("margin", "10px 0px");
+                        li.children[0].style.setProperty("height", "auto");
+        
+                        //for each child in the li div, remove the 'display: none'
+                        Array.from(li.children[0].children).forEach (child => {
+                            child.style.removeProperty("display");
+
+                            //animate the children fading in
+                            child.animate([{
+                                opacity: 0
+                            },{
+                                opacity: 1
+                            }], {
+                                duration: 500
+                            });
+                        });
+
+                        //animate the comment containers expanding
+                        li.children[0].animate([{
+                            transition: 'scale(1 0.2)'
                         },{
-                            opacity: 1
+                            transition: 'scale(1 1)'
+                        }], {
+                            duration: 500
+                        });
+
+                        //animate the margins increasing
+                        li.animate([{
+                            margin: '3px 0px'
+                        },{
+                            margin: '10px 0px'
                         }], {
                             duration: 500
                         });
                     });
 
-                    //animate the comment containers expanding
-                    li.children[0].animate([{
-                        transition: 'scale(1 0.2)'
-                    },{
-                        transition: 'scale(1 1)'
+                    //animate the comment list increasing in size
+                    element.animate([{
+                        scale: '1 0.2'
+                    },
+                    {
+                        scale: '1 1'
                     }], {
                         duration: 500
                     });
-
-                    //animate the margins increasing
-                    li.animate([{
-                        margin: '3px 0px'
-                    },{
-                        margin: '10px 0px'
-                    }], {
-                        duration: 500
-                    });
-                });
-
-                //animate the comment list increasing in size
-                element.animate([{
-                    scale: '1 0.2'
-                },
-                {
-                    scale: '1 1'
-                }], {
-                    duration: 500
-                });
-            }
-            //else collapse the comment list
-            else {
-                collapseCommentList(200);
-            }
+                }
+                //else collapse the comment list
+                else {
+                    collapseCommentList(200);
+                }
+            };
         });
     });
 });

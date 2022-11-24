@@ -51,4 +51,6 @@ form not 'activate' the form
 - [#](https://stackoverflow.com/questions/387736/how-to-stop-event-propagation-with-inline-onclick-attribute)
 How to stop propogation with the onclick attribute
 - [#](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate) Animating with JS
+- [#](https://stackoverflow.com/questions/9183381/how-to-have-click-event-only-fire-on-parent-div-not-children)
+Only having a click event trigger on parent container, not on the children
 - [#](https://example.com) Temp
