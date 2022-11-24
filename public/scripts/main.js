@@ -57,6 +57,9 @@ window.addEventListener("DOMContentLoaded", () => {
                 li.style.setProperty("margin", "3px 0px");
                 li.children[0].style.setProperty("height", "8px");
 
+                li.setAttribute("title", "Expand Comments");
+                li.style.setProperty("cursor", "pointer");
+
                 //for each child in the li div, set display to none
                 Array.from(li.children[0].children).forEach (child => {
                     child.style.setProperty("display", "none");
@@ -89,7 +92,8 @@ window.addEventListener("DOMContentLoaded", () => {
         element.addEventListener("click", (event) =>{
 
             //only execute code if the comment list itself was clicked, not any of it's children
-            if(event.target === element) {
+            //OR always if the list is collapsed
+            if(event.target === element || element.classList.contains("collapsed")) {
 
                 //if collapsed, expand comment list
                 if(element.classList.contains("collapsed")) {
@@ -100,7 +104,10 @@ window.addEventListener("DOMContentLoaded", () => {
                     Array.from(element.children).forEach (li => {
                         li.style.setProperty("margin", "10px 0px");
                         li.children[0].style.setProperty("height", "auto");
-        
+
+                        li.setAttribute("title", "");
+                        li.style.setProperty("cursor", "auto");
+
                         //for each child in the li div, remove the 'display: none'
                         Array.from(li.children[0].children).forEach (child => {
                             child.style.removeProperty("display");
