@@ -24,8 +24,8 @@ $ env:DEBUG='myapp:*'; npm start
 ```
 
 Some red text may appear, but if you're not booted back to the command line then congratulations! The Moth
-Appreciator's Anonymous Blog is now accessible on [localhost:3000](http://localhost:3000/)! To stop the server, just go back to the
-terminal and escape the server using `ctrl + c`.
+Appreciator's Anonymous Blog is now accessible on [localhost:3000](http://localhost:3000/)! To stop the server,
+just go back to the terminal and escape the server using `ctrl + c`.
 
 ## Folders and Files
 
@@ -70,6 +70,29 @@ Contains files that will be sent to the webpage such as css files, client-side J
 ### /public/uploads
 
 Contains files that are uploaded by users to be used for their posts. Isn't tracked by git.
+
+## Database Structure
+
+This server uses an SQLite3 database that has 2 tables, one to store Posts and another to store Comments.
+
+### Posts
+
+| Column            | Class    | Constraints                   | Details                                                                |
+|-------------------|----------|-------------------------------|------------------------------------------------------------------------|
+| **post_id**       | Integer  | Primary Key<br>Autoincrement  |
+| **post_title**    | Text     | Not Null                      |                                                                        |
+| **post_txt**      | Text     | Not Null                      |                                                                        |
+| **post_image**    | Text     |                               | The name of the image in /uploads/                                     |
+| **post_datetime** | Datetime | Not Null                      | Stored in UTC time, but translated<br>on the client-side to local time |
+
+### Comments
+
+| Column               | Class    | Constraints                   | Details                                                                |
+|----------------------|----------|-------------------------------|------------------------------------------------------------------------|
+| **comment_id**       | Integer  | Primary Key<br>Autoincrement  |                                                                        |
+| **comment_txt**      | Text     | Not Null                      |                                                                        |
+| **comment_datetime** | Datetime | Not Null                      | Stored in UTC time, but translated<br>on the client-side to local time |
+| **post_id**          | Integer  | Not Null<br>Foreign Key       | References post_id in posts and on<br>delete cascade                   |
 
 ## Sources
 
@@ -128,3 +151,5 @@ Limiting the size of a file upload
 How to use cookies
 - [#](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTo)
 Scrolling to a specific position in the page
+- [#](https://www.tablesgenerator.com/markdown_tables)
+Help with generating markdown tables

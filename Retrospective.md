@@ -21,11 +21,24 @@ Be safe CITE!
 
 ## Experience
 
-TODO
+I thought that for a final project, I was well prepared by what we have done in the course so far
+to do the bare minimum to get 100%. What I liked about this final in particular was the amount of
+freedom we had in implementing our required features and any bonus features we wanted to add. Getting
+to experiment with several different ways to 'improve' your website was the most fun I've had in a
+while and helped me to both better understand what we've covered in the course and learn new things
+via just looking them up and experimenting. Because of this, I didn't struggle too much on implementing
+any of the required features, but spent plenty of time struggling with additional features that I, for
+some reason, decided to add. I believe that the entire project is done, I would only be missing
+something if I forgot to do it which isn't impossible given my strange inability to fully read instructions.
 
 ## Known issues or Bugs
 
-TODO
+Starting the server with the command `env:DEBUG='myapp:*'; npm start` causes a lot of red text to
+appear, yet the server still seems to run normally. So I'm not sure if it's actually causing any
+problems.
+
+Supposedly there are some vulnerabilities in my dependencies. Once again this hasn't caused any
+issues as far as I can tell, but thought I would mention it here.
 
 ## Sources used
 
@@ -84,3 +97,5 @@ Limiting the size of a file upload
 How to use cookies
 - [#](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTo)
 Scrolling to a specific position in the page
+- [#](https://www.tablesgenerator.com/markdown_tables)
+Help with generating markdown tables
