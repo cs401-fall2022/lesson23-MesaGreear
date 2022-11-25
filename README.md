@@ -77,17 +77,17 @@ This server uses an SQLite3 database that has 2 tables, one to store Posts and a
 
 ### Posts
 
-| Column            | Class    | Constraints                   | Details                                                                |
+| Column Name       | Class    | Constraints                   | Details                                                                |
 |-------------------|----------|-------------------------------|------------------------------------------------------------------------|
-| **post_id**       | Integer  | Primary Key<br>Autoincrement  |
+| **post_id**       | Integer  | Primary Key<br>Autoincrement  |                                                                        |
 | **post_title**    | Text     | Not Null                      |                                                                        |
 | **post_txt**      | Text     | Not Null                      |                                                                        |
-| **post_image**    | Text     |                               | The name of the image in /uploads/                                     |
+| **post_image**    | Text     |                               | The name of the image in<br>/public/uploads/                           |
 | **post_datetime** | Datetime | Not Null                      | Stored in UTC time, but translated<br>on the client-side to local time |
 
 ### Comments
 
-| Column               | Class    | Constraints                   | Details                                                                |
+| Column Name          | Class    | Constraints                   | Details                                                                |
 |----------------------|----------|-------------------------------|------------------------------------------------------------------------|
 | **comment_id**       | Integer  | Primary Key<br>Autoincrement  |                                                                        |
 | **comment_txt**      | Text     | Not Null                      |                                                                        |
