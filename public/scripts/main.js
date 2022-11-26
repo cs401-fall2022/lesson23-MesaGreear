@@ -2,23 +2,6 @@
 window.addEventListener("DOMContentLoaded", () => {
     console.log("COOKIES: \n" + document.cookie);
 
-    /*
-     * Scroll to the recorded user position in the page in cookies, if
-     * it has been recorded.
-     */
-    var cookie = document.cookie.split("; ").find((cookieInfo) => {
-        return cookieInfo.includes("scrollPos=");
-    });
-
-    //if cookie exists, read the value from it and scroll to that position
-    if(cookie) {
-        window.scrollTo({
-            top: parseInt(cookie.slice(cookie.indexOf("=") + 1)),
-            left: 0,
-            behavior: 'smooth'
-        });
-    }
-
     /**
      * Translate all dates from their stored UTC time in the database to the
      * local time of the machine running the client side.
@@ -30,29 +13,6 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
-     * Alerts the user when they attempt to upload a image that exceeds the max
-     * size of 512kB or when they upload a file that is not an accepted file type.
-     */
-    Array.from(document.getElementsByClassName("imageUpload")).forEach (element => {
-        element.onchange = () =>{
-            //check valid file size
-            if(element.files[0].size > (1024 * 512)){
-                alert("Image '" + element.files[0].name + "' exceeds max size of 512kB!");
-                element.value = "";
-                return;
-            };
-
-            //check valid file types
-            var fileType = element.files[0].name.slice(element.files[0].name.lastIndexOf(".") + 1, element.files[0].name.length);
-            if(fileType != "png" && fileType != "jpg" && fileType != "gif"){
-                alert("File '" + element.files[0].name + "' is invalid file type '" + fileType + "'!\nAcceptable file types are png, jpg, and gif!")
-                element.value = "";
-                return;
-            };
-        };
-    });
-
-    /**
      * Collapses all comment lists and attaches an expand and collapse
      * function to comment lists when clicked. Uses cookies to remember
      * if a commentList is expanded or collapsed after reloading the
@@ -60,7 +20,6 @@ window.addEventListener("DOMContentLoaded", () => {
      * a lil fried.
      */
     Array.from(document.getElementsByClassName("commentList")).forEach (element => {
-
         /**
          * Collapse and animate the collapse of this commentList
          * 
@@ -199,7 +158,26 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    
+    /*
+    * Scroll to the recorded user position in the page in cookies, if
+    * it has been recorded. 1/10 sec wait is to ensure that everything
+    * that could effect the scroll height of the webpage is fully loaded
+    * and doesn't have odd dimensions.
+    */
+    setTimeout(() => {
+        var cookie = document.cookie.split("; ").find((cookieInfo) => {
+            return cookieInfo.includes("scrollPos=");
+        });
+
+        //if cookie exists, read the value from it and scroll to that position
+        if(cookie) {
+            window.scrollTo({
+                top: parseInt(cookie.slice(cookie.indexOf("=") + 1)),
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+    }, 100);
 });
 
 /**

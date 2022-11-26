@@ -41,6 +41,7 @@ function createNewPostPopup() {
             </div>
         </form>
     </section>`;
+    setImageUploadConstraints();
 }
 
 /**
@@ -109,6 +110,7 @@ function createEditPostPopup(id, title, text) {
             </div>
         </form>
     </section>`;
+    setImageUploadConstraints();
 }
 
 /**
@@ -167,6 +169,32 @@ function deleteConfirmationPopup(post, id) {
             </div>
         </form>
     </section>`;
+}
+
+/**
+ * Set constraints on the file upload field so that users are alerted when
+ * they attempt to upload an image that exceeds the max size of 512kB or
+ * when they upload a file that is not an accepted file type.
+ */
+    function setImageUploadConstraints () {
+    var element = document.getElementsByClassName("imageUpload")[0];
+
+    element.onchange = () =>{
+        //check valid file size
+        if(element.files[0].size > (1024 * 512)){
+            alert("Image '" + element.files[0].name + "' exceeds max size of 512kB!");
+            element.value = "";
+            return;
+        };
+
+        //check valid file types
+        var fileType = element.files[0].name.slice(element.files[0].name.lastIndexOf(".") + 1, element.files[0].name.length);
+        if(fileType != "png" && fileType != "jpg" && fileType != "gif"){
+            alert("File '" + element.files[0].name + "' is invalid file type '" + fileType + "'!\nAcceptable file types are png, jpg, and gif!")
+            element.value = "";
+            return;
+        };
+    };
 }
 
 /**
