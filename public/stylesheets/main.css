@@ -73,7 +73,7 @@ h1 {
   text-shadow: 1px 1px purple, 1px -1px mediumslateblue, -1px 1px mediumslateblue, -1px -1px purple;
 }
 
-/* Provides a way to seperate elements in the nav bar */
+/* Provides a way to separate elements in the nav bar */
 .navBarrier {
   position: relative;
   height: 0.5vh;
@@ -178,7 +178,7 @@ main {
   margin: 10px 0px;
 }
 
-/* Provides a way to seperate posts in the posts list */
+/* Provides a way to separate posts in the posts list */
 .postBarrier {
   position: relative;
   height: 0.75vh;

@@ -53,7 +53,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
-     * Collapses all comment lists and attatches an expand and collapse
+     * Collapses all comment lists and attaches an expand and collapse
      * function to comment lists when clicked. Uses cookies to remember
      * if a commentList is expanded or collapsed after reloading the
      * webpage. A bit messy, but this late into the project my brain's

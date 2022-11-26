@@ -3,8 +3,8 @@
 This repository can be used to host a simple blogging website where users can make posts, comment on the
 posts, edit comments and posts, and delete comments and posts.
 
-![screen capture](progress40.gif)
-Here's a timelapse of the visual improvements made on the website over it's development. Not at all neccessary,
+![screen capture](websiteVisualProgress.gif)
+Here's a timelapse of the visual improvements made on the website over it's development. Not at all necessary,
 I just think it's kinda neat!
 
 ## Getting Setup
@@ -15,7 +15,7 @@ After cloning the repository, open up a terminal and run the command:
 $ npm install
 ```
 
-This will install all the neccessary dependencies not included in the repository.
+This will install all the necessary dependencies not included in the repository.
 
 To host the server locally, run the command:
 
@@ -118,7 +118,7 @@ Set default accepted file types for file input
 - [#](https://stackoverflow.com/questions/2825856/html-button-to-not-submit-form)
 Have a button inside a form not 'activate' the form
 - [#](https://stackoverflow.com/questions/387736/how-to-stop-event-propagation-with-inline-onclick-attribute)
-How to stop propogation with the onclick attribute
+How to stop propagation with the onclick attribute
 - [#](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate)
 Animating with JS
 - [#](https://stackoverflow.com/questions/9183381/how-to-have-click-event-only-fire-on-parent-div-not-children)
